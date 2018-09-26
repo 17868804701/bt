@@ -208,8 +208,9 @@
             <Input :disabled="isEdit_dwxx" v-model="formItem.gzzw" placeholder="工种职务" class="input_item"/>
           </FormItem>
 
-          <FormItem :label-width="120" label="路队">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.ld" placeholder="路队" class="input_item"/>
+          <FormItem :label-width="120" label="路队" prop="ld">
+            <Input :disabled="isEdit_dwxx" v-model="formItem.ld" placeholder="路队" class="input_item" v-show="isEdit_dwxx"/>
+            <CommonSelect type="LB"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.ld"  class="input_item"></CommonSelect>
           </FormItem>
           <FormItem :label-width="120" label="工伤保险">
             <Input :disabled="isEdit_dwxx" v-model="formItem.gsbx" placeholder="工伤保险" class="input_item"/>
@@ -501,6 +502,7 @@
           if (valid) {
             //console.log('结果', this.formItem);
             this.formItem.xl = this.$store.state.dictData.parseDict.RYXX.RYXX_XLDM[this.formItem.xl];
+            this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];
             this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
             this.formItem.bm = this.$store.state.dictData.parseDict.EJBM[this.formItem.bm];
             this.formItem.sscj = this.$store.state.dictData.parseDict.CJXX[this.formItem.sscj];
@@ -532,6 +534,7 @@
       update: function () {
         let url = this.$url.userManager_updateUserInfo + '?bgyy=' + this.bgyy;
         this.formItem.xl = this.$store.state.dictData.parseDict.RYXX.RYXX_XLDM[this.formItem.xl];
+        this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];
         this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
         this.formItem.bm = this.$store.state.dictData.parseDict.EJBM[this.formItem.bm];
         this.formItem.sscj = this.$store.state.dictData.parseDict.CJXX[this.formItem.sscj];
@@ -543,6 +546,7 @@
           .then(res => {
             if (res.success === true) {
               this.$Message.info('修改成功');
+              this.$router.push({path: '/userinfo'});
             } else {
               this.$Message.error('修改失败')
               this.formItem = this.$route.query.row || {};

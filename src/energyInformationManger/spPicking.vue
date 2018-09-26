@@ -1,22 +1,15 @@
 <template>
   <div>
-    <div style="padding: 20px 10px 0 10px; height: 100%;width: 100%;border-bottom: 0px solid #f5f5f5">
-      <Button type="ghost" icon="android-download" style="margin-top: -25px;">批量派发</Button>
+    <div style="padding: 0px 10px 0 10px; height: 100%;width: 100%;border-bottom: 0px solid #f5f5f5">
+      <Card>
+        <Button type="primary" icon="plus">
+          新增领料信息
+        </Button>
+      </Card>
       <Table :columns="columns11" :data="data10" ref="selection"  border height="500" style="margin-top: 20px;" size="small"></Table>
       <Page :total="100" show-total style="margin-top: 10px;"></Page>
     </div>
-
-    <!--增加领料-->
-    <Modal
-      v-model="addPicking"
-      title="新增领料"
-      width="60%"
-    >
-      <spInfoPicking></spInfoPicking>
-    </Modal>
   </div>
-
-
 </template>
 <script>
   import spInfoPicking from './spInfoPicking.vue'
@@ -30,91 +23,35 @@
 //        车号、车型、物品名称（轮胎、润滑油）、领料数量、领料规格、供货单位、品牌型号、规格、计量单位、单价、金额、附记、状态（采购、下派）
         columns11: [
           {
-            type: 'selection',
-            width: 60,
-            align: 'center'
-          },
-          {
-            title: '车号',
+            title: '编号',
             key: 'ch',
             align: 'center',
-            width: 100,
           },
           {
-            title: '车型',
+            title: '材料名称',
             key: 'cx',
             align: 'center',
-            width: 100,
           },
           {
-            title: '物品名称',
+            title: '规格',
             key: 'wpmc',
             align: 'center',
-            width: 100,
           },
           {
-            title: '领料数量',
+            title: '单位',
             key: 'llsl',
             align: 'center',
-            width: 100,
           }, {
-            title: '领料时间',
+            title: '计划单价',
             key: 'llsj',
             align: 'center',
             width: 130,
           },
           {
-            title: '领料规格',
-            key: 'llgg',
-            align: 'center',
-            width: 120,
-          },
-          {
-            title: '供货单位',
-            key: 'ghdw',
-            align: 'center',
-            width: 120,
-          }, {
-            title: '品牌型号',
-            key: 'ppxh',
-            align: 'center',
-            width: 120,
-          }, {
-            title: '规格',
-            key: 'gg',
-            align: 'center',
-            width: 120,
-          }, {
-            title: '计量单位',
-            key: 'jldw',
-            align: 'center',
-            width: 120,
-          }, {
-            title: '单价',
-            key: 'dj',
-            align: 'center',
-            width: 120,
-          }, {
-            title: '金额',
-            key: 'je',
-            align: 'center',
-            width: 120,
-          }, {
-            title: '附记',
-            key: 'fj',
-            align: 'center',
-            width: 120,
-          }, {
-            title: '状态',
-            key: 'zt',
-            align: 'center',
-            width: 120,
-          }, {
             title: '操作',
             key: 'zt',
             align: 'center',
             fixed: 'right',
-            width: 220,
             render: (h, params) => {
               return h('div', [
                 h('Button', {
@@ -130,10 +67,10 @@
                       this.addPicking = true
                     }
                   }
-                }, '查看详情  /  修改'),
+                }, '修改'),
                 h('Button', {
                   props: {
-                    type: 'primary',
+                    type: 'error',
                     size: 'small'
                   },
                   style: {
@@ -141,10 +78,10 @@
                   },
                   on: {
                     click: () => {
-                      alert("派发成功")
+                      alert("删除成功")
                     }
                   }
-                }, '派发')
+                }, '删除')
               ]);
             }
           }
@@ -159,11 +96,11 @@
       const data = [];
       for (let i = 1; i < 11; i++) {
         data.push({
-          ch: i + '号车',
-          cx: '中型公交',
-          wpmc: '轮胎',
-          llsj: '201' + i + '-10-11',
-          llsl: i * 15 + 78,
+          ch: i + '-05',
+          cx: '轮胎',
+          wpmc: '直径'+i+'mm',
+          llsj: '20元',
+          llsl:'个',
           llgg: '10个/件',
           ghdw: '产品' + i + '公司',
           ppxh: '飞毛腿',

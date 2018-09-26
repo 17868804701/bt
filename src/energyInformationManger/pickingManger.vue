@@ -10,7 +10,7 @@
             <Form :model="formItem" :label-width="110">
               <Row>
                 <Col span="24">
-                <FormItem label="选择时间" style="margin: 0;">
+                <FormItem label="选择时间" style="margin: 0 0 0 -50px;">
                   <DatePicker type="daterange" placeholder="选择时间段" :transfer="true" placement="bottom-end"
                               v-model="time"></DatePicker>
                   <Button type="primary" icon="ios-search" @click="search" v-has="'llgl_llgl_search'">搜索</Button>
@@ -29,9 +29,9 @@
           <Table :columns="columns11" :data="data10" border height="500" style="margin-top: 10px;" size="small"></Table>
           <Page :total="totalPage" show-total style="margin-top: 10px;" @on-change="step"></Page>
         </TabPane>
-        <!--<TabPane label="领料审批记录" name="name2">-->
-        <!--<spPicking></spPicking>-->
-        <!--</TabPane>-->
+        <TabPane label="领料信息管理" name="name2">
+        <spPicking></spPicking>
+        </TabPane>
       </Tabs>
 
       <!--增加领料-->

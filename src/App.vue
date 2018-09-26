@@ -76,16 +76,30 @@
   #Sider a {
     color: #333;
   }
+  .home_img {
+    width: 25px;
+    height: 25px;
+    margin-left:70px;
+    margin-top: 25px;
+  }
+  .logo_img {
+    width: 25px;
+    height: 25px;
+    margin-top: 5px;
+    margin-left: -8px;
+    margin-right: 10px;
+  }
 </style>
 <template>
   <div class="layout">
     <Layout>
       <Header class="header">
         <div class="logo">
-          <span><Icon type="logo-twitter" style="margin-right: 10px;"/>包头公交平台</span>
+          <img src="./assets/bird.png" alt="" class="logo_img">
+          <span>包头公交平台</span>
           <div>
             <router-link to="/" style="color: white">
-              <Icon type="md-home" class="home_icon" style="color: white"/>Home
+              <img src="./assets/home.png" alt="" class="home_img">
             </router-link>
           </div>
         </div>
