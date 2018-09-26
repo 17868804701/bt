@@ -211,12 +211,10 @@ let api = process.env.BASE_URL;
 let url = api + '/login/replylogin';
 router.beforeEach((to, from, next) => {
   let acessToken = VueCookie.get('access_token');
-  // debugger
-
-  //console.log(acessToken);
   if (acessToken === null || acessToken === '') {
     proxylogin(url, {
       callback: function (data) {
+        console.log(data)
         if (data.state === 400) {
           window.top.location.href = api + "/login";
         } else if (data.state === 200) {

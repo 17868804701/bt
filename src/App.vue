@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(5, 21, 26, 0.64);
+    background: #495060;
   }
 
   .logo {
@@ -93,18 +93,18 @@
           <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg"/>
           <Dropdown class="more">
             <span>
-              欢迎，管理员
+              欢迎，{{account}}
               <Icon type="ios-arrow-down"></Icon>
             </span>
             <DropdownMenu slot="list">
                 <router-link to="UserCenter" >
                   <span>
-                    <DropdownItem>个人中心</DropdownItem>
+                    <DropdownItem>修改密码</DropdownItem>
                   </span>
                 </router-link>
-              <span @click="admin">
-                <DropdownItem>后台管理中心</DropdownItem>
-              </span>
+              <a v-for="(item2,index) in $store.state.userAuth.appList" :href="item2.apath" target="_blank"  :key="item2.cid+item2.apath" v-show="item2.aname=='管理平台'">
+                <DropdownItem>{{item2.aname}}</DropdownItem>
+              </a>
               <span @click="logout">
                 <DropdownItem>退出</DropdownItem>
               </span>
@@ -112,14 +112,14 @@
           </Dropdown>
         </div>
       </Header>
-      <Layout>
-        <Sider hide-trigger :style="{background: '#fff'}" id="Sider">
-          <Menu active-name="1-2" theme="light" width="auto" :open-names="['1']" :accordion="true">
-            <Submenu :name="item1.cid" v-for="(item1,index) in $store.state.userAuth.classifyList" >
+      <Layout style="background: #495060">
+        <Sider hide-trigger :style="{background: '#495060'}" id="Sider">
+          <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']" :accordion="true">
+            <Submenu :name="item1.cid" v-for="(item1,index) in $store.state.userAuth.classifyList" v-show="item1.ctype!=1" :key="item1.cid+item1.cname">
               <template slot="title" style="height: 30px;">
                 <Icon type="ios-navigate"></Icon> <span style="font-size: 12px;">{{item1.cname}}</span>
               </template>
-                <router-link v-for="(item2,index) in $store.state.userAuth.appList" :to="item2.apath" >
+                <router-link v-for="(item2,index) in $store.state.userAuth.appList" :to="item2.apath"  :key="item2.cid+item2.apath">
                   <MenuItem :name="index" v-show="item1.cid==item2.cid" style="height: 40px;line-height:11px;">
                      <span style="font-size: 12px;"> {{item2.aname}}</span>
                   </MenuItem>
@@ -127,7 +127,7 @@
             </Submenu>
           </Menu>
         </Sider>
-        <Layout style="height: 90vh">
+        <Layout style="height: 94vh">
           <Content style="margin:13px 10px 0 20px;background: #fff;height: 90vh}">
             <div id="app" style="padding: 10px;">
               <router-view/>
@@ -144,6 +144,8 @@ export default {
   name: 'App',
   data () {
     return {
+      account:'',
+      logoutUrl:'',
       isCollapsed: false,
       id: '',
       URL: '',
@@ -167,6 +169,8 @@ export default {
   },
   mounted() {
     let acessToken = VueCookie.get('access_token');
+    let account =  sessionStorage.getItem("account");
+    this.account = account
     if (acessToken !== null) {
       this.$store.commit('getAllMenu');
       this.$store.commit('getCurrentAuth');
@@ -175,7 +179,6 @@ export default {
       this.$store.commit('getOriganzation');
       this.$store.commit('getUserSetting');
     }
-
   },
   methods: {
     logout() {
@@ -184,6 +187,7 @@ export default {
         .then(res => {
           if (res.success === true) {
             VueCookie.set('access_token', '', -1);
+            // window.location.href = process.env.BASE_URL + "/login?service=http://106.12.19.134:8080/bterp";
             window.location.href = process.env.BASE_URL + "/login?service=http://localhost:8081/#/";
           }
         })

@@ -66,15 +66,17 @@
       <div style="height:auto">
         <Form :model="formItem1" ref="formItem1" :rules="ruleValidate" :label-width="100">
           <FormItem label="单位" prop="dw">
-            <Select v-model="formItem1.dw" style="width: 195px;">
-              <Option value="公交一公司">公交一公司</Option>
-              <Option value="公交二公司">公交二公司</Option>
-            </Select>
+            <!--<Select v-model="formItem1.dw" style="width: 195px;">-->
+              <!--<Option value="公交一公司">公交一公司</Option>-->
+              <!--<Option value="公交二公司">公交二公司</Option>-->
+            <!--</Select>-->
+            <CommonSelect type="EJGS" :selectValue="formItem1.dw" style="width: 195px;"></CommonSelect>
           </FormItem>
           <FormItem label="车辆类别" prop="lb">
             <Select v-model="formItem1.lb" style="width: 195px;">
-              <Option value="中型">中型</Option>
               <Option value="大型">大型</Option>
+              <Option value="中型">中型</Option>
+              <Option value="小型">小型</Option>
             </Select>
           </FormItem>
           <FormItem label="年份" prop="nf">
@@ -96,13 +98,17 @@
   </div>
 </template>
 <script>
+  import CommonSelect from '../components/common/CommonSelect.vue'
   export default {
+    components: {
+      CommonSelect,
+    },
     data () {
       return {
         addProgram: false,
         exports: false,
         type: '',
-        total:'',
+        total:0,
         formItem: {
           nf: '',
           current: 1,
@@ -131,7 +137,14 @@
         columns1: [
           {
             title: '单位',
-            key: 'dw'
+            key: 'dw',
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.EJGS[params.row.dw];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '年份',

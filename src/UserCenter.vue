@@ -3,54 +3,22 @@
 </style>
 <template>
   <div style="padding:10px;width: 60%;">
-    <h1 style="padding:10px;">个人用户信息</h1>
+    <h2 style="padding:10px;">修改密码</h2>
     <Form :model="formItem" :label-width="80">
-      <FormItem label="用户头像">
-        <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" />
-        <Upload action="//jsonplaceholder.typicode.com/posts/">
-          <Button icon="ios-cloud-upload-outline" style="margin-top: 10px;">上传头像</Button>
-        </Upload>
+      <FormItem label="输入旧密码" style="margin-top:20px;">
+        <Input v-model="formItem.oldPass" placeholder="请输入旧密码" type="password"></Input>
       </FormItem>
-      <FormItem label="用户名">
-        <Input v-model="formItem.input" placeholder="用户名"></Input>
+      <FormItem label="输入新密码" style="margin-top:20px;">
+        <Input v-model="formItem.newPass" placeholder="请输入旧密码" type="password"></Input>
       </FormItem>
-      <FormItem label="所在公司">
-        <Select v-model="formItem.select">
-          <Option value="公交一公司">公交一公司</Option>
-          <Option value="公交二公司">公交二公司</Option>
-          <Option value="公交三公司">公交三公司</Option>
-        </Select>
-      </FormItem>
-      <FormItem label="籍贯">
-        <Input v-model="formItem.jiguan" placeholder="用户名"></Input>
-      </FormItem>
-      <FormItem label="性别">
-        <RadioGroup v-model="formItem.radio">
-          <Radio label="男">男</Radio>
-          <Radio label="女">女</Radio>
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="兴趣爱好">
-        <CheckboxGroup v-model="formItem.checkbox">
-          <Checkbox label="Eat"></Checkbox>
-          <Checkbox label="Sleep"></Checkbox>
-          <Checkbox label="Run"></Checkbox>
-          <Checkbox label="Movie"></Checkbox>
-        </CheckboxGroup>
-      </FormItem>
-      <FormItem label="是否在职">
-        <i-switch v-model="formItem.switch" size="large">
-          <span slot="open">是</span>
-          <span slot="close">否</span>
-        </i-switch>
-      </FormItem>
-      <FormItem label="个人简介">
-        <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-               placeholder="个人简介"></Input>
+      <FormItem label="确认新密码" style="margin-top:20px;">
+        <Input v-model="okPwd" placeholder="请再次输入新密码" @on-blur="checkSame" type="password"></Input>
       </FormItem>
       <FormItem>
-        <Button type="primary">提交</Button>
-        <Button style="margin-left: 8px">取消</Button>
+        <Button type="primary" @click="updatePwd">修改密码</Button>
+        <router-link to="/">
+            <Button style="margin-left: 8px">取消</Button>
+        </router-link>
       </FormItem>
     </Form>
   </div>
@@ -59,20 +27,40 @@
   export default {
     data () {
       return {
+        okPwd:'',
         formItem: {
-          input: 'admin',
-          jiguan: '陕西省汉中市',
-          select: '公交一公司',
-          radio: '男',
-          checkbox: [],
-          switch: true,
-          date: '',
-          time: '',
-          slider: [20, 50],
-          textarea: '',
+          account:'',
+          oldPass:'',
+          newPass:'',
         },
       }
     },
-    methods: {}
+    methods: {
+      updatePwd(){
+        if(this.formItem.newPwd===''||this.formItem.okPwd===''||this.formItem.oldPwd===''){
+          this.$Message.error('请输入密码');
+        }else {
+          let account = sessionStorage.getItem("account");
+          this.formItem.account = account;
+          this.$post(this.$url.updatePwd+'?account='+this.formItem.account+'&oldPass='+this.formItem.oldPass+'&newPass='+this.formItem.newPass)
+            .then(res => {
+              if (res.success === true) {
+                  this.$Message.success('修改成功');
+                  this.$router.push({path:'/'});
+              } else {
+                this.$Message.error('修改失败')
+              }
+            })
+        }
+      },
+      checkSame(){
+        if(this.formItem.newPass!==this.okPwd){
+          this.$Message.error('两次密码输入不一致,请重新输入');
+          this.okPwd = ''
+        }
+      },
+    },
+    mounted(){
+    }
   }
 </script>

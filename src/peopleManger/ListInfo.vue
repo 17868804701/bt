@@ -22,6 +22,15 @@
               <FormItem :label-width="120" label="曾用名">
                 <Input :disabled="isEdit_jbxx" v-model="formItem.cym" placeholder="曾用名" class="input_item"/>
               </FormItem>
+              <FormItem :label-width="120" label="工号">
+                <Input :disabled="isEdit_jbxx" v-model="formItem.gh" placeholder="工号" class="input_item"/>
+              </FormItem>
+              <FormItem :label-width="120" label="工作证号">
+                <Input :disabled="isEdit_jbxx" v-model="formItem.gzzh" placeholder="工作证号" class="input_item"/>
+              </FormItem>
+              <FormItem :label-width="120" label="人员编号">
+                <Input :disabled="isEdit_jbxx" v-model="formItem.rybh" placeholder="人员编号" class="input_item"/>
+              </FormItem>
               <FormItem :label-width="120" label="性别">
                 <RadioGroup v-model="formItem.xb" :disabled="isEdit_jbxx" style="width: 170px;">
                   <Radio label="男">男</Radio>
@@ -98,7 +107,7 @@
             </div>
             <div class="head jbxx_right">
               <img class="head_img"
-                   :src="'http://106.12.19.134:8080/static/'+formItem.zpdz"
+                   :src="'http://10.50.0.144:8088/'+formItem.zpdz"
                    alt="" style="border: 1px solid #eae9ec">
               <Upload :headers="header" :action='uploadFile' :on-success="handleSuccess" :show-upload-list="false">
                 <Button type="primary" icon="ios-cloud-upload-outline">上传头像</Button>
@@ -154,9 +163,7 @@
           </Button>
         </div>
         <div style="display: flex;flex-wrap: wrap">
-          <FormItem :label-width="120" label="人员编号">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.rybh" placeholder="人员编号" class="input_item"/>
-          </FormItem>
+
           <FormItem :label-width="120" label="单位" prop="dw">
             <!--<Select :disabled="isEdit_dwxx" v-model="formItem.dw" style="width: 170px;">-->
               <!--<Option value="集团公司">集团公司</Option>-->
@@ -186,9 +193,7 @@
             <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.bm" placeholder="部门" class="input_item"/>
             <CommonSelect type="EJBM"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.bm"  class="input_item"></CommonSelect>
           </FormItem>
-          <FormItem :label-width="120" label="工号">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.gh" placeholder="工号" class="input_item"/>
-          </FormItem>
+
           <FormItem :label-width="120" label="专业技术职称">
             <Input :disabled="isEdit_dwxx" v-model="formItem.ztjszc" placeholder="专业技术职称" class="input_item"/>
           </FormItem>
@@ -202,9 +207,7 @@
           <FormItem :label-width="120" label="工种职务">
             <Input :disabled="isEdit_dwxx" v-model="formItem.gzzw" placeholder="工种职务" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="120" label="工作证号">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.gzzh" placeholder="工作证号" class="input_item"/>
-          </FormItem>
+
           <FormItem :label-width="120" label="路队">
             <Input :disabled="isEdit_dwxx" v-model="formItem.ld" placeholder="路队" class="input_item"/>
           </FormItem>
@@ -302,8 +305,8 @@
         width="70%"
         title="查看pdf">
         <vuePdfjs
-          :url="this.$route.query.tip == 'add' ? ' ':'http://106.12.19.134:8080/static/'+this.$route.query.row.ygfz"
-          :type="0"></vuePdfjs>
+          :url="this.$route.query.tip == 'add' ? ' ':'http://10.50.0.144:8088/'+this.$route.query.row.ygfz"
+          :type="0"></vuePdfjs>000
       </Modal>
       <!--填写变更原因-->
       <Modal

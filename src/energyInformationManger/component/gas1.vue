@@ -92,7 +92,7 @@
             children: [
               {
                 title: '气量（立方米）',
-                key: 'dw',
+                key: 'ql',
                 align: 'center',
                 width: 150,
               },

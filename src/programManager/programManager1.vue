@@ -11,22 +11,24 @@
               <DatePicker type="year" placeholder="选择年份" :transfer="true" placement="bottom-end"
                           v-model="formItem.nf"></DatePicker>
             </FormItem>
-            <FormItem label="线路" style="margin: 0;">
-              <Select v-model="formItem.lb" style="width: 195px;">
-                <Option value="全部">全部</Option>
-                <Option value="1路">1路</Option>
-                <Option value="2路">2路</Option>
-                <Option value="3路">3路</Option>
-              </Select>
+            <FormItem label="线路" style="margin: 0;" prop="lb">
+              <!--<Select v-model="formItem.lb" style="width: 195px;">-->
+                <!--<Option value="全部">全部</Option>-->
+                <!--<Option value="1路">1路</Option>-->
+                <!--<Option value="2路">2路</Option>-->
+                <!--<Option value="3路">3路</Option>-->
+              <!--</Select>-->
+              <CommonSelect type="LB" :selectValue="formItem.lb" style="width: 195px;"></CommonSelect>
             </FormItem>
-            <FormItem label="公司" style="margin: 0;">
-              <Select v-model="formItem.gsm" style="width: 195px;">
-                <Option value="">全部</Option>
-                <Option value="四公司">四公司</Option>
-                <Option value="公交一公司">公交一公司</Option>
-                <Option value="公交二公司">公交二公司</Option>
-                <Option value="公交三公司">公交三公司</Option>
-              </Select>
+            <FormItem label="公司" style="margin: 0;" prop="gsm">
+              <!--<Select v-model="formItem.gsm" style="width: 195px;">-->
+                <!--<Option value="">全部</Option>-->
+                <!--<Option value="四公司">四公司</Option>-->
+                <!--<Option value="公交一公司">公交一公司</Option>-->
+                <!--<Option value="公交二公司">公交二公司</Option>-->
+                <!--<Option value="公交三公司">公交三公司</Option>-->
+              <!--</Select>-->
+              <CommonSelect type="EJGS" :selectValue="formItem.gsm" style="width: 195px;"></CommonSelect>
             </FormItem>
             <!--添加-->
             <Modal
@@ -45,20 +47,22 @@
               </div>
               <Form :model="program" :label-width="90">
                 <div style="display: flex;flex-wrap: wrap">
-                  <FormItem label="公司名">
-                    <Select v-model="program.gsm" style="width: 195px;">
-                      <Option value="四公司">四公司</Option>
-                      <Option value="公交一公司">公交一公司</Option>
-                      <Option value="公交二公司">公交二公司</Option>
-                      <Option value="公交三公司">公交三公司</Option>
-                    </Select>
+                  <FormItem label="公司名" prop="gsm">
+                    <!--<Select v-model="program.gsm" style="width: 195px;">-->
+                      <!--<Option value="四公司">四公司</Option>-->
+                      <!--<Option value="公交一公司">公交一公司</Option>-->
+                      <!--<Option value="公交二公司">公交二公司</Option>-->
+                      <!--<Option value="公交三公司">公交三公司</Option>-->
+                    <!--</Select>-->
+                    <CommonSelect type="EJGS" :selectValue="program.gsm" style="width: 195px;"></CommonSelect>
                   </FormItem>
-                  <FormItem label="路别">
-                    <Select v-model="program.lb" style="width: 195px;">
-                      <Option value="1路">1路</Option>
-                      <Option value="2路">2路</Option>
-                      <Option value="3路">3路</Option>
-                    </Select>
+                  <FormItem label="路别" prop="lb">
+                    <!--<Select v-model="program.lb" style="width: 195px;">-->
+                      <!--<Option value="1路">1路</Option>-->
+                      <!--<Option value="2路">2路</Option>-->
+                      <!--<Option value="3路">3路</Option>-->
+                    <!--</Select>-->
+                    <CommonSelect type="LB" :selectValue="program.lb" style="width: 195px;"></CommonSelect>
                   </FormItem>
                   <FormItem label="班车数量">
                     <Input v-model="program.bcs" placeholder="班车数量" style="width: 195px;"/>
@@ -111,9 +115,11 @@
   </div>
 </template>
 <script>
-  import canEditTable from './canEditTable.vue';
-  import addyyProgram from './addyyProgram.vue';
+  import CommonSelect from '../components/common/CommonSelect.vue'
   export default {
+    components: {
+      CommonSelect,
+    },
     data () {
       return {
         addyyProgram: false,
@@ -153,12 +159,26 @@
             key: 'lb',
             width: 100,
             align: 'center',
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.LB[params.row.lb];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '公司',
             key: 'gsm',
             align: 'center',
             width: 100,
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.EJGS[params.row.gsm];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '线路长度',

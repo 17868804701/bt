@@ -20,19 +20,21 @@
         <FormItem label="年份">
           <DatePicker type="year" placeholder="选择年份" v-model="formItem1.nf" style="width: 195px;"></DatePicker>
         </FormItem>
-        <FormItem label="路别">
-          <Select v-model="formItem1.lb" style="width: 195px;">
-            <Option value="1路">1路</Option>
-            <Option value="2路">2路</Option>
-            <Option value="3路">3路</Option>
-          </Select>
+        <FormItem label="路别" prop="lb">
+          <!--<Select v-model="formItem1.lb" style="width: 195px;">-->
+            <!--<Option value="1路">1路</Option>-->
+            <!--<Option value="2路">2路</Option>-->
+            <!--<Option value="3路">3路</Option>-->
+          <!--</Select>-->
+          <CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
         </FormItem>
-          <FormItem label="公司名">
-            <Select v-model="formItem1.gsm" style="width: 195px;">
-              <Option value="一公司">一公司</Option>
-              <Option value="二公司">二公司</Option>
-              <Option value="三公司">三公司</Option>
-            </Select>
+          <FormItem label="公司名" prop="gsm">
+            <!--<Select v-model="formItem1.gsm" style="width: 195px;">-->
+              <!--<Option value="一公司">一公司</Option>-->
+              <!--<Option value="二公司">二公司</Option>-->
+              <!--<Option value="三公司">三公司</Option>-->
+            <!--</Select>-->
+            <CommonSelect type="EJGS" :selectValue="formItem1.gsm" style="width: 195px;"></CommonSelect>
           </FormItem>
         <FormItem label="班车数量">
           <Input v-model="formItem1.bcs" placeholder="班车数量" style="width: 195px;"/>
@@ -107,11 +109,12 @@
             <DatePicker type="year" placeholder="选择年份" :transfer="true" placement="bottom-end"
                         v-model="searchItem.year"></DatePicker>
           </FormItem>
-          <FormItem label="公司名" style="margin: 0">
-            <Select v-model="searchItem.gsm" style="width: 195px;">
-              <Option value="">全部</Option>
-              <Option value="四公司">四公司</Option>
-            </Select>
+          <FormItem label="公司名" style="margin: 0" prop="gsm">
+            <!--<Select v-model="searchItem.gsm" style="width: 195px;">-->
+              <!--<Option value="">全部</Option>-->
+              <!--<Option value="四公司">四公司</Option>-->
+            <!--</Select>-->
+            <CommonSelect type="EJGS" :selectValue="searchItem.gsm" style="width: 195px;"></CommonSelect>
           </FormItem>
         </div>
         <div style="width: 100%;justify-content: center;display: flex;margin-top: 10px;">
@@ -129,10 +132,12 @@
 </template>
 <script>
   import canEditTable from './canEditTable.vue';
+  import CommonSelect from '../components/common/CommonSelect.vue'
   import addProgram from './addProgram.vue';
   export default {
     components: {
       canEditTable,
+      CommonSelect,
       addProgram
     },
     data () {
@@ -181,12 +186,26 @@
             key: 'gsm',
             align: 'center',
             width: 100,
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.EJGS[params.row.gsm];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '路别',
             key: 'lb',
             align: 'center',
             width: 100,
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.LB[params.row.lb];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '路线长度',

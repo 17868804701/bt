@@ -214,6 +214,12 @@ const NetworkInterface = {
   gjfgsDaochu: '/erp-modules-bbgl/jjzbFgs/exportJjzbGjgsExcel',                            //公交分公司列表
   yejikaoheList: '/erp-modules-bbgl/jjzbFgs/yejikaoheList',                            //公交分公司列表
   yejikaoheDaochu: '/erp-modules-bbgl/jjzbFgs/exportYejikaoheExcel',                            //公交分公司列表
+
+
+
+
+  getUserInfo:'/3e-platform-modules-auth/user/getUserInfo',
+  updatePwd:'/3e-platform-modules-auth/user/updatePass'
 };
 
 export default NetworkInterface;

@@ -101,6 +101,13 @@
             key: 'xl',
             align: 'center',
             width: 120,
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.LB[params.row.xl];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           }, {
             title: '车号',
             key: 'ch',

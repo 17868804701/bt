@@ -224,7 +224,7 @@
       }
     },
     mounted () {
-      this.getList()
+      // this.getList()
     }
   }
 </script>

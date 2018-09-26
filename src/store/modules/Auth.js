@@ -49,7 +49,17 @@ const userAuth = {
         .then(res => {
           console.log(res.data,'应用')
           state.appList = res.data;
-        })
+        }),
+        post(process.env.BASE_URL +'/3e-platform-modules-auth/user/getUserInfo')
+          .then(res => {
+            console.log(res);
+            if (res.success === true) {
+              sessionStorage.setItem("account", res.account);
+              sessionStorage.setItem("name", res.name);
+            } else {
+
+            }
+          });
     }
   }
 }

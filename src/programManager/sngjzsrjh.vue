@@ -65,12 +65,14 @@
       </div>
       <div style="height:auto">
         <Form :model="formItem1" :label-width="120">
-          <FormItem label="路别" v-show="this.type!=='edit'">
-            <Select v-model="formItem1.lb" style="width: 195px;">
-              <Option value="102路">102路</Option>
-              <Option value="103路">103路</Option>
-              <Option value="286路">286路</Option>
-            </Select>
+          <FormItem label="路别" v-show="this.type!=='edit'" prop="lb">
+            <!--<Select v-model="formItem1.lb" style="width: 195px;">-->
+              <!--&lt;!&ndash;<Option value="102路">102路</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="103路">103路</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="286路">286路</Option>&ndash;&gt;-->
+             <!---->
+            <!--</Select>-->
+            <CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
           </FormItem>
           <FormItem label="本期实际">
             <Input v-model="formItem1.bqsj" placeholder="本年1-10月本期" style="width: 195px;"/>
@@ -92,13 +94,17 @@
   </div>
 </template>
 <script>
+  import CommonSelect from '../components/common/CommonSelect.vue'
   export default {
+    components: {
+      CommonSelect,
+    },
     data () {
       return {
         addProgram: false,
         exports: false,
-        type: '',
-        total:'',
+        type: 0,
+        total:0,
         formItem: {
           current: 1,
           size: 10,
@@ -122,7 +128,14 @@
           },
           {
             title: '路别',
-            key: 'lb'
+            key: 'lb',
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.LB[params.row.lb];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '前年实际（万元）',
