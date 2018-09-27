@@ -42,7 +42,6 @@
         this.$parent.form.model[this.$parent._props.prop] = val;
       },
       check(val) {
-//        debugger
         this.$parent.form.model[this.$parent._props.prop] = val;
       },
       requestDictData() {

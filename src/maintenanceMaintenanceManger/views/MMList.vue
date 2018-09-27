@@ -68,7 +68,7 @@
             <FormItem label="按进厂时间查询" style="margin: 0;">
               <DatePicker type="month" placeholder="选择月份" :transfer="true" placement="bottom-end"
                           v-model="formItem.date" style="width: 130px;"></DatePicker>
-              <Button type="primary" icon="ios-search" @click="requestListData" v-has="'bygl_clby_search'">搜索</Button>
+              <Button type="primary" icon="ios-search" @click="search" v-has="'bygl_clby_search'">搜索</Button>
               <Button type="primary" icon="android-download" style="float: right;margin-right: 10px" @click="exportExcel" v-has="'bygl_clby_daochu'">导出</Button>
               <Button type="primary" icon="plus" style="float: right;margin-right: 10px;" @click="newRecordModal = true" v-has="'bygl_clby_add'">新增</Button>
             </FormItem>
@@ -292,7 +292,7 @@
           jcsj: '',
           sxr: '',
           jyy: '',
-          bylb: '',
+          bylb: [],
         };
         newData.clzbh = this.basicData.clzbh;
         this.basicData = newData;
@@ -328,7 +328,7 @@
               jcsj: '',
               sxr: '',
               jyy: '',
-              bylb: '',
+              bylb: [],
             };
             newData.clzbh = this.basicData.clzbh;
             that.basicData = newData;
@@ -355,6 +355,10 @@
       },
       setPage(page) {
         this.formItem.currPage = page;
+        this.requestListData();
+      },
+      search() {
+        this.formItem.currPage = 1;
         this.requestListData();
       },
       requestListData() {
@@ -388,9 +392,9 @@
       },
       exportExcel() {
         let url = this.$url.maintain_BYGL_CLBY_exportExcel;
-        url = url + '?currPage='+this.formItem.currPage+'&pageSize='+this.formItem.pageSize;
         if (this.formItem.date instanceof Date) {
-          url = url + '&date=' + this.formItem.date;
+          let date = DateTool.yyyymm01FormatDate(this.formItem.date);
+          url = url + '?date=' + date;
         }
         this.$getExcel(url);
       },

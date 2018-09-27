@@ -27,7 +27,7 @@
             <Col span="24">
             <FormItem label="按检验时间进行查询" style="margin: 0;">
               <DatePicker type="month" placeholder="选择月份" :transfer="true" placement="bottom-end" v-model="formItem.date"></DatePicker>
-              <Button type="primary" icon="ios-search" @click="requestListData" v-has="'bygl_jydgl_search'">搜索</Button>
+              <Button type="primary" icon="ios-search" @click="search" v-has="'bygl_jydgl_search'">搜索</Button>
               <Button type="primary" icon="android-download" style="float: right;margin-right: 10px" @click="exportExcel" v-has="'bygl_jydgl_daochu'">导出Excel</Button>
             </FormItem>
             </Col>
@@ -161,7 +161,12 @@
         this.formItem.currPage = page;
         this.requestListData();
       },
+      search() {
+        this.formItem.currPage = 1;
+        this.requestListData();
+      },
       requestListData() {
+
         let params = {};
         params.date = DateTool.yyyymm01FormatDate(this.formItem.date);
         params.currPage = this.formItem.currPage;
@@ -170,9 +175,17 @@
         this.$fetch(this.$url.maintain_BYGL_JYDGL_recordList, params)
         .then(res=>{
           if (res.code === 0) {
+            let allDict = this.$store.state.dictData.parseDict;
             res.page.list.forEach(item => {
               item.jjcsj = DateTool.timesToDate(item.jjcsj);
               item.scsj = DateTool.timesToDate(item.scsj);
+
+              let array = (item.bylb !== null && typeof item.bylb !== 'undefined') ? item.bylb.split("、") : [];
+              let stringArray = [];
+              array.forEach(bylbItem => {
+                stringArray.push(allDict.BYLB[bylbItem]);
+              })
+              item.bylb = stringArray.join("、");
             })
             that.currPage = 1;
             that.tableData = res.page.list;

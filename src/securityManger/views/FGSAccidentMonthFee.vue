@@ -196,6 +196,7 @@
       },
       searchData() {
         if (this.formItem.date instanceof Date) {
+          this.formItem.current = 1;
           this.requestListData();
         }else{
           this.$Message.error('请选择月份后搜索!');

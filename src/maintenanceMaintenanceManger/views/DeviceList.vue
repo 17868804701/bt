@@ -347,8 +347,8 @@
         })
       },
       exportExcel() {
-        console.log(this.formItem);
-        console.log('导出');
+//        console.log(this.formItem);
+//        console.log('导出');
         let url = this.$url.maintain_DEVICE_exportExcel;
         this.$getExcel(url);
       }

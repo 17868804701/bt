@@ -67,15 +67,15 @@
               {{this.isHaveDSJ}}
             </div>
           </FormItem>
-          <FormItem label="是否维修发动机:" style="margin-top: 0px;margin-left: 75px;" >
-            <i-switch v-if="basicDataIsEdit" v-model="basicData.fdjSwitchValue">
-              <span slot="open">是</span>
-              <span slot="close">否</span>
-            </i-switch>
-            <div v-else>
-              {{this.isHaveFDJ}}
-            </div>
-          </FormItem>
+          <!--<FormItem label="是否维修发动机:" style="margin-top: 0px;margin-left: 75px;" >-->
+            <!--<i-switch v-if="basicDataIsEdit" v-model="basicData.fdjSwitchValue">-->
+              <!--<span slot="open">是</span>-->
+              <!--<span slot="close">否</span>-->
+            <!--</i-switch>-->
+            <!--<div v-else>-->
+              <!--{{this.isHaveFDJ}}-->
+            <!--</div>-->
+          <!--</FormItem>-->
           <FormItem label="是否超养:" style="margin-top: 0px;margin-left: 75px;" >
             <i-switch v-if="basicDataIsEdit" v-model="basicData.cySwitchValue">
               <span slot="open">是</span>
@@ -759,13 +759,13 @@
           }
         }
         params.bylb = params.bylb.join('、');
-        debugger
+        let that = this;
         this.$post(this.$url.maintain_BYGL_CLBY_updateRecord, params)
         .then(res => {
           if (res.code === 0) {
-            this.basicDataIsEdit = false;
-            this.$Message.success('更新成功!');
-            this.$emit('updateInfo');
+            that.basicDataIsEdit = false;
+            that.$Message.success('更新成功!');
+            that.$emit('updateInfo');
           }else{
             this.$Message.error('更新失败, 请重试!');
           }
@@ -1039,7 +1039,7 @@
         let array = (clbyBasicData.bylb !== null && clbyBasicData.bylb.length > 0) ? clbyBasicData.bylb.split("、") : [];
         this.basicData.bylb = array;
 
-        // 处理发动机进场记录
+        // 处理发动机进场记录  现在不做判断了 默认展示发动机相关UI, 隐藏开关
         let tmpfdjData = {}; // 用来判断是否有发动机进场记录的object
         for (let attr in clbyFdjjcData) {
           this.fdjData[attr] = clbyFdjjcData[attr];

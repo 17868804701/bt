@@ -125,6 +125,7 @@
         this.$Message.success('修改了第' + (index + 1) + '行数据');
       },
       searchData() {
+        this.formItem.current = 1;
         this.requestListData();
       },
       setPage(page) {

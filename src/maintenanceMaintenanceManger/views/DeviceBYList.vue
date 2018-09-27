@@ -104,7 +104,7 @@
             <FormItem label="按养护日期查询" style="margin: 0;">
               <DatePicker type="date" placeholder="选择时间" :transfer="true" placement="bottom-end"
                           v-model="formItem.wxrq"></DatePicker>
-              <Button type="primary" v-has="'sbbygl_sbbygl_search'" icon="ios-search" @click="requestListData">搜索</Button>
+              <Button type="primary" v-has="'sbbygl_sbbygl_search'" icon="ios-search" @click="search">搜索</Button>
               <Button type="primary" icon="android-download"
                       style="float: right;margin-right: 10px" v-has="'sbbygl_sbbygl_daochu'" @click="chooseDeviceModal=true">导出Excel
               </Button>
@@ -328,6 +328,10 @@
 
     },
     methods: {
+      search() {
+        this.formItem.currPage = 1;
+        this.requestListData();
+      },
       requestDeviceData() {
         console.log('请求设备列表');
         let params = {
@@ -464,8 +468,8 @@
       exportExcel(name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            console.log(this.chooseDeviceItem.sbbh);
-            console.log('导出');
+//            console.log(this.chooseDeviceItem.sbbh);
+//            console.log('导出');
             let url = this.$url.maintain_DEVICEBY_exportExcel;
             url = url + '?sbbh=' + this.chooseDeviceItem.sbbh;
             this.$getExcel(url);

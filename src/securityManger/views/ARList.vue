@@ -51,7 +51,7 @@
             </Form>
             <div style="width: 100%; text-align: center; margin-top: 20px;">
               <ButtonGroup>
-                <Button style="margin-right: 3px;" type="primary" icon="ios-search" @click="requestListData" v-has="'lasggl_lasggl_search'">搜索</Button>
+                <Button style="margin-right: 3px;" type="primary" icon="ios-search" @click="search" v-has="'lasggl_lasggl_search'">搜索</Button>
                 <Button type="primary" icon="android-download" @click="exportExcel" v-has="'lasggl_lasggl_export'">导出</Button>
               </ButtonGroup>
             </div>
@@ -288,6 +288,7 @@
         return 'status-la';
       },
       search() {
+        this.formItem.currPage = 1;
         this.requestListData();
       },
       confirmAddLoss() {

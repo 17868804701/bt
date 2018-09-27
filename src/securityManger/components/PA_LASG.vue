@@ -87,7 +87,7 @@
         });
       },
       exportExcel() {
-        console.log('导出数据');
+//        console.log('导出数据');
         let params = this.getParams();
         let year = params.year;
         let url = params.exportURL;

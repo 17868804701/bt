@@ -45,7 +45,7 @@
               <FormItem prop="wpmc" label="物品名称" style="margin-top: 0px;">
                 <Input v-model="pjxx.wpmc" style="width: 110px;"></Input>
               </FormItem>
-              <FormItem prop="wpflmc" label="物品分类名称" style="margin-top: 0px;">
+              <FormItem prop="wpflmc" label="物品分类" style="margin-top: 0px;">
                 <Select v-model="pjxx.wpflmc" style="width: 110px;">
                   <Option value="清洗类">清洗类</Option>
                   <Option value="轮胎">轮胎</Option>
@@ -68,7 +68,7 @@
         <Form :model="formItem">
           <FormItem label="按物品名称查询" style="margin: 0;">
             <Input v-model="formItem.wpmc" style="width: 120px;"></Input>
-            <Button type="primary" icon="ios-search" @click="requestListData" v-has="'jcsjgl_pjxxgl_search'">搜索</Button>
+            <Button type="primary" icon="ios-search" @click="search" v-has="'jcsjgl_pjxxgl_search'">搜索</Button>
             <Button type="primary" icon="plus" style="float: right;margin-right: 10px;" @click="addModal=true" v-has="'jcsjgl_pjxxgl_add'">新增</Button>
             <Button type="primary" icon="android-download" style="float: right;margin-right: 10px" @click="exportExcel" v-has="'jcsjgl_pjxxgl_export'">导出</Button>
             <Button type="primary" size="default" style="float: right;margin-right: 10px;" @click="exportModal=true" v-has="'jcsjgl_pjxxgl_upload'"><Icon type="android-upload"></Icon>导入</Button>
@@ -243,6 +243,10 @@
         this.formItem.currPage = page;
         this.requestListData();
       },
+      search() {
+        this.formItem.currPage = 1;
+        this.requestListData();
+      },
       requestListData() {
         let that = this;
         this.$fetch(this.$url.maintain_BYGL_DATA_PGXX_list, this.formItem)
@@ -327,7 +331,7 @@
       },
       exportExcel() {
         let url = this.$url.maintain_BYGL_DATA_PGXX_exportExcel;
-        url = url + '?currPage='+this.formItem.currPage+'&pageSize='+this.formItem.pageSize;
+//        url = url + '?currPage='+this.formItem.currPage+'&pageSize='+this.formItem.pageSize;
         this.$getExcel(url);
       },
       download() {

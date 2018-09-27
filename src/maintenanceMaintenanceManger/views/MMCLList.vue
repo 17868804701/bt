@@ -9,7 +9,7 @@
             <Col span="24">
             <FormItem label="按领料日期查询" style="margin: 0;">
               <DatePicker type="month" placeholder="选择月份"  :transfer="true" placement="bottom-end" v-model="formItem.date"></DatePicker>
-              <Button type="primary" icon="ios-search" @click="this.requestListData" v-has="'bygl_wxllgl_search'">搜索</Button>
+              <Button type="primary" icon="ios-search" @click="search" v-has="'bygl_wxllgl_search'">搜索</Button>
               <Button type="primary" icon="android-download" style="float: right;margin-right: 10px" @click="exportExcel" v-has="'bygl_wxllgl_daochu'">导出Excel</Button>
             </FormItem>
             </Col>
@@ -111,6 +111,10 @@
     methods: {
       setPage(page) {
         this.formItem.currPage = page;
+        this.requestListData();
+      },
+      search() {
+        this.formItem.currPage = 1;
         this.requestListData();
       },
       requestListData() {
