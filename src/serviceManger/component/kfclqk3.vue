@@ -66,6 +66,13 @@
             title: '单位/项目',
             key: 'bm',
             align: 'center',
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.EJGS[params.row.bm];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
 
           },   {
             title: '转办件数',

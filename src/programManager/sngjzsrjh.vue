@@ -208,7 +208,8 @@
       ok () {
       },
       cancel () {
-        this.type = ''
+        this.type = '',
+          this.addProgram = false
       },
       step(current){
         this.formItem.current = current

@@ -100,7 +100,7 @@
               <!--<Option value="公交一公司">公交一公司</Option>-->
               <!--<Option value="公交二公司">公交二公司</Option>-->
             <!--</Select>-->
-            <CommonSelect type="EJBM"  :selectValue="formItem.bm" style="width: 195px;"></CommonSelect>
+            <CommonSelect type="EJGS"  :selectValue="formItem.bm" style="width: 195px;"></CommonSelect>
           </FormItem>
           <FormItem label="备注" style="margin-bottom: 25px">
             <Input v-model="formItem.bz" placeholder="备注" class="text_width"/>

@@ -187,6 +187,8 @@ const NetworkInterface = {
   jtdnList:'/erp-modules-bbgl/Dnxxtj/getJtdnxhList',  //集团电能列表
   jtdnListdaochu:'/erp-modules-bbgl/Dnxxtj/exportJtdnExcel',  //集团电能列表导出
 
+  lingliaoSearch:'/erp-modules-weix/dataDictionary/listPJXX',
+
   // 企业管理
   qygl_nhlctz_fgs: '/erp-modules-bbgl/Sctjtz/getFnhlcList',            //分公司能耗台账
   qygl_nhlctz_jtgs: '/erp-modules-bbgl/Sctjtz/getJtnhlcList',          //集团公司能耗台账

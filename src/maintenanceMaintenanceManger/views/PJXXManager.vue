@@ -49,6 +49,8 @@
                 <Select v-model="pjxx.wpflmc" style="width: 110px;">
                   <Option value="清洗类">清洗类</Option>
                   <Option value="轮胎">轮胎</Option>
+                  <Option value="润滑油">润滑油</Option>
+                  <Option value="其他">其他</Option>
                 </Select>
               </FormItem>
               <FormItem prop="dw" label="单位" style="margin-top: 0px;">

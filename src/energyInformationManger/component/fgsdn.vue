@@ -5,7 +5,7 @@
         <Form :model="formItem" :label-width="80">
           <div class="search">
             <FormItem label="选择时间" style="margin: 0">
-              <DatePicker type="month" placeholder="选择时间" :transfer="true" v-model="formItem.tjsj"
+              <DatePicker type="date" placeholder="选择时间" :transfer="true" v-model="formItem.tjsj"
                           class="text_width" style="width: 150px;"></DatePicker>
             </FormItem>
             <FormItem label="选择线路" style="margin: 0" prop="_lb">
@@ -200,7 +200,7 @@
         if (this.formItem.tjsj == '') {
           this.formItem.tjsj = ''
         } else {
-          this.formItem.tjsj = this.$formatDate(this.formItem.tjsj).substring(0, 7)
+          this.formItem.tjsj = this.$formatDate(this.formItem.tjsj).substring(0, 10)
         }
         console.log(this.formItem)
         this.getList()

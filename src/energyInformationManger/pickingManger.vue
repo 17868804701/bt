@@ -5,23 +5,25 @@
         领料管理
       </h2>
       <Tabs value="name1" style="margin-top: 5px;">
-        <TabPane v-if="$showMenu('领料管理')"  label="领料管理" name="name1">
+        <TabPane v-if="$showMenu('领料管理')" label="领料管理" name="name1">
           <Card>
             <Form :model="formItem" :label-width="110">
               <Row>
                 <Col span="24">
-                <FormItem label="选择时间" style="margin: 0 0 0 -50px;">
-                  <DatePicker type="daterange" placeholder="选择时间段" :transfer="true" placement="bottom-end"
-                              v-model="time"></DatePicker>
-                  <Button type="primary" icon="ios-search" @click="search" v-has="'llgl_llgl_search'">搜索</Button>
-                  <Button type="primary" icon="android-download"
-                          style="float: right;margin-right: 10px" @click="daochuExcel" v-has="'llgl_llgl_export'">导出Excel
-                  </Button>
-                  <!--<Button type="ghost" icon="android-download"  style="float: right;margin-right:10px">批量派发</Button>-->
-                  <Button type="primary" icon="plus" style="float: right;margin-right:10px" @click="addPicking=true" v-has="'llgl_llgl_add'">
-                    新增领料
-                  </Button>
-                </FormItem>
+                  <FormItem label="选择时间" style="margin: 0 0 0 -50px;">
+                    <DatePicker type="daterange" placeholder="选择时间段" :transfer="true" placement="bottom-end"
+                                v-model="time"></DatePicker>
+                    <Button type="primary" icon="ios-search" @click="search" v-has="'llgl_llgl_search'">搜索</Button>
+                    <Button type="primary" icon="android-download"
+                            style="float: right;margin-right: 10px" @click="daochuExcel" v-has="'llgl_llgl_export'">
+                      导出Excel
+                    </Button>
+                    <!--<Button type="ghost" icon="android-download"  style="float: right;margin-right:10px">批量派发</Button>-->
+                    <Button type="primary" icon="plus" style="float: right;margin-right:10px" @click="addPicking=true"
+                            v-has="'llgl_llgl_add'">
+                      新增领料
+                    </Button>
+                  </FormItem>
                 </Col>
               </Row>
             </Form>
@@ -29,20 +31,20 @@
           <Table :columns="columns11" :data="data10" border height="500" style="margin-top: 10px;" size="small"></Table>
           <Page :total="totalPage" show-total style="margin-top: 10px;" @on-change="step"></Page>
         </TabPane>
-        <TabPane label="领料信息管理" name="name2">
-        <spPicking></spPicking>
-        </TabPane>
+        <!--<TabPane label="领料信息管理" name="name2">-->
+        <!--<spPicking></spPicking>-->
+        <!--</TabPane>-->
       </Tabs>
 
       <!--增加领料-->
       <Modal
         v-model="addPicking"
         title="领料信息"
-        width="60%"
+        width="50%"
         @on-cancel="cancel"
       >
         <div slot="footer" style="height: 30px;">
-          <Button type="primary" style="float: right;margin-right: 10px" @click = 'update' v-if="this.type=='edit'">修改
+          <Button type="primary" style="float: right;margin-right: 10px" @click='update' v-if="this.type=='edit'">修改
           </Button>
           <Button type="primary" style="float: right;margin-right: 10px" @click="save('add')" v-else>新增
           </Button>
@@ -52,14 +54,15 @@
           <Form :model="add" ref="add" :rules="ruleValidate" :label-width="80">
             <div style="display: flex;flex-wrap: wrap">
               <FormItem label="单位" prop="dw">
-                <Select v-model="add.dw" style="width: 195px;">
-                  <Option value="公交一公司">公交一公司</Option>
-                  <Option value="公交二公司">公交二公司</Option>
-                  <Option value="公交三公司">公交三公司</Option>
-                </Select>
+                <!--<Select v-model="add.dw" style="width: 195px;">-->
+                  <!--<Option value="公交一公司">公交一公司</Option>-->
+                  <!--<Option value="公交二公司">公交二公司</Option>-->
+                  <!--<Option value="公交三公司">公交三公司</Option>-->
+                <!--</Select>-->
+                <CommonSelect type="EJGS"  :selectValue="add.dw" style="width: 195px;"></CommonSelect>
               </FormItem>
               <FormItem label="车牌号" prop="cph">
-                <Input v-model="add.cph" placeholder="请输入领料数量" style="width: 195px;"/>
+                <Input v-model="add.cph" placeholder="车牌号" style="width: 195px;"/>
               </FormItem>
               <FormItem label="车型" prop="cx">
                 <Select v-model="add.cx" style="width: 195px;">
@@ -68,54 +71,40 @@
                   <Option value="小型">小型</Option>
                 </Select>
               </FormItem>
-              <FormItem label="物品名称" prop="wpmc">
-                <Select v-model="add.wpmc" style="width: 195px;">
-                  <Option value="轮胎">轮胎</Option>
-                  <Option value="润滑油">润滑油</Option>
-                </Select>
-              </FormItem>
-              <FormItem label="领料数量" prop="llsl">
-                <Input v-model="add.llsl" placeholder="请输入领料数量" style="width: 195px;"/>
-              </FormItem>
               <FormItem label="领料时间" prop="llsj">
                 <DatePicker type="date" placeholder="选择领料时间" v-model="add.llsj" style="width: 195px;"></DatePicker>
               </FormItem>
-              <!--<FormItem label="领料规格" prop="llgg">-->
-                <!--<Input v-model="add.llgg" placeholder="领料规格" style="width: 195px;"/>-->
-              <!--</FormItem>-->
               <FormItem label="物品编号" prop="wpbh">
-                <Input v-model="add.wpbh" placeholder="物品编号" style="width: 195px;"/>
+                <Input v-model="add.wpbh" placeholder="物品编号" style="width: 195px;" @on-blur="change"/>
+              </FormItem>
+              <FormItem label="物品名称" prop="wpmc">
+                <Input v-model="add.wpmc" placeholder="物品编号" style="width: 195px;" :disabled="true"/>
               </FormItem>
               <FormItem label="供货单位" prop="ghdw">
-                <Select v-model="add.ghdw" style="width: 195px;">
-                  <Option value="产品1公司">产品1公司</Option>
-                  <Option value="产品2公司">产品2公司</Option>
-                  <Option value="产品3公司">产品3公司</Option>
-                </Select>
+                <Input v-model="add.ghdw" placeholder="物品编号" style="width: 195px;" :disabled="true"/>
+              </FormItem>
+              <FormItem label="规格">
+                <Input v-model="add.gg" placeholder="规格" style="width: 195px;" :disabled="true"/>
+              </FormItem>
+              <FormItem label="计量单位">
+                <Input v-model="add.jldw" placeholder="物品编号" style="width: 195px;" :disabled="true"/>
+              </FormItem>
+              <FormItem label="单价" prop="dj">
+                <Input v-model="add.dj" placeholder="单价" style="width: 195px;" :disabled="true"/>
               </FormItem>
               <FormItem label="品牌型号" prop="ppxh">
                 <Input v-model="add.ppxh" placeholder="品牌型号" style="width: 195px;"/>
               </FormItem>
-              <FormItem label="规格" prop="gg">
-                <Input v-model="add.gg" placeholder="规格" style="width: 195px;"/>
+              <FormItem label="领料数量" prop="llsl">
+                <Input v-model="add.llsl" placeholder="请输入领料数量" style="width: 195px;"/>
               </FormItem>
-              <FormItem label="计量单位" prop="jldw">
-                <Select v-model="add.jldw" style="width: 195px;">
-                  <Option value="件">件</Option>
-                  <Option value="台">台</Option>
-                  <Option value="提">提</Option>
-                </Select>
-              </FormItem>
-              <FormItem label="单价" prop="dj">
-                <Input v-model="add.dj" placeholder="单价" style="width: 195px;"/>
-              </FormItem>
-              <FormItem label="金额" prop="je">
-                <Input v-model="add.je" placeholder="金额" style="width: 195px;"/>
-              </FormItem>
+              <!--<FormItem label="金额" prop="je">-->
+                <!--<Input v-model="add.je" placeholder="金额" style="width: 195px;"/>-->
+              <!--</FormItem>-->
               <FormItem label="状态" prop="zt">
                 <Select v-model="add.zt" style="width: 195px;">
                   <Option value="采购">采购</Option>
-                  <Option value="派发">派发</Option>
+                  <!--<Option value="派发">派发</Option>-->
                 </Select>
               </FormItem>
               <FormItem label="附记" prop="fj">
@@ -127,18 +116,22 @@
       </Modal>
     </div>
   </div>
-
-
 </template>
 <script>
   import addPicking from './addPicking.vue'
   import spPicking from './spPicking.vue'
+  import CommonSelect from '../components/common/CommonSelect.vue'
   export default {
-    data () {
+    components: {
+      CommonSelect,
+      addPicking,
+      spPicking
+    },
+    data() {
       return {
         addPicking: false,
-        type:'',
-        time:'',
+        type: '',
+        time: '',
         totalPage: 0,
         formItem: {
           kssj: '',
@@ -148,7 +141,7 @@
         },
         add: {
           cph: "",
-          dw:'',
+          dw: '',
           cx: "",
           wpmc: "",
           llsl: "",
@@ -156,7 +149,7 @@
           ppxh: "",
           gg: "",
           jldw: "",
-          dj:'',
+          dj: '',
           je: '',
           fj: "",
           zt: "",
@@ -170,7 +163,7 @@
           ],
           cx: [
             {required: true, message: '必填项必填', trigger: 'blur'}
-          ],     dw: [
+          ], dw: [
             {required: true, message: '必填项必填', trigger: 'blur'}
           ],
           wpmc: [
@@ -183,12 +176,6 @@
             {required: true, message: '必填项必填', trigger: 'blur'}
           ],
           ppxh: [
-            {required: true, message: '必填项必填', trigger: 'blur'}
-          ],
-          gg: [
-            {required: true, message: '必填项必填', trigger: 'blur'}
-          ],
-          jldw: [
             {required: true, message: '必填项必填', trigger: 'blur'}
           ],
           dj: [
@@ -204,17 +191,19 @@
             {required: true, message: '必填项必填', trigger: 'blur'}
           ],
           llsj: [
-            {required: true, message: '必填项必填', trigger: 'blur',type:'date'}
+            {required: true, message: '必填项必填', trigger: 'blur', type: 'date'}
           ],
           wpbh: [
             {required: true, message: '必填项必填', trigger: 'blur'}
           ],
-//          llgg: [
-//            {required: true, message: '必填项必填', trigger: 'blur'}
-//          ]
         },
-//        车号、车型、物品名称（轮胎、润滑油）、领料数量、领料规格、供货单位、品牌型号、规格、计量单位、单价、金额、附记、状态（采购、下派）
         columns11: [
+          {
+            title: '公司',
+            key: 'dw',
+            align: 'center',
+            width: 100,
+          },
           {
             title: '车号',
             key: 'cph',
@@ -308,7 +297,7 @@
                   },
                   on: {
                     click: () => {
-                        console.log(params.row)
+                      console.log(params.row)
                       this.addPicking = true;
                       this.type = 'edit'
                       this.add = params.row
@@ -325,7 +314,7 @@
                   props: {
                     confirm: true,
                     type: 'error',
-                    transfer:true,
+                    transfer: true,
                     size: 'large',
                     title: '你确定要删除吗?'
                   },
@@ -335,13 +324,13 @@
                       let arr = []
                       arr.push(params.row.id)
                       console.log(arr)
-                      this.$post(this.$url.delll+'?id='+arr.toString())
+                      this.$post(this.$url.delll + '?id=' + arr.toString())
                         .then(res => {
                           console.log(res);
-                          if(res.success===true){
+                          if (res.success === true) {
                             this.$Message.info('删除成功')
                             this.list();
-                          }else {
+                          } else {
                             this.$Message.error('删除失败')
                           }
 
@@ -363,7 +352,7 @@
                         value: 'llgl_llgl_delete',
                       }
                     ]
-                  },'删除')
+                  }, '删除')
                 ])
               ]);
             }
@@ -372,25 +361,20 @@
         data10: []
       }
     },
-    components: {
-      addPicking,
-      spPicking
-    },
     methods: {
       search: function () {
         this.formItem.kssj = this.time[0];
         this.formItem.jssj = this.time[1];
-        if(this.formItem.kssj===''){
-          this.formItem.kssj=''
-        }else {
-          this.formItem.kssj = this.$formatDate(this.formItem.kssj).substring(0,10)
+        if (this.formItem.kssj === '') {
+          this.formItem.kssj = ''
+        } else {
+          this.formItem.kssj = this.$formatDate(this.formItem.kssj).substring(0, 10)
         }
-        if(this.formItem.jssj===''){
-          this.formItem.jssj=''
-        }else {
-          this.formItem.jssj = this.$formatDate(this.formItem.jssj).substring(0,10)
+        if (this.formItem.jssj === '') {
+          this.formItem.jssj = ''
+        } else {
+          this.formItem.jssj = this.$formatDate(this.formItem.jssj).substring(0, 10)
         }
-
         this.list();
         console.log(this.formItem.kssj)
       },
@@ -415,40 +399,40 @@
         this.formItem.current = current
         this.list()
       },
-      cancel:function () {
-          this.addPicking = false
+      cancel: function () {
+        this.addPicking = false
         this.add = {};
-//        this.$Message.info('操作失败');
         this.type = ''
         this.list()
       },
       save: function (name) {
         this.$refs[name].validate((valid) => {
           if (valid) {
-            this.add.llsj = this.$formatDate(this.add.llsj).substring(0,10)
+            this.add.llsj = this.$formatDate(this.add.llsj).substring(0, 10)
             console.log(this.add)
+            this.add.je = this.add.llsl*this.add.dj
+            console.log(this.add.je)
             this.$post(this.$url.savell, this.add)
               .then(res => {
                 console.log(res);
-                if(res.success===true){
+                if (res.success === true) {
                   this.addPicking = false;
                   this.list();
                   this.$Message.info('添加成功');
                   this.add = {}
                 }
-
               })
           } else {
             this.$Message.error('请填写完整表单!');
           }
         })
       },
-      update:function () {
-        this.add.llsj = this.$formatDate(this.add.llsj).substring(0,10)
+      update: function () {
+        this.add.llsj = this.$formatDate(this.add.llsj).substring(0, 10)
         this.$post(this.$url.updatell, this.add)
           .then(res => {
             console.log(res);
-            if(res.success===true){
+            if (res.success === true) {
               this.addPicking = false
               this.list();
               this.$Message.info('修改成功');
@@ -456,24 +440,46 @@
             }
           })
       },
-      daochuExcel:function () {
-
+      change() {
+        if(this.add.wpbh===''){
+          this.$Message.error('物品编号不能为空')
+        }else {
+          this.$fetch(this.$url.lingliaoSearch, {wpmc: '', spbm: this.add.wpbh, currPage: 1, pageSize: 10})
+            .then(res => {
+              console.log(res);
+              if(res.msg==='success'){
+                console.log(res.page.records[0].dw)
+                console.log(res.page.records[0].gys)
+                console.log(res.page.records[0].jhj)
+                console.log(res.page.records[0].wpmc)
+                this.add.jldw = res.page.records[0].dw.split('-')[1]
+                this.add.gg = res.page.records[0].dw.split('-')[0]
+                this.add.ghdw = res.page.records[0].gys
+                this.add.dj = res.page.records[0].jhj
+                this.add.wpmc = res.page.records[0].wpmc
+              }else {
+                this.$Message.error('error')
+              }
+            })
+        }
+      },
+      daochuExcel: function () {
         this.formItem.kssj = this.time[0];
         this.formItem.jssj = this.time[1];
-        if(this.formItem.kssj===''){
-          this.formItem.kssj=''
-        }else {
-          this.formItem.kssj = this.$formatDate(this.formItem.kssj).substring(0,10)
+        if (this.formItem.kssj === '') {
+          this.formItem.kssj = ''
+        } else {
+          this.formItem.kssj = this.$formatDate(this.formItem.kssj).substring(0, 10)
         }
-        if(this.formItem.jssj===''){
-          this.formItem.jssj=''
-        }else {
-          this.formItem.jssj = this.$formatDate(this.formItem.jssj).substring(0,10)
+        if (this.formItem.jssj === '') {
+          this.formItem.jssj = ''
+        } else {
+          this.formItem.jssj = this.$formatDate(this.formItem.jssj).substring(0, 10)
         }
-        this.$getExcel(process.env.BASE_URL + this.$url.daochull + '?kssj=' + this.formItem.kssj+'&jssj='+this.formItem.jssj )
+        this.$getExcel(process.env.BASE_URL + this.$url.daochull + '?kssj=' + this.formItem.kssj + '&jssj=' + this.formItem.jssj)
       }
     },
-    mounted () {
+    mounted() {
       console.log(this.formItem)
       this.list();
     }
