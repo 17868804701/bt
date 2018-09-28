@@ -261,7 +261,6 @@
           'bz',
           'ld',
           'gh',
-          'rybh',
           'qdsj',
           'zc',
           'gwzt',

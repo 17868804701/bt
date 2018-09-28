@@ -5,7 +5,7 @@
         <Form :model="formItem" :label-width="80">
           <div class="search">
             <FormItem label="选择时间" style="margin: 0">
-              <DatePicker type="date" placeholder="选择时间" :transfer="true" v-model="formItem.tjsj"
+              <DatePicker type="month" placeholder="选择时间" :transfer="true" v-model="formItem.tjsj"
                           class="text_width" style="width: 150px;"></DatePicker>
             </FormItem>
             <FormItem label="选择线路" style="margin: 0" prop="_lb">
@@ -58,6 +58,8 @@
           tjsj: '',
           dw: '',
           _dw: '',
+          nd:'',
+          yf:'',
           lb: '',
           _lb: '',
           cph: ''
@@ -178,11 +180,7 @@
             } else {
               res.data.records.forEach(item=>{
                   console.log(item.tjsj)
-                  if(item.tjsj==null){
-                   item.tjsj = '--'
-                  }else {
-                    item.tjsj = this.$formatDate(item.tjsj).substring(0,10)
-                  }
+                item.tjsj = item.nd+'-'+item.yf
               });
               this.data10 = res.data.records;
               this.totalPage = res.data.total;
@@ -198,9 +196,11 @@
         this.formItem.dw  = this.$store.state.dictData.parseDict.EJGS[ this.formItem._dw];
         this.formItem.lb  = this.$store.state.dictData.parseDict.LB[ this.formItem._lb];
         if (this.formItem.tjsj == '') {
-          this.formItem.tjsj = ''
+          this.formItem.nd = ''
+          this.formItem.yf = ''
         } else {
-          this.formItem.tjsj = this.$formatDate(this.formItem.tjsj).substring(0, 10)
+          this.formItem.nd = this.$formatDate(this.formItem.tjsj).substring(0, 4)
+          this.formItem.yf = this.$formatDate(this.formItem.tjsj).substring(5, 7)
         }
         console.log(this.formItem)
         this.getList()
@@ -218,12 +218,14 @@
           this.formItem.lb  = this.$store.state.dictData.parseDict.LB[this.formItem._lb];
         }
         if (this.formItem.tjsj == '') {
-          this.formItem.tjsj = ''
+          this.formItem.nd = ''
+          this.formItem.yf = ''
         } else {
-          this.formItem.tjsj = this.$formatDate(this.formItem.tjsj).substring(0, 7)
+          this.formItem.nd = this.$formatDate(this.formItem.tjsj).substring(0, 4)
+          this.formItem.yf = this.$formatDate(this.formItem.tjsj).substring(5, 7)
         }
         console.log(this.formItem)
-        this.$getExcel(process.env.BASE_URL + this.$url.daochufgsdnList + '?tjsj=' + this.formItem.tjsj+'&dw='+this.formItem.dw+'&lb='+this.formItem.lb+'&cph='+this.formItem.cph )
+        this.$getExcel(process.env.BASE_URL + this.$url.daochufgsdnList + '?nd=' + this.formItem.nd+'&dw='+this.formItem.dw+'&lb='+this.formItem.lb+'&cph='+this.formItem.cph+'&yf='+this.formItem.yf )
       }
     },
     mounted () {

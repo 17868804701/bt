@@ -56,6 +56,8 @@
           current: 1,
           size: 10,
           tjsj: '',
+          nd: '',
+          yf: '',
           dw: '',
           _dw: '',
           lb: '',
@@ -166,11 +168,7 @@
             } else {
               res.data.records.forEach(item=>{
                 console.log(item.tjsj)
-                if(item.tjsj==null){
-                  item.tjsj = '--'
-                }else {
-                  item.tjsj = this.$formatDate(item.tjsj).substring(0,7)
-                }
+                item.tjsj = item.nd+'-'+item.yf
               });
               this.data12 = res.data.records;
               this.totalPage1 = res.data.total;
@@ -190,9 +188,11 @@
         this.formItem1.dw  = this.$store.state.dictData.parseDict.EJGS[ this.formItem1._dw];
         this.formItem1.lb  = this.$store.state.dictData.parseDict.LB[ this.formItem1._lb];
         if(this.formItem1.tjsj==''){
-            this.formItem1.tjsj=''
+          this.formItem1.nd = ''
+          this.formItem1.yf = ''
         }else {
-            this.formItem1.tjsj = this.$formatDate(this.formItem1.tjsj).substring(0,7)
+            this.formItem1.nd = this.$formatDate(this.formItem1.tjsj).substring(0,4)
+            this.formItem1.yf = this.$formatDate(this.formItem1.tjsj).substring(5,7)
         }
         this.getList()
       },
@@ -216,11 +216,13 @@
           this.formItem1.lb  = this.$store.state.dictData.parseDict.LB[this.formItem1._lb];
         }
         if (this.formItem1.tjsj == '') {
-          this.formItem1.tjsj = ''
+          this.formItem1.nd = ''
+          this.formItem1.yf = ''
         } else {
-          this.formItem1.tjsj = this.$formatDate(this.formItem1.tjsj).substring(0, 7)
+          this.formItem1.nd = this.$formatDate(this.formItem1.tjsj).substring(0, 4)
+          this.formItem1.yf = this.$formatDate(this.formItem1.tjsj).substring(5, 7)
         }
-        this.$getExcel(process.env.BASE_URL + this.$url.jtdnListdaochu + '?tjsj=' + this.formItem1.tjsj+'&dw='+this.formItem1.dw+'&lb='+this.formItem1.lb+'&cph='+this.formItem1.cph )
+        this.$getExcel(process.env.BASE_URL + this.$url.jtdnListdaochu + '?nd=' + this.formItem1.nd+'&dw='+this.formItem1.dw+'&lb='+this.formItem1.lb+'&cph='+this.formItem1.cph+'&yf='+this.formItem1.yf )
       }
     },
     mounted () {

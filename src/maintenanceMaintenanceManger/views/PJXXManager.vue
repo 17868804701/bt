@@ -77,6 +77,7 @@
           </FormItem>
         </Form>
       </Card>
+        <span style="color: red;display: inline-block;margin-top: 10px;">*备注：在录入备料信息的时候单位那个字段填写规格、单位两个值，写在一起，规格在前，单位在后，中间用‘-’分开  如“15w/40-kg”</span>
       <Table style="margin-top: 10px;" :data="tableData" :columns="columns" border></Table>
       <Page :total="totalSize" show-total style="margin-top: 10px;" @on-change="setPage"></Page>
     </div>
