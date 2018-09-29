@@ -113,13 +113,13 @@
                 children: [
                   {
                     title: '经损含追加(元)',
-                    key: 'js',
+                    key: 'khjs',
                     align: 'center',
                     width: 120,
                   },
                   {
                     title: '经损率(元/万公里)',
-                    key: 'jsl',
+                    key: 'khjsl',
                     align: 'center',
                     width: 120,
                   },

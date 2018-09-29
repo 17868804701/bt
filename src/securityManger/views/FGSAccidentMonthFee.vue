@@ -43,7 +43,7 @@
             width: 120,
           },
           {
-            title: '运营里程(百万公里)',
+            title: '运营里程(公里)',
             key: 'yylc',
             align: 'center',
             width: 120,
