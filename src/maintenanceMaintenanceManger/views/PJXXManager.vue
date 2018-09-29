@@ -37,6 +37,7 @@
           <Button type="primary" style="float: right;margin-right: 10px" @click="cancle">取消</Button>
         </div>
         <div style="padding: 0px; height: 100%;">
+          <span style="color: red;margin-left: 20px;display: inline-block;margin-bottom: 20px;">*备注：在录入备料信息的时候单位那个字段填写规格、单位两个值，写在一起，规格在前，单位在后，中间用‘-’分开 如“15w/40-kg”</span>
           <Form :model="pjxx" ref="pjxx" :rules="ruleValidate" :label-width="90">
             <div style="display: flex;flex-wrap: wrap;justify-content: flex-start;">
               <FormItem prop="spbm" label="商品编码" style="margin-top: 0px;">

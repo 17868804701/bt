@@ -52,7 +52,9 @@
         </div>
         <div>
           <Form :model="add" ref="add" :rules="ruleValidate" :label-width="80">
+            <span style="color: red;display: inline-block;margin-left: 35px;margin-bottom: 20px;">*备注：选择物品的时候，输入物品编号即可，其他相关信息自动回填</span>
             <div style="display: flex;flex-wrap: wrap">
+
               <FormItem label="单位" prop="dw">
                 <!--<Select v-model="add.dw" style="width: 195px;">-->
                   <!--<Option value="公交一公司">公交一公司</Option>-->
@@ -78,19 +80,19 @@
                 <Input v-model="add.wpbh" placeholder="物品编号" style="width: 195px;" @on-blur="change"/>
               </FormItem>
               <FormItem label="物品名称" prop="wpmc">
-                <Input v-model="add.wpmc" placeholder="物品编号" style="width: 195px;" :disabled="true"/>
+                <Input v-model="add.wpmc" placeholder="物品名称" style="width: 195px;" readonly="true"/>
               </FormItem>
               <FormItem label="供货单位" prop="ghdw">
-                <Input v-model="add.ghdw" placeholder="物品编号" style="width: 195px;" :disabled="true"/>
+                <Input v-model="add.ghdw" placeholder="物品编号" style="width: 195px;" readonly="true"/>
               </FormItem>
               <FormItem label="规格">
-                <Input v-model="add.gg" placeholder="规格" style="width: 195px;" :disabled="true"/>
+                <Input v-model="add.gg" placeholder="规格" style="width: 195px;" readonly="true"/>
               </FormItem>
               <FormItem label="计量单位">
-                <Input v-model="add.jldw" placeholder="物品编号" style="width: 195px;" :disabled="true"/>
+                <Input v-model="add.jldw" placeholder="物品编号" style="width: 195px;" readonly="true"/>
               </FormItem>
               <FormItem label="单价" prop="dj">
-                <Input v-model="add.dj" placeholder="单价" style="width: 195px;" :disabled="true"/>
+                <Input v-model="add.dj" placeholder="单价" style="width: 195px;" readonly="true"/>
               </FormItem>
               <FormItem label="品牌型号" prop="ppxh">
                 <Input v-model="add.ppxh" placeholder="品牌型号" style="width: 195px;"/>
@@ -166,15 +168,15 @@
           ], dw: [
             {required: true, message: '必填项必填', trigger: 'blur'}
           ],
-          wpmc: [
-            {required: true, message: '必填项必填', trigger: 'blur'}
-          ],
+          // wpmc: [
+          //   {required: true, message: '必填项必填', trigger: 'blur'}
+          // ],
           llsl: [
             {required: true, message: '必填项必填', trigger: 'blur'}
           ],
-          ghdw: [
-            {required: true, message: '必填项必填', trigger: 'blur'}
-          ],
+          // ghdw: [
+          //   {required: true, message: '必填项必填', trigger: 'blur'}
+          // ],
           ppxh: [
             {required: true, message: '必填项必填', trigger: 'blur'}
           ],
@@ -203,6 +205,13 @@
             key: 'dw',
             align: 'center',
             width: 100,
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.EJGS[params.row.dw];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '车号',

@@ -10,13 +10,13 @@
                 <DatePicker type="month" placeholder="选择时间" :transfer="true" placement="bottom-end"
                             v-model="formItem.tjsj"></DatePicker>
               </FormItem>
-              <FormItem label="公司" style="margin: 0 " prop="_ejdw">
-                <!--<Select v-model="formItem.ejdw" style="width: 195px;">-->
+              <FormItem label="公司" style="margin: 0 " prop="_dw">
+                <!--<Select v-model="formItem.dw" style="width: 195px;">-->
                   <!--<Option value="">全部</Option>-->
                   <!--<Option value="公交一公司">公交一公司</Option>-->
                   <!--<Option value="公交二公司">公交二公司</Option>-->
                 <!--</Select>-->
-                <CommonSelect type="EJGS"  :selectValue="formItem._ejdw" style="width: 180px;"></CommonSelect>
+                <CommonSelect type="EJGS"  :selectValue="formItem._dw" style="width: 180px;"></CommonSelect>
               </FormItem>
 
               <FormItem label="燃料来源" style="margin: 0">
@@ -44,7 +44,7 @@
 
       <Table :columns="columns11" :data="data10" ref="selection" border height="500" style="margin-top: 35px;" size="small">
         <div slot="header" style="text-align: center">
-          <span style="font-size: 16px;">{{tjsj}}{{ejdw}}天然气汇总</span>
+          <span style="font-size: 16px;">{{tjsj}}{{dw}}天然气汇总</span>
         </div>
       </Table>
       <Page :total="totalPage" show-total style="margin-top: 10px;" @on-change="setpPage1"></Page>
@@ -66,11 +66,11 @@
         zrsjj:'',
         htsjj:'',
         tjsj:'',
-        ejdw:'',
+        dw:'',
         rlly:'全部',
         formItem: {
-          ejdw: '',
-          _ejdw: '',
+          dw: '',
+          _dw: '',
           tjsj: '',
           rlly:'',
           current:1,
@@ -79,11 +79,18 @@
 
         columns11: [
           {
+            title: '单位',
+            key: 'dw',
+            align: 'center',
+            width: 150,
+          },
+          {
             title: '线路',
             key: 'xl',
             align: 'center',
             width: 150,
           },
+
           {
             title: '合计',
             key: 'ch',
@@ -207,7 +214,7 @@
         this.getList()
       },
       chaxun1:function () {
-        this.formItem.ejdw  = this.$store.state.dictData.parseDict.EJGS[ this.formItem._ejdw];
+        this.formItem.dw  = this.$store.state.dictData.parseDict.EJGS[ this.formItem._dw];
         if(this.formItem.tjsj==''){
           this.formItem.tjsj = ''
         }else {
@@ -215,21 +222,21 @@
         }
         console.log(this.formItem)
         this.tjsj = this.formItem.tjsj
-        this.ejdw = this.formItem.ejdw
+        this.dw = this.formItem.dw
         this.getList()
       },
       daochu1:function () {
-        if(this.formItem._ejdw==''){
-          this.formItem.ejdw = ''
+        if(this.formItem._dw==''){
+          this.formItem.dw = ''
         }else {
-          this.formItem.ejdw  = this.$store.state.dictData.parseDict.EJGS[this.formItem._ejdw];
+          this.formItem.dw  = this.$store.state.dictData.parseDict.EJGS[this.formItem._dw];
         }
         if(this.formItem.tjsj==''){
           this.formItem.tjsj = ''
         }else {
           this.formItem.tjsj = this.$formatDate(this.formItem.tjsj).substring(0,7)
         }
-        this.$getExcel(process.env.BASE_URL + this.$url.daochufgstrq + '?tjsj=' + this.formItem.tjsj+'&ejdw='+this.formItem.ejdw+'&rlly='+ this.formItem.rlly)
+        this.$getExcel(process.env.BASE_URL + this.$url.daochufgstrq + '?tjsj=' + this.formItem.tjsj+'&dw='+this.formItem.dw+'&rlly='+ this.formItem.rlly)
       }
     },
     mounted () {

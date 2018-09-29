@@ -45,7 +45,7 @@
         columns12: [
           {
             title: '二级单位',
-            key: 'ejdw',
+            key: 'dw',
             align: 'center',
             width: 100,
           },
