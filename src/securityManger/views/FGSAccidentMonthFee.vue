@@ -183,11 +183,15 @@
           nf: year,
           yf: month,
         }
+        let allDict = this.$store.state.dictData.parseDict;
         let that = this;
         this.$fetch(this.$url.security_GFGSJTSG_list, params)
         .then(res => {
           this.getTableTitle();
           if (res.success === true) {
+            res.data.forEach(item => {
+              item.dw = allDict.EJGS[item.dw];
+            })
             that.tableData = res.data;
           }else{
             that.$Message.error(res.message);

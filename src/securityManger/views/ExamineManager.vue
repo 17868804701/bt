@@ -246,194 +246,6 @@
                 ]
               },
               {
-                title: '单位',
-                key: 'dw',
-                align: 'center',
-                width: 100,
-                sortable: true
-              },
-              {
-                title: '运营里程(公里)',
-                key: 'yylc',
-                align: 'center',
-                width: 150,
-                sortable: true
-              },
-              {
-                title: '行车责任事故',
-                align: 'center',
-                children: [
-                  {
-                    title: '一般',
-                    key: 'ybsg',
-                    align: 'center',
-                    width: 90,
-                  },
-                  {
-                    title: '一级轻微',
-                    key: 'yjqw',
-                    align: 'center',
-                    width: 90,
-                  },
-                  {
-                    title: '二级轻微',
-                    key: 'ejqw',
-                    align: 'center',
-                    width: 90,
-                  },
-                  {
-                    title: '三级轻微',
-                    key: 'sjqw',
-                    align: 'center',
-                    width: 90,
-                  },
-                  {
-                    title: '扣分',
-                    key: 'xczrsgKf',
-                    align: 'center',
-                    width: 90,
-                  },
-                ]
-              },
-              {
-                title: '事故损失',
-                align: 'center',
-                children: [
-                  {
-                    title: '经损含追加(元)',
-                    key: 'js',
-                    align: 'center',
-                    width: 120,
-                  },
-                  {
-                    title: '经损率(元/万公里)',
-                    key: 'jsl',
-                    align: 'center',
-                    width: 120,
-                  },
-                  {
-                    title: '扣分',
-                    key: 'sgssKf',
-                    align: 'center',
-                    width: 90,
-                  },
-                ]
-              },
-              {
-                title: '运营安全体系执行规范',
-                align: 'center',
-                children: [
-                  {
-                    title: '安全教育及管理制度落实',
-                    align: 'center',
-                    children: [
-                      {
-                        title: '职工安全教育',
-                        key: 'zgaqjy',
-                        align: 'center',
-                        width: 80,
-                      },
-                      {
-                        title: '安全宣传',
-                        key: 'aqxc',
-                        align: 'center',
-                        width: 80,
-                      },
-                      {
-                        title: '安全例会',
-                        key: 'aqlh',
-                        align: 'center',
-                        width: 80,
-                      },
-                      {
-                        title: '线路安全稽查',
-                        key: 'xlanqjc',
-                        align: 'center',
-                        width: 80,
-                      },
-                      {
-                        title: '酒精检测',
-                        key: 'jjjc',
-                        align: 'center',
-                        width: 80,
-                      },
-                      {
-                        title: '四不放过',
-                        key: 'sbfg',
-                        align: 'center',
-                        width: 80,
-                      },
-                      {
-                        title: '安全标准化',
-                        key: 'aqbzh',
-                        align: 'center',
-                        width: 80,
-                      },
-                    ]
-                  },
-                  {
-                    title: '驾驶员安全管理',
-                    align: 'center',
-                    children: [
-                      {
-                        title: '吸烟',
-                        key: 'xy',
-                        align: 'center',
-                        width: 90,
-                      },
-                      {
-                        title: '接打手机',
-                        key: 'jdsj',
-                        align: 'center',
-                        width: 90,
-                      },
-                      {
-                        title: '闯信号',
-                        key: 'cxh',
-                        align: 'center',
-                        width: 90,
-                      },
-                      {
-                        title: '未礼让斑马线',
-                        key: 'wlrbmx',
-                        align: 'center',
-                        width: 90,
-                      },
-                      {
-                        title: '超速行驶',
-                        key: 'csxs',
-                        align: 'center',
-                        width: 90,
-                      },
-                      {
-                        title: '驾驶中闲谈',
-                        key: 'jszxt',
-                        align: 'center',
-                        width: 90,
-                      },
-                    ]
-                  },
-                  {
-                    title: '车辆安全管理',
-                    align: 'center',
-                    children: [
-                      {
-                        title: '行车十检',
-                        key: 'xcsj',
-                        align: 'center',
-                        width: 90,
-                      },
-                      {
-                        title: '车辆安全设施抽检',
-                        key: 'claqsscj',
-                        align: 'center',
-                        width: 90,
-                      },
-                    ]
-                  },
-                ]
-              },
-              {
                 title: '总计扣分(含追加扣分及加分)',
                 key: 'zjkf',
                 align: 'center',
@@ -566,6 +378,7 @@
           month: month
         }
         this.getTableTitle();
+        let allDict = this.$store.state.dictData.parseDict;
         let that = this;
         this.$fetch(this.$url.security_AQGLYKH_list, params)
         .then(res => {
@@ -573,6 +386,7 @@
             res.data.forEach(item => {
               item.gxsj = DateTool.timesToDate(item.gxsj);
               item.khsj = DateTool.timesToDate(item.khsj);
+              item.dw = allDict.EJGS[item.dw];
             })
             that.tableData = res.data;
           }else{

@@ -309,10 +309,11 @@
             params.fgs = attr;
           }
         }
+        debugger
         if (params.bylb.length > 0) {
           params.bylb = params.bylb.join('、');
         }
-
+        debugger
         var that = this;
         this.$post(this.$url.maintain_BYGL_CLBY_saveRecord, params)
         .then(res => {
