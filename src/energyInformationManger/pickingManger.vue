@@ -80,19 +80,19 @@
                 <Input v-model="add.wpbh" placeholder="物品编号" style="width: 195px;" @on-blur="change"/>
               </FormItem>
               <FormItem label="物品名称" prop="wpmc">
-                <Input v-model="add.wpmc" placeholder="物品名称" style="width: 195px;" readonly="true"/>
+                <Input v-model="add.wpmc" placeholder="物品名称" style="width: 195px;" :readonly="true"/>
               </FormItem>
               <FormItem label="供货单位" prop="ghdw">
-                <Input v-model="add.ghdw" placeholder="物品编号" style="width: 195px;" readonly="true"/>
+                <Input v-model="add.ghdw" placeholder="物品编号" style="width: 195px;" :readonly="true"/>
               </FormItem>
               <FormItem label="规格">
-                <Input v-model="add.gg" placeholder="规格" style="width: 195px;" readonly="true"/>
+                <Input v-model="add.gg" placeholder="规格" style="width: 195px;" :readonly="true"/>
               </FormItem>
               <FormItem label="计量单位">
-                <Input v-model="add.jldw" placeholder="物品编号" style="width: 195px;" readonly="true"/>
+                <Input v-model="add.jldw" placeholder="物品编号" style="width: 195px;" :readonly="true"/>
               </FormItem>
               <FormItem label="单价" prop="dj">
-                <Input v-model="add.dj" placeholder="单价" style="width: 195px;" readonly="true"/>
+                <Input v-model="add.dj" placeholder="单价" style="width: 195px;" :readonly="true"/>
               </FormItem>
               <FormItem label="品牌型号" prop="ppxh">
                 <Input v-model="add.ppxh" placeholder="品牌型号" style="width: 195px;"/>

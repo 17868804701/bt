@@ -35,8 +35,11 @@
       <Form :model="formItem1" :label-width="110">
         <div class="search">
           <FormItem label="选择时间" style="margin: 0">
-            <DatePicker type="daterange" placeholder="选择时间" :transfer="true" v-model="formItem1.startTime"
+            <DatePicker type="daterange" placeholder="选择时间" :transfer="true" v-model="time"
                         class="text_width"></DatePicker>
+          </FormItem>
+          <FormItem label="部门" style="margin-bottom: 0px" prop="bm">
+            <CommonSelect type="EJGS"  :selectValue="formItem1.bm" style="width: 180px;"></CommonSelect>
           </FormItem>
           <Button type="primary" icon="ios-search" class="search_btn" @click="search2" v-has="'kfxxlbym_dwcllb_search'">
             查询
@@ -72,12 +75,18 @@
 </template>
 <script>
   import * as DateTool from '../../../utils/DateTool'
+  import CommonSelect from '../../components/common/CommonSelect.vue'
   export default {
+    components: {
+      CommonSelect,
+    },
     data () {
       return {
+        time:'',
         formItem1: {
           current: 1,
           size: 10,
+          bm:'',
           startTime: '',
           endTime: ''
         },
@@ -94,7 +103,19 @@
             type: 'selection',
             width: 60,
             align: 'center',
-
+          },
+          {
+            title: '部门',
+            key: 'bm',
+            align: 'center',
+            width: 120,
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.EJGS[params.row.bm];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '投诉时间',
@@ -182,28 +203,31 @@
             key: 'jlr',
             align: 'center',
             width: 120,
-          }, {
-            title: '状态',
-            key: 'zt',
-            align: 'center',
-            width: 120,
-            render: (h, params) => {
-              let texts = '';
-              if (params.row.zt == 1) {
-                texts = '处理中'
-              } else if (params.row.zt == 2) {
-                texts = '处理完成'
-              }
-              return h('div', {
-                props: {},
-              }, texts)
-            }
-          }, {
-            title: '处理结果',
-            key: 'cljg',
-            align: 'center',
-            width: 120,
-          }, {
+          },
+          // {
+          //   title: '状态',
+          //   key: 'zt',
+          //   align: 'center',
+          //   width: 120,
+          //   render: (h, params) => {
+          //     let texts = '';
+          //     if (params.row.zt == 1) {
+          //       texts = '处理中'
+          //     } else if (params.row.zt == 2) {
+          //       texts = '处理完成'
+          //     }
+          //     return h('div', {
+          //       props: {},
+          //     }, texts)
+          //   }
+          // },
+          // {
+          //   title: '处理结果',
+          //   key: 'cljg',
+          //   align: 'center',
+          //   width: 120,
+          // },
+          {
             title: '备注',
             key: 'bz',
             align: 'center',
@@ -283,17 +307,30 @@
           })
       },
       search2: function () {
-        if (this.formItem1.startTime[0] == '') {
-          this.formItem1.startTime = '',
-            this.formItem1.endTime = '',
-            this.getList()
+        this.formItem1.startTime = this.time[0];
+        this.formItem1.endTime = this.time[1];
+        if (this.formItem1.startTime === '') {
+          this.formItem1.startTime = ''
         } else {
-          let start1 = DateTool.timesToDate(this.formItem1.startTime[0]);
-          let end2 = DateTool.timesToDate(this.formItem1.startTime[1]);
-          this.formItem1.startTime = start1;
-          this.formItem1.endTime = end2;
-          this.getList()
+          this.formItem1.startTime = this.$formatDate(this.formItem1.startTime).substring(0, 10)
         }
+        if (this.formItem1.endTime === '') {
+          this.formItem1.endTime = ''
+        } else {
+          this.formItem1.endTime = this.$formatDate(this.formItem1.endTime).substring(0, 10)
+        }
+        this.getList()
+        // if (this.time == '') {
+        //     this.formItem1.startTime = '',
+        //     this.formItem1.endTime = '',
+        //     this.getList()
+        // } else {
+        //   let start1 = DateTool.timesToDate(this.formItem1.startTime[0]);
+        //   let end2 = DateTool.timesToDate(this.formItem1.startTime[1]);
+        //   this.formItem1.startTime = start1;
+        //   this.formItem1.endTime = end2;
+        //   this.getList()
+        // }
       },
       setp1: function (current) {
         this.formItem1.current = current;

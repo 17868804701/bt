@@ -16,9 +16,9 @@
             <Button type="primary" icon="android-download"
                     style="float: right;margin-right: 10px" @click="daochu" v-has="'srjhzd_fgssr_export'">导出Excel
             </Button>
-            <Button type="primary" icon="plus" @click="addProgram=true"
-                    style="float: right;margin-right: 10px;" v-has="'srjhzd_fgssr_add'">新增
-            </Button>
+            <!--<Button type="primary" icon="plus" @click="addProgram=true"-->
+                    <!--style="float: right;margin-right: 10px;" v-has="'srjhzd_fgssr_add'">新增-->
+            <!--</Button>-->
           </FormItem>
           </Col>
         </Row>

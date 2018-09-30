@@ -148,7 +148,7 @@
           },
           {
             title: '本月累计考核事故',
-            key: 'bykhsgSum',
+            key: 'bnkhsg',
             align: 'center',
             width: 120,
             sortable: true,

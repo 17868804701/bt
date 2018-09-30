@@ -18,6 +18,9 @@ const NetworkInterface = {
   userManager_importExcel: '/erp-modules-yygl/userInfo/importExcel', // 导入员工信息
   userManager_userChangeList: '/erp-modules-yygl/userInfo/getHis', // 员工变更记录
   userManager_counts: '/erp-modules-yygl/userInfo/getCount', // 员工数据统计
+  upload_tpl:'/weix/templateDownload/exportTemplate',
+
+  zzjg:'/auth/group/trees',
 
 
   // ********** 安全事故管理 ********** //

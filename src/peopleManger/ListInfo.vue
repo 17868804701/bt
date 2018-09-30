@@ -163,35 +163,21 @@
           </Button>
         </div>
         <div style="display: flex;flex-wrap: wrap">
-
           <FormItem :label-width="120" label="单位" prop="dw">
-            <!--<Select :disabled="isEdit_dwxx" v-model="formItem.dw" style="width: 170px;">-->
-              <!--<Option value="集团公司">集团公司</Option>-->
-              <!--<Option value="公交一公司">公交一公司</Option>-->
-              <!--<Option value="公交二公司">公交二公司</Option>-->
-              <!--<Option value="公交三公司">公交三公司</Option>-->
-              <!--<Option value="公交四公司">公交四公司</Option>-->
-              <!--<Option value="公交五公司">公交五公司</Option>-->
-              <!--<Option value="公交六公司">公交六公司</Option>-->
-              <!--<Option value="长客公司">长客公司</Option>-->
-              <!--<Option value="点钞中心">点钞中心</Option>-->
-              <!--<Option value="培训中心">培训中心</Option>-->
-              <!--<Option value="稽查大队">稽查大队</Option>-->
-              <!--<Option value="站管中心">站管中心</Option>-->
-              <!--<Option value="维修公司">维修公司</Option>-->
-            <!--</Select>-->
             <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.dw" placeholder="单位" class="input_item"/>
-            <CommonSelect type="EJGS"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.dw"  class="input_item"></CommonSelect>
+
+            <Select :disabled="isEdit_dwxx" v-model="formItem.dw" style="width: 170px;" @on-change="dw_change" v-show="!isEdit_dwxx">
+                <Option v-for="(item,index) in zzjgList" :value="item.groupname+'-'+item.groupid" v-show="item.grouptype=='EJGS'||item.grouptype=='JTGS'" :key="index">{{item.groupname}}</Option>
+            </Select>
+            <!--<CommonSelect type="EJGS"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.dw"  class="input_item"></CommonSelect>-->
           </FormItem>
           <FormItem :label-width="120" label="部门" prop="bm">
-            <!--<Select :disabled="isEdit_dwxx" v-model="formItem.bm" style="width: 170px;">-->
-              <!--<Option value="企管部">企管部</Option>-->
-              <!--<Option value="稽查部">稽查部</Option>-->
-              <!--<Option value="运营部">运营部</Option>-->
-              <!--<Option value="劳资部">劳资部</Option>-->
-            <!--</Select>-->
             <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.bm" placeholder="部门" class="input_item"/>
-            <CommonSelect type="EJBM"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.bm"  class="input_item"></CommonSelect>
+
+            <Select :disabled="isEdit_dwxx" v-model="formItem.bm" style="width: 170px;" v-show="!isEdit_dwxx">
+              <Option v-for="(item,index) in bmArray" :value="item.groupname" :key="index">{{item.groupname}}</Option>
+            </Select>
+
           </FormItem>
 
           <FormItem :label-width="120" label="专业技术职称">
@@ -337,6 +323,8 @@
     },
     data () {
       return {
+        gpId:'',
+        bmArray:[],
         nations: ["汉族", "蒙古族", "回族", "藏族", "维吾尔族", "苗族", "彝族", "壮族", "布依族", "朝鲜族", "满族", "侗族", "瑶族", "白族", "土家族",
           "哈尼族", "哈萨克族", "傣族", "黎族", "傈僳族", "佤族", "畲族", "高山族", "拉祜族", "水族", "东乡族", "纳西族", "景颇族", "柯尔克孜族",
           "土族", "达斡尔族", "仫佬族", "羌族", "布朗族", "撒拉族", "毛南族", "仡佬族", "锡伯族", "阿昌族", "普米族", "塔吉克族", "怒族", "乌孜别克族",
@@ -344,6 +332,7 @@
         isEdit_jbxx: true,
         isEdit_dwxx: true,
         isEdit_gjj: true,
+        zzjgList:[],
         imgUrl: '',
         personId: '',
         uploadFile: process.env.upload_BASE_URL + "file/upload",  //文件上传的接口地址
@@ -426,10 +415,16 @@
         value: '1',
         header: {
           'Authorization': 'bearer ' + VueCookie.get('access_token')
-        }
+        },
       }
     },
     methods: {
+      getZzjg(){
+        this.$fetch(this.$url.zzjg)
+          .then(res => {
+            this.zzjgList = res.data
+          })
+      },
       handleSuccess: function (res) {
         let that = this
         if (res.success === true) {
@@ -501,6 +496,7 @@
         this.$refs[name].validate((valid) => {
           if (valid) {
             //console.log('结果', this.formItem);
+            this.formItem.dw = item.split('-')[0];
             this.formItem.xl = this.$store.state.dictData.parseDict.RYXX.RYXX_XLDM[this.formItem.xl];
             this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];
             this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
@@ -529,10 +525,9 @@
       ok: function () {
         this.update();
       },
-
-
       update: function () {
         let url = this.$url.userManager_updateUserInfo + '?bgyy=' + this.bgyy;
+        this.formItem.dw = item.split('-')[0];
         this.formItem.xl = this.$store.state.dictData.parseDict.RYXX.RYXX_XLDM[this.formItem.xl];
         this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];
         this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
@@ -565,9 +560,25 @@
 
             }
           })
+      },
+      dw_change:function (item) {
+        this.gpId = item.split('-')[1];
+        let tempArr = [];
+        this.bmArray = [];
+        for(let i in this.zzjgList){
+          if(this.zzjgList[i].grouptype==='EJGS'){
+            continue;
+          }else {
+            if(this.zzjgList[i].pid == this.gpId){
+              tempArr.push(this.zzjgList[i])
+            }
+          }
+        }
+        this.bmArray.push(...tempArr);
       }
     },
     mounted () {
+      this.getZzjg()
       this.imgUrl = process.env.upload_BASE_URL;
       let tip = this.$route.query.tip;
       if (tip === 'add') {
@@ -578,16 +589,16 @@
         this.formItem = this.$route.query.row;
         this.personId = this.$route.query.row.id || '';
         this.getLog();
-        this.formItem.gzsj = this.formatDate(new Date(new Date(this.$route.query.row.gzsj).getTime()));
-        this.formItem.lrsj = this.formatDate(new Date(new Date(this.$route.query.row.lrsj).getTime()));
-        this.formItem.rdsj = this.formatDate(new Date(new Date(this.$route.query.row.rdsj).getTime()));
-        this.formItem.gjjkhsj = this.formatDate(new Date(new Date(this.$route.query.row.gjjkhsj).getTime()));
-        this.formItem.qdsj = this.formatDate(new Date(new Date(this.$route.query.row.qdsj).getTime()));
-        this.formItem.bdwgzsj = this.formatDate(new Date(new Date(this.$route.query.row.bdwgzsj).getTime()));
-        this.formItem.txsj = this.formatDate(new Date(new Date(this.$route.query.row.txsj).getTime()));
-        this.formItem.htkssj = this.formatDate(new Date(new Date(this.$route.query.row.htkssj).getTime()));
-        this.formItem.htjssj = this.formatDate(new Date(new Date(this.$route.query.row.htjssj).getTime()));
-        this.formItem.csny = this.formatDate(new Date(new Date(this.$route.query.row.csny).getTime()));
+        // this.formItem.gzsj = this.formatDate(new Date(new Date(this.$route.query.row.gzsj).getTime()));
+        // this.formItem.lrsj = this.formatDate(new Date(new Date(this.$route.query.row.lrsj).getTime()));
+        // this.formItem.rdsj = this.formatDate(new Date(new Date(this.$route.query.row.rdsj).getTime()));
+        // this.formItem.gjjkhsj = this.formatDate(new Date(new Date(this.$route.query.row.gjjkhsj).getTime()));
+        // this.formItem.qdsj = this.formatDate(new Date(new Date(this.$route.query.row.qdsj).getTime()));
+        // this.formItem.bdwgzsj = this.formatDate(new Date(new Date(this.$route.query.row.bdwgzsj).getTime()));
+        // this.formItem.txsj = this.formatDate(new Date(new Date(this.$route.query.row.txsj).getTime()));
+        // this.formItem.htkssj = this.formatDate(new Date(new Date(this.$route.query.row.htkssj).getTime()));
+        // this.formItem.htjssj = this.formatDate(new Date(new Date(this.$route.query.row.htjssj).getTime()));
+        // this.formItem.csny = this.formatDate(new Date(new Date(this.$route.query.row.csny).getTime()));
       }
     }
   }

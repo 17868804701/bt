@@ -98,18 +98,17 @@
       width="400"
       :mask-closable="false"
       style="height:auto;">
-      <Steps :current="0" direction="vertical">
+      <Steps :current="1" direction="vertical">
         <Step title="第一步" content="下载导入报表模板"></Step>
         <Step title="第二步" content="上传报表"></Step>
-        <Step title="第三部" content="系统自动导入"></Step>
+        <!--<Step title="第三部" content="系统自动导入"></Step>-->
       </Steps>
       <div style="display: flex;flex-direction: column;position: absolute;top:90px;margin-left: 240px;">
         <Button type="dashed" icon="android-download"
-                style="margin-bottom: 10px;margin-top: -15px;width: 110px;">下载
+                style="margin-bottom: 10px;margin-top: -15px;width: 110px;" @click="upLoadMB">下载
         </Button>
-        <Upload :headers="header" :action='uploadFile' :on-success="handleSuccess" :show-upload-list="false">
-          <Button type="primary" icon="ios-cloud-upload-outline" style="width: 110px;margin-top: 17px;">上传
-          </Button>
+        <Upload :headers="header" :action='uploadFiles' name="multipartFile" :on-success="handleSuccess" :on-error="error" :show-upload-list="false" :format ="['xls']">
+          <Button type="primary" icon="ios-cloud-upload-outline" style="width: 110px;margin-top: 17px;">上传</Button>
         </Upload>
       </div>
     </Modal>
@@ -198,7 +197,9 @@
 //          查询区域
         exports: false,
         modal1: false,
-        uploadFile: process.env.BASE_URL + "/person/userInfo/importExcel",  //文件上传的接口地址
+        uploadFiles: process.env.BASE_URL + "/erp-modules-yygl/userInfo/importExcel",
+
+        // uploadFile: process.env.BASE_URL + "/person/userInfo/importExcel",  //文件上传的接口地址
         postList: ['全部', '公司领导', '二级', '三级', '主任科员', '一般管理', '辅助', '司机', '修理', '其他在岗', '内退', '病假', '产假', '女工长假', '下岗', '工伤', '待岗', '停薪', '外借', '其他不在岗',],
         getLetters: [],
         letterArray: ['全部', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '清除'],
@@ -278,19 +279,36 @@
       }
     },
     methods: {
-//      人员信息导入
-      handleSuccess: function (res) {
+      // 下载模板
+      upLoadMB(){
+        // alert(111111111)
+        this.$getExcel(process.env.BASE_URL + this.$url.upload_tpl+"?tmpName='RYXXGL'");
+      },
+      error:function(res){
+        console.log(res)
+      },
+      handleSuccess:function(res) {
         console.log(res)
         if (res.success === true) {
-          console.log(res.path)
-          this.$fetch(this.$url.userManager_importExcel, this.cxItem)
-            .then(res => {
-
-            })
-        } else {
-
+          this.$Message.success('上传导入成功');
+          this.exports = false;
+        }else{
+          this.$Message.error('上传失败');
         }
       },
+//      人员信息导入
+//       handleSuccess: function (res) {
+//         console.log(res)
+//         if (res.success === true) {
+//           console.log(res.path)
+//           this.$fetch(this.$url.userManager_importExcel, this.cxItem)
+//             .then(res => {
+//
+//             })
+//         } else {
+//
+//         }
+//       },
       getTable2Columns () {
         const table2ColumnList = {
           rybh: {

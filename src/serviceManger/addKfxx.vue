@@ -45,11 +45,11 @@
             <CommonSelect type="LB"  :selectValue="formItem.xl" style="width: 195px;"></CommonSelect>
           </FormItem>
           <FormItem label="记录部门" style="margin-bottom: 25px" prop="jlbm">
-            <!--<Select v-model="formItem.jlbm" :transfer="true" style="width: 195px;">-->
-              <!--<Option value="运营部">运营部</Option>-->
-              <!--<Option value="责任公司">责任公司</Option>-->
-            <!--</Select>-->
-            <CommonSelect type="EJBM"  :selectValue="formItem.jlbm" style="width: 195px;"></CommonSelect>
+            <Select v-model="formItem.jlbm" :transfer="true" style="width: 195px;">
+              <Option value="运营部">运营部</Option>
+              <Option value="客服中心">客服中心</Option>
+            </Select>
+            <!--<CommonSelect type="EJBM"  :selectValue="formItem.jlbm" style="width: 195px;"></CommonSelect>-->
           </FormItem>
           <FormItem label="记录人" style="margin-bottom: 25px" prop="jlr">
             <Input v-model="formItem.jlr" placeholder="记录人" class="text_width"/>
@@ -89,7 +89,7 @@
               <Option value="2">普通事件</Option>
             </Select>
           </FormItem>
-          <FormItem label="状态" style="margin-bottom: 25px" v-show="this.formItem.sjlb!=2&&this.formItem.lfxs!=1">
+          <FormItem label="状态" style="margin-bottom: 25px" v-show="this.formItem.lfxs!=1">
             <Select v-model="formItem.zt" :transfer="true" style="width: 195px;">
               <Option value="1">处理中</Option>
               <Option value="2">处理完成</Option>
@@ -213,6 +213,7 @@
                 //console.log(res);
                 if (res.success == true) {
                   this.$Message.info("添加成功")
+                  this.$router.push({path: '/kfxxList',})
                 } else {
                   this.$Message.error("添加失败")
                 }
