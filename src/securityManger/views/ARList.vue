@@ -288,7 +288,7 @@
         return 'status-la';
       },
       search() {
-        this.formItem.currPage = 1;
+      	this.searchOptions.current = 1;
         this.requestListData();
       },
       confirmAddLoss() {
