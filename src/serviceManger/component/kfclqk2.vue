@@ -37,13 +37,13 @@
             <DatePicker type="month" placeholder="选择时间" :transfer="true" v-model="fgstsqkfl.tssj"
                         class="text_width"></DatePicker>
           </FormItem>
-          <FormItem label="选择公司" style="margin: 0" prop="_bm">
+          <FormItem label="选择公司" style="margin: 0" prop="bm">
             <!--<Select v-model="fgstsqkfl.bm" :transfer="true" style="width: 195px;">-->
               <!--<Option value="公交一公司">公交一公司</Option>-->
               <!--<Option value="公交二公司">公交二公司</Option>-->
               <!--<Option value="公交三公司">公交三公司</Option>-->
             <!--</Select>-->
-            <CommonSelect type="EJGS"  :selectValue="fgstsqkfl._bm" style="width: 180px;"></CommonSelect>
+            <CommonSelect type="EJGS"  :selectValue="fgstsqkfl.bm" style="width: 180px;"></CommonSelect>
           </FormItem>
           <Button type="primary" icon="ios-search" class="search_btn" @click="search2"
                   v-has="'kfclqktj_fgstsqkflhzb_search'">查询
@@ -85,7 +85,17 @@
             title: '路别/项目',
             key: 'xl',
             align: 'center',
-
+            render: (h, params) => {
+              let texts = '';
+              if(params.row.xl==='合计'){
+                texts = '合计'
+              }else {
+                texts = this.$store.state.dictData.parseDict.LB[params.row.xl];
+              }
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '到站不停车',
@@ -157,7 +167,7 @@
           })
       },
       search2: function () {
-        this.fgstsqkfl.bm  = this.$store.state.dictData.parseDict.EJGS[ this.fgstsqkfl._bm];
+        // this.fgstsqkfl.bm  = this.$store.state.dictData.parseDict.EJGS[ this.fgstsqkfl.bm];
         this.getList();
       },
       daochu2: function () {
