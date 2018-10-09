@@ -44,7 +44,7 @@
         },
         columns12: [
           {
-            title: '二级单位',
+            title: '单位',
             key: 'dw',
             align: 'center',
             width: 100,

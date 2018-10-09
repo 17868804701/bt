@@ -151,7 +151,7 @@
             ]
           },
           {
-            title: '燃料、电量消耗',
+            title: '燃料消耗',
             key: 'name',
             align: 'center',
             width: 120,
@@ -173,6 +173,35 @@
               {
                 title: '节超（+）',
                 key: 'rlxh_jc',
+                align: 'center',
+                width: 120,
+                sortable: false
+              },
+            ]
+          },
+          {
+            title: '电能消耗',
+            key: 'name',
+            align: 'center',
+            width: 120,
+            children: [
+              {
+                title: '实耗',
+                key: 'dnxh_sh',
+                align: 'center',
+                width: 120,
+                sortable: false
+              },
+              {
+                title: '定额',
+                key: 'dnxh_de',
+                align: 'center',
+                width: 120,
+                sortable: false
+              },
+              {
+                title: '节超（+）',
+                key: 'dnxh_jc',
                 align: 'center',
                 width: 120,
                 sortable: false

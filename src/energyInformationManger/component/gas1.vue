@@ -130,7 +130,7 @@
               },
               {
                 title: '实际价',
-                key: 'zrsjj',
+                key: 'zrsjje',
                 align: 'center',
                 width: 150,
               },    {
@@ -140,7 +140,7 @@
                 width: 150,
               }, {
                 title: '计划价',
-                key: 'zrjhj',
+                key: 'zrjhje',
                 align: 'center',
                 width: 150,
               }, {
@@ -165,7 +165,7 @@
               },
               {
                 title: '实际价',
-                key: 'htsjj',
+                key: 'htsjje',
                 align: 'center',
                 width: 150,
               },  {
@@ -175,7 +175,7 @@
                 width: 150,
               }, {
                 title: '计划价',
-                key: 'htjhj',
+                key: 'htjhje',
                 align: 'center',
                 width: 150,
               }, {
@@ -200,9 +200,9 @@
               this.data10 = res.data.records;
               this.totalPage = res.data.total;
             } else {
-              this.sjje_header = res.count[0].sjje
-              this.zrsjj = res.count[0].zrsjj
-              this.htsjj = res.count[0].htsjj
+              this.sjje_header = res.hz.sjje
+              this.zrsjj = res.hz.zrsjje
+              this.htsjj = res.hz.htsjje
               this.data10 = res.data.records;
               this.totalPage = res.data.total;
             }
