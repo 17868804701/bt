@@ -408,7 +408,6 @@
       },
       addLASGZJSG() {
         let that = this;
-        debugger
         this.$post(this.$url.security_LASG_addLoss, this.lossForm)
         .then(res => {
           if (res.success === true) {
@@ -438,12 +437,14 @@
       },
       exportExcel() {
         let url = this.$url.security_LASG_exportExcel;
-//        url = url + '?current='+this.searchOptions.current+'&&size='+this.searchOptions.size;
+        url = url + '?pz='+this.searchOptions.pz+'&jsyxm='+this.searchOptions.jsyxm;
         if (this.searchOptions.date instanceof Date) {
           let firstDay = DateTool.getFirstDay(this.searchOptions.date);
           let lastDay = DateTool.getLastDay(this.searchOptions.date);
-          url = url + '?lasjStart=' + firstDay + '&lasjEnd=' + lastDay;
+          url = url + '&lasjStart=' + firstDay + '&lasjEnd=' + lastDay;
         }
+
+
         this.$getExcel(url);
       },
       // action
