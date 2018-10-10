@@ -77,11 +77,15 @@
         let params = this.getParams();
         params.jidus = params.jidus.join(',');
         this.getTableTitle();
+        let allDict = this.$store.state.dictData.parseDict;
         let that = this;
         let url = this.$url.security_AQSCFGS_list + '?year=' + params.year + '&jidus=' + params.jidus;
         this.$fetch(url)
         .then(res => {
           if (res.success === true) {
+            res.data.forEach(item => {
+              item.dw = allDict.EJGS[item.dw];
+            })
             that.PA_LASG_LossRateTarget_Data = res.data;
           }
         });
