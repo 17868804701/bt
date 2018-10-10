@@ -81,7 +81,6 @@
         let url = this.$url.security_AQSCFGS_list + '?year=' + params.year + '&jidus=' + params.jidus;
         this.$fetch(url)
         .then(res => {
-          debugger;
           if (res.success === true) {
             that.PA_LASG_LossRateTarget_Data = res.data;
           }

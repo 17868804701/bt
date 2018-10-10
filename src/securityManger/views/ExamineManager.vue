@@ -9,7 +9,115 @@
         <Button type="primary" style="float: right;margin-right: 10px" @click="saveAQData">保存</Button>
         <Button type="primary" style="float: right;margin-right: 10px" @click="cancle">取消</Button>
       </div>
-      <EditSafeExamineArea :formItem="editRow"/>
+      <div >
+        <Form :model="editRow" :label-width="120">
+
+          <Tabs value="name1" style="margin-top: 5px;" type="card">
+            <TabPane label="安全教育及管理制度落实" name="name1">
+              <div>
+                <Row style="margin-left: -20px;">
+                  <Col span="8">
+                  <FormItem label="职工安全教育">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.zgaqjy" style="width: 4vw;"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="安全宣传">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.aqxc" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="安全例会">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.aqlh" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                </Row>
+                <Row style="margin-left: -20px;">
+                  <Col span="8">
+                  <FormItem label="线路安全稽查">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.xlanqjc" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="酒精检测">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.jjjc" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="四不放过">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.sbfg" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                </Row>
+                <Row style="margin-left: -20px;">
+                  <Col span="8">
+                  <FormItem label="安全标准化">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.aqbzh" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                </Row>
+              </div>
+            </TabPane>
+
+            <TabPane label="驾驶员安全管理" name="name2">
+              <div>
+                <Row style="margin-left: -20px;">
+                  <Col span="8">
+                  <FormItem label="吸烟">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.xy" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="接打手机">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.jdsj" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="闯信号">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.cxh" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                </Row>
+                <Row style="margin-left: -20px;">
+                  <Col span="8">
+                  <FormItem label="未礼让斑马线">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.wlrbmx" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="超速行驶">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.csxs" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="驾驶中闲谈">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.jszxt" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                </Row>
+              </div>
+            </TabPane>
+
+            <TabPane label="车辆安全管理" name="name3">
+              <div>
+                <Row style="margin-left: -20px;">
+                  <Col span="8">
+                  <FormItem label="行车十检">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.xcsj" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                  <Col span="8">
+                  <FormItem label="车辆安全设施抽检">
+                    <InputNumber :max="10" :min="0" :step="0.1"  v-model="editRow.claqsscj" style="width: 4vw"></InputNumber>
+                  </FormItem>
+                  </Col>
+                </Row>
+              </div>
+            </TabPane>
+          </Tabs>
+        </Form>
+      </div>
+      <!--<EditSafeExamineArea :formItem="editRow"/>-->
     </Modal>
     <Card>
       <Form :model="formItem" :label-width="80">
@@ -266,10 +374,7 @@
                       },
                       on: {
                         click: () => {
-//                          console.log('编辑运营安全体系执行规范');
-//                          console.log(params.row);
-                          this.editRow = params.row;
-                          this.editModal = true;
+                          this.editClick(params);
                         }
                       },
                       directives: [
@@ -286,7 +391,25 @@
           },
         ],
         tableData: [],
-        editRow: {},
+        sourceData: [],
+        editRow: {
+          aqbzh: 0,
+          aqlh: 0,
+          aqxc: 0,
+          claqsscj: 0,
+          csxs: 0,
+          cxh: 0,
+          dw: "",
+          jdsj: 0,
+          jjjc: 0,
+          jszxt: 0,
+          sbfg: 0,
+          wlrbmx: 0,
+          xcsj: 0,
+          xlanqjc: 0,
+          xy: 0,
+          zgaqjy: 0
+        },
       }
     },
     methods:{
@@ -303,69 +426,83 @@
       cancle() {
         this.editModal = false;
       },
-      saveAQData() {
-        let params = {
-          aqbzh: 0,
-          aqlh: 0,
-          aqxc: 0,
-          claqsscj: 0,
-          csxs: 0,
-          cxh: 0,
-          dw: "",
-          jdsj: 0,
-          jjjc: 0,
-          jszxt: 0,
-          khsj: "",
-          sbfg: 0,
-          wlrbmx: 0,
-          xcsj: 0,
-          xlanqjc: 0,
-          xy: 0,
-          zgaqjy: 0
-        }
-
-        for (let attr in params) {
-          if (typeof this.editRow[attr] == 'undefined' || this.editRow[attr] == null || this.editRow[attr] == "") {
-            params[attr] = 0;
-          }else{
-            params[attr] = this.editRow[attr];
+      editClick(params) {
+        if (typeof params.row.id !== 'undefined') {
+          for (let attr in this.editRow) {
+            this.editRow[attr] = params.row[attr];
           }
+          this.editRow.id = params.row.id;
         }
-
+        this.editRow.index = params.index;
+        this.editRow.dw = params.row.dw;
+        debugger
+        this.editModal = true;
+      },
+      saveAQData() {
         var that = this;
+        this.editRow.gxsj = DateTool.yyyymm01FormatDate(this.formItem.date);
+        this.editRow.khsj = DateTool.yyyymm01FormatDate(this.formItem.date);
+        this.editRow.dw = this.sourceData[this.editRow.index].dw;
+        delete this.editRow.index;
         if (typeof this.editRow['id'] === 'undefined' || this.editRow['id'] === null || this.editRow['id']=="") {
-//          console.log('没有id, 新增保存');
-          params.khsj = DateTool.yyyymm01FormatDate(this.formItem.date);
-//          console.log(params);
-          this.$post(this.$url.security_AQGLYKH_save, params)
+          this.$post(this.$url.security_AQGLYKH_save, this.editRow)
           .then(res => {
             if (res.success === true) {
               this.$Message.success('保存成功!');
               that.editModal = false;
+              that.editRow = {
+                aqbzh: 0,
+                aqlh: 0,
+                aqxc: 0,
+                claqsscj: 0,
+                csxs: 0,
+                cxh: 0,
+                dw: "",
+                jdsj: 0,
+                jjjc: 0,
+                jszxt: 0,
+                sbfg: 0,
+                wlrbmx: 0,
+                xcsj: 0,
+                xlanqjc: 0,
+                xy: 0,
+                zgaqjy: 0
+              }
               that.requestListData();
             }else{
               that.$Message.error('保存失败!');
             }
           })
         }else{
-          params.khsj = DateTool.yyyymm01FormatDate(this.formItem.date);
-          params.gxsj = DateTool.yyyymm01FormatDate(this.formItem.date);
-//          console.log('有id, 更新');
-//          console.log(params);
-          params.id = this.editRow.id;
-          this.$post(this.$url.security_AQGLYKH_update, params)
+          this.$post(this.$url.security_AQGLYKH_update, this.editRow)
           .then(res => {
             if (res.success === true) {
               that.$Message.success('更新成功!');
               that.editModal = false;
+              that.editRow = {
+                aqbzh: 0,
+                  aqlh: 0,
+                  aqxc: 0,
+                  claqsscj: 0,
+                  csxs: 0,
+                  cxh: 0,
+                  dw: "",
+                  jdsj: 0,
+                  jjjc: 0,
+                  jszxt: 0,
+                  sbfg: 0,
+                  wlrbmx: 0,
+                  xcsj: 0,
+                  xlanqjc: 0,
+                  xy: 0,
+                  zgaqjy: 0
+              }
               that.requestListData();
             }else{
               that.$Message.error('更新失败!');
             }
           })
         }
-
-
       },
       searchData() {
         this.requestListData();
@@ -383,6 +520,7 @@
         this.$fetch(this.$url.security_AQGLYKH_list, params)
         .then(res => {
           if (res.success === true) {
+            that.sourceData = JSON.parse(JSON.stringify(res.data));
             res.data.forEach(item => {
               item.gxsj = DateTool.timesToDate(item.gxsj);
               item.khsj = DateTool.timesToDate(item.khsj);
