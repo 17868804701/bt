@@ -34,7 +34,7 @@
             <FormItem prop="fxyy" label="返修原因" style="margin-top: 0px;">
               <Input v-model="updateItem.fxyy" style="width:110px;"></Input>
             </FormItem>
-            <FormItem prop="bz" label="备注" style="margin-top: 0px;">
+            <FormItem label="备注" style="margin-top: 0px;">
               <Input v-model="updateItem.bz" style="width:110px;"></Input>
             </FormItem>
           </div>
@@ -75,7 +75,7 @@
             <FormItem prop="fxyy" label="返修原因" style="margin-top: 0px;">
               <Input v-model="backItem.fxyy" style="width:110px;"></Input>
             </FormItem>
-            <FormItem prop="bz" label="备注" style="margin-top: 0px;">
+            <FormItem label="备注" style="margin-top: 0px;">
               <Input v-model="backItem.bz" style="width:110px;"></Input>
             </FormItem>
           </div>
@@ -160,9 +160,6 @@
           fxyy: [
             { required: true, message: '此项为必填字段', trigger: 'blur' },
           ],
-          bz: [
-            { required: true, message: '此项为必填字段', trigger: 'blur' },
-          ],
         },
         updateRuleValidate: {
           fxjcsj: [
@@ -172,9 +169,6 @@
             { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
           ],
           fxyy: [
-            { required: true, message: '此项为必填字段', trigger: 'blur' },
-          ],
-          bz: [
             { required: true, message: '此项为必填字段', trigger: 'blur' },
           ],
         },
