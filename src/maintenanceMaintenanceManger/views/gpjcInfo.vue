@@ -43,6 +43,7 @@
                 <Option value="公交二公司">公交二公司</Option>
                 <Option value="公交三公司">公交三公司</Option>
               </Select>
+              <!--<CommonSelect type="EJGS"  :aria-disabled="true" :selectValue="formItem1.dwmc"  class="input_item" style="width: 195px;"></CommonSelect>-->
             </FormItem>
             <FormItem label="车牌号" style="margin: 0 0 10px 0">
               <Input v-model="formItem.cph" :disabled="isDisable" placeholder="车牌号" style="width: 195px;"/>
@@ -148,7 +149,11 @@
   </div>
 </template>
 <script>
+  import CommonSelect from '../../components/common/CommonSelect.vue'
   export default {
+    components: {
+      CommonSelect,
+    },
     data () {
       return {
         modal1: false,
@@ -377,7 +382,7 @@
         }
       },
       quxiao: function () {
-        this.$Message.error('操作失败');
+        // this.$Message.error('操作失败');
         this.modal1 = false;
         this.modal2 = false;
       },

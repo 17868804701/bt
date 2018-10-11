@@ -71,7 +71,7 @@
               <FormItem label="单价" prop="dj" style="margin: 0 0 25px 0">
                 <Input v-model="addFysd.dj" placeholder="单价" class="text_width"/>
               </FormItem>
-              <FormItem label="备注" prop="bz" style="margin: 0 0 25px 0">
+              <FormItem label="备注"  style="margin: 0 0 25px 0">
                 <Input v-model="addFysd.bz" placeholder="备注" class="text_width"/>
               </FormItem>
               <FormItem label="选择年份" prop="xzsj" style="margin: 0 0 10px 0">

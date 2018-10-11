@@ -496,11 +496,10 @@
         this.$refs[name].validate((valid) => {
           if (valid) {
             //console.log('结果', this.formItem);
-            this.formItem.dw = item.split('-')[0];
+            this.formItem.dw = this.formItem.dw .split('-')[0];
             this.formItem.xl = this.$store.state.dictData.parseDict.RYXX.RYXX_XLDM[this.formItem.xl];
             this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];
-            this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
-            this.formItem.bm = this.$store.state.dictData.parseDict.EJBM[this.formItem.bm];
+            // this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
             this.formItem.sscj = this.$store.state.dictData.parseDict.CJXX[this.formItem.sscj];
             this.formItem.zzqk = this.$store.state.dictData.parseDict.RYXX.RYXX_ZZQK[this.formItem.zzqk];
             this.formItem.gwzt = this.$store.state.dictData.parseDict.RYXX.RYXX_GWZT[this.formItem.gwzt];
@@ -508,7 +507,7 @@
             console.log(this.formItem);
             this.$post(this.$url.userManager_saveUserInfo, this.formItem)
               .then(res => {
-                if (res.success === true) {
+                if (res.code === 'OK') {
                   this.$Message.info('添加成功');
                   this.$router.push({path: '/userinfo'});
                 } else {
@@ -527,11 +526,11 @@
       },
       update: function () {
         let url = this.$url.userManager_updateUserInfo + '?bgyy=' + this.bgyy;
-        this.formItem.dw = item.split('-')[0];
+        this.formItem.dw = this.formItem.dw .split('-')[0];
         this.formItem.xl = this.$store.state.dictData.parseDict.RYXX.RYXX_XLDM[this.formItem.xl];
         this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];
         this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
-        this.formItem.bm = this.$store.state.dictData.parseDict.EJBM[this.formItem.bm];
+        // this.formItem.bm = this.$store.state.dictData.parseDict.EJBM[this.formItem.bm];
         this.formItem.sscj = this.$store.state.dictData.parseDict.CJXX[this.formItem.sscj];
         this.formItem.zzqk = this.$store.state.dictData.parseDict.RYXX.RYXX_ZZQK[this.formItem.zzqk];
         this.formItem.gwzt = this.$store.state.dictData.parseDict.RYXX.RYXX_GWZT[this.formItem.gwzt];

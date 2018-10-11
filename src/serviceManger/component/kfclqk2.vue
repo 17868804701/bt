@@ -141,12 +141,12 @@
           this.fgstsqkfl.tssj = ''
           this.nian =''
           this.yue  = ''
-          this.gs  = this.fgstsqkfl.bm
+          this.gs  = this.$store.state.dictData.parseDict.EJGS[this.fgstsqkfl.bm]
         } else {
           this.fgstsqkfl.tssj = this.$formatDate(this.fgstsqkfl.tssj).substring(0,7)
           this.nian = this.$formatDate(this.fgstsqkfl.tssj).substring(0,4)
           this.yue  = this.$formatDate(this.fgstsqkfl.tssj).substring(4,7)
-          this.gs  = this.fgstsqkfl.bm
+          this.gs  = this.$store.state.dictData.parseDict.EJGS[this.fgstsqkfl.bm]
         }
         this.$fetch(this.$url.fgstsqkfl, this.fgstsqkfl)
           .then(res => {

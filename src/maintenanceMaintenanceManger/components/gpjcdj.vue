@@ -46,11 +46,12 @@
             </div>
             <Form :model="formItem1" ref="formItem1" :rules="ruleValidate" :label-width="100">
               <FormItem label="单位名称" style="margin: 0 0 25px 0" prop="dwmc">
-                <Select v-model="formItem1.dwmc" :transfer="true" style="width: 195px;">
-                  <Option value="公交一公司">公交一公司</Option>
-                  <Option value="公交二公司">公交二公司</Option>
-                  <Option value="公交三公司">公交三公司</Option>
-                </Select>
+                <!--<Select v-model="formItem1.dwmc" :transfer="true" style="width: 195px;">-->
+                  <!--<Option value="公交一公司">公交一公司</Option>-->
+                  <!--<Option value="公交二公司">公交二公司</Option>-->
+                  <!--<Option value="公交三公司">公交三公司</Option>-->
+                <!--</Select>-->
+                <CommonSelect type="EJGS"  :aria-disabled="true" :selectValue="formItem1.dwmc"  class="input_item" style="width: 195px;"></CommonSelect>
               </FormItem>
               <FormItem label="车牌号" style="margin: 0 0 25px 0" prop="cph">
                 <Input v-model="formItem1.cph" placeholder="车牌号" style="width: 195px;"/>
@@ -83,8 +84,12 @@
   </div>
 </template>
 <script>
+  import CommonSelect from '../../components/common/CommonSelect.vue'
   import * as DateTool from '../../../utils/DateTool'
   export default {
+    components: {
+      CommonSelect,
+    },
     data () {
       return {
         modal1: false,
@@ -155,7 +160,14 @@
         columns2: [
           {
             title: '单位名称',
-            key: 'dwmc'
+            key: 'dwmc',
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.EJGS[params.row.dwmc];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '车牌号',
