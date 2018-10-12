@@ -435,6 +435,7 @@
       },
       cancel () {
 //        this.$Message.info('取消');
+        this.editProgram = false
         this.addProgram = false
         this.formItem1 = {}
         this.formItem2 = {}
@@ -503,6 +504,10 @@
           this.searchItem.year=''
         }else {
           this.searchItem.year = this.$formatDate(this.searchItem.year).substring(0,4)
+        }
+
+        if(this.searchItem.gsm==''){
+          this.searchItem.gsm='YGS'
         }
         this.$getExcel(process.env.BASE_URL + this.$url.fgsyyjhdc+'?year='+this.searchItem.year+'&gsm='+this.searchItem.gsm)
       },

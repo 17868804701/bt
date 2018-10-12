@@ -297,7 +297,7 @@
           this.$getExcel(process.env.BASE_URL + this.$url.daochujtyyjh+'?nf='+this.formItem.nf)
       },
       cancel:function () {
-
+        this.editProgram = false
       },
       ok:function () {
 
