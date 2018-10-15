@@ -464,6 +464,9 @@
           }else {
               this.formItem.nf = this.$formatDate(this.formItem.nf).substring(0,4)
           }
+          if(this.formItem.gsm =='' ){
+            this.formItem.gsm = 'YGS'
+          }
         this.$getExcel(process.env.BASE_URL + this.$url.yyjhgldc+'?nf='+this.formItem.nf+'&gsm='+this.formItem.gsm)
       }
     },

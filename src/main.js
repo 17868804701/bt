@@ -49,28 +49,7 @@ new Vue({
   store: store,
   render: h => h(App),
   beforeCreate: function () {
-    console.group('beforeCreate 创建前状态===============》');
+    // console.group('beforeCreate 创建前状态===============》');
     this.$router.push({path:'/'});
-  },
-  created: function () {
-    console.group('created 创建完毕状态===============》');
-  },
-  beforeMount: function () {
-    console.group('beforeMount 挂载前状态===============》');
-  },
-  mounted: function () {
-    console.group('mounted 挂载结束状态===============》');
-  },
-  beforeUpdate: function () {
-    console.group('beforeUpdate 更新前状态===============》');
-  },
-  updated: function () {
-    console.group('updated 更新完成状态===============》');
-  },
-  beforeDestroy: function () {
-    console.group('beforeDestroy 销毁前状态===============》');
-  },
-  destroyed: function () {
-    console.group('destroyed 销毁完成状态===============》');
   },
 });

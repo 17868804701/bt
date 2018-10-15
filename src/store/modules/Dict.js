@@ -9,6 +9,7 @@ const Dict = {
     allDict: {},
     CLArray: [],
     CLDict: {},
+    LBArray:[],
     orginazationDict: {},
     orginazationArray : [],
   },
@@ -16,32 +17,23 @@ const Dict = {
     getAllDict(state){ // 数据字典数据
       fetch(process.env.BASE_URL+'/auth/dic/getAllByCode')
       .then(res => {
-
-
         // 用于解析数据
         let dict = {};
         res.data.forEach(item => {
-
           let subDict = {};
           item.children.forEach(subItem => {
-
             if (subItem.children.length > 0) { // 如果还有子项
-
               let subsubDict = {};
               subItem.children.forEach(subsubItem => {
                 subsubDict[subsubItem.code] = subsubItem.title;
               })
               subDict[subItem.code] = subsubDict;
-
             }else{ // 没有
               subDict[subItem.code] = subItem.title;
             }
-
           })
-
           state.parseDict[item.code] = subDict;
         });
-
         // 用于commonselect
         res.data.forEach(item => {
           state.allDict[item.code] = item.children;
@@ -57,7 +49,6 @@ const Dict = {
       post(process.env.BASE_URL+'/chel/vehicleAccount/listAll')
       .then(res => {
         if (res.code === 0) {
-
           let data = res.page;
           data.forEach(item => {
             if (item.selfNum !== null && item.selfNum.length > 0 && item.selfNum.indexOf("null") === -1) {
@@ -67,6 +58,30 @@ const Dict = {
           })
         }
       })
+    },
+    getLBList(state){  // 路别数据
+      post(process.env.BASE_URL+'/chel/busRoutesController/getAllList')
+        .then(res => {
+          console.log(res.page)
+          let lbArray = []
+          let lbArrays = {}
+          res.page.forEach(item=>{
+            lbArray.push({"title":item.lineAlias,code:'LB_'+item.lineName});
+            lbArrays['LB_'+item.lineName] = item.lineAlias
+          })
+          state.allDict.LB = lbArray;
+          state.parseDict.LB = lbArrays;
+          console.log('***************************路别*******************************')
+          // if (res.code === 0) {
+          //   let data = res.page;
+          //   data.forEach(item => {
+          //     if (item.selfNum !== null && item.selfNum.length > 0 && item.selfNum.indexOf("null") === -1) {
+          //       state.CLDict[item.selfNum] = item;
+          //       state.CLArray.push(item.selfNum);
+          //     }
+          //   })
+          // }
+        })
     },
     getOriganzation(state) {
       fetch(process.env.BASE_URL+'/auth/group/trees')
@@ -117,7 +132,6 @@ const Dict = {
           state.parseDict.SJBM = sjbmdict;
           state.allDict.EJGS = state.orginazationArray;
           state.parseDict.EJGS = state.orginazationDict;
-
         }
       })
     }

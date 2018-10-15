@@ -223,6 +223,7 @@ router.beforeEach((to, from, next) => {
           store.commit('getCurrentAuth');
           store.commit('getAllDict');
           store.commit('getAllCLList');
+          store.commit('getLBList');
           store.commit('getOriganzation');
           store.commit('getUserSetting');
           next();
