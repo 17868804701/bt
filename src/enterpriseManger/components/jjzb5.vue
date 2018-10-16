@@ -40,7 +40,10 @@
         </div>
       </Form>
     </Card>
-    <Table :columns="columns15" :data="data15" border height="500" style="margin-top: 10px;" size="small"></Table>
+    <div style="margin-top: 10px;font-size: 18px;width: 100%;text-align: center;border: 1px solid #dddee1;height: 40px;line-height: 40px;font-weight: bold;border-bottom: 0">
+      {{this.formItem5.nian}}年{{this.formItem5.yue}}月长客总公司经济指标情况
+    </div>
+    <Table :columns="columns15" :data="data15" border height="500" style="margin-top: 0px;" size="small"></Table>
   </div>
 </template>
 <script>

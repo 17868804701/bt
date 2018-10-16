@@ -74,17 +74,30 @@
             <!--</Select>-->
             <CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
           </FormItem>
-          <FormItem label="本期实际">
-            <Input v-model="formItem1.bqsj" placeholder="本年1-10月本期" style="width: 195px;"/>
+          <FormItem label="单位" v-show="this.type!=='edit'" prop="lb">
+            <!--<Select v-model="formItem1.lb" style="width: 195px;">-->
+            <!--&lt;!&ndash;<Option value="102路">102路</Option>&ndash;&gt;-->
+            <!--&lt;!&ndash;<Option value="103路">103路</Option>&ndash;&gt;-->
+            <!--&lt;!&ndash;<Option value="286路">286路</Option>&ndash;&gt;-->
+            <!---->
+            <!--</Select>-->
+            <CommonSelect type="EJGS" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
           </FormItem>
-          <FormItem label="明年预计">
+          <FormItem label="类别" prop="lb">
+            <Select v-model="formItem1.lb" style="width: 195px;">
+                <Option value="102路">大中车</Option>
+                <Option value="103路">小客车</Option>
+                <Option value="286路">小计</Option>
+            </Select>
+          </FormItem>
+          <FormItem label="本年预计">
+            <Input v-model="formItem1.bqsj" placeholder="本年预计" style="width: 195px;"/>
+          </FormItem>
+          <FormItem label="明年计划">
             <Input v-model="formItem1.mnyj" placeholder="明年计划" style="width: 195px;"/>
           </FormItem>
           <FormItem label="明年计划车次">
             <Input v-model="formItem1.mnjhcc" placeholder="明年计划车次" style="width: 195px;"/>
-          </FormItem>
-          <FormItem label="本年客运量">
-            <Input v-model="formItem1.bnkyl" placeholder="本年每车次客运量" style="width: 195px;"/>
           </FormItem>
         </Form>
       </div>
@@ -262,9 +275,9 @@
                 this.data1 = res.data.records;
                 this.total = res.data.total
               } else {
-                res.data.records.forEach(item => {
-                  item.nd = item.nd.toString()
-                })
+                // res.data.records.forEach(item => {
+                //   // item.nd = item.nd.toString()
+                // })
                 this.data1 = res.data.records;
                 this.total = res.data.total
               }

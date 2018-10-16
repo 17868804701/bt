@@ -33,13 +33,8 @@
     <Card style="padding-left: 15px;">
       <Form :model="formItem" :label-width="100">
         <div class="search">
-          <FormItem label="选择分类名称" style="margin: 0">
-            <Select v-model="formItem.flmc" :transfer="true" style="width: 195px;">
-              <Option value="">全部</Option>
-              <Option value="钢瓶">钢瓶</Option>
-              <Option value="钢瓶2">钢瓶2</Option>
-              <Option value="钢瓶3">钢瓶3</Option>
-            </Select>
+          <FormItem label="分类名称" style="margin: 0">
+            <Input v-model="formItem.flmc" placeholder="分类名称" class="text_width"/>
           </FormItem>
           <Button type="primary" icon="ios-search" class="search_btn" @click="search" v-has="'gpjc_jcfysd_search'">查询</Button>
           <FormItem label="" style="margin: 0">

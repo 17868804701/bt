@@ -107,7 +107,7 @@
           <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg"/>
           <Dropdown class="more">
             <span>
-              欢迎，{{account}}
+              欢迎，{{$store.state.userAuth.userAccount}}
               <Icon type="ios-arrow-down"></Icon>
             </span>
             <DropdownMenu slot="list">
@@ -183,8 +183,8 @@ export default {
   },
   mounted() {
     let acessToken = VueCookie.get('access_token');
-    let account =  sessionStorage.getItem("account");
-    this.account = account
+    // let account =  sessionStorage.getItem("account");
+    // this.account = account
     if (acessToken !== null) {
       this.$store.commit('getAllMenu');
       this.$store.commit('getCurrentAuth');

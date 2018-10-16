@@ -279,6 +279,12 @@
                     key: 'rjqndlc',
                     align: 'center',
                     width: 100,
+                  },
+                  {
+                    title: '非运营小计',
+                    key: 'fyyxj',
+                    align: 'center',
+                    width: 100,
                   }
                 ]
               },

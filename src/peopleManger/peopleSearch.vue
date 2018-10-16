@@ -156,6 +156,7 @@
             </FormItem>
             <FormItem prop="dw" label="按单位查询" style="margin-left: -50px;">
               <CommonSelect type="EJGS" iviewType="checkbox" :selectValue="cxItem.dw"></CommonSelect>
+              <!--<CommonSelect type="EJGS" iviewType="checkbox" :selectValue="cxItem.dw"></CommonSelect>-->
             </FormItem>
           </Form>
         </div>

@@ -37,19 +37,13 @@
       <Form :model="formItem" ref="formItem" :rules="ruleValidate" :label-width="100">
         <div class="search">
           <FormItem label="线路" style="margin-bottom: 25px" prop="xl">
-            <!--<Select v-model="formItem.xl" :transfer="true" style="width: 195px;">-->
-              <!--<Option value="1路">1路</Option>-->
-              <!--<Option value="2路">2路</Option>-->
-              <!--<Option value="3路">3路</Option>-->
-            <!--</Select>-->
             <CommonSelect type="LB"  :selectValue="formItem.xl" style="width: 195px;"></CommonSelect>
           </FormItem>
           <FormItem label="记录部门" style="margin-bottom: 25px" prop="jlbm">
-            <Select v-model="formItem.jlbm" :transfer="true" style="width: 195px;">
+            <Select v-model="formItem.jlbm" :transfer="true" style="width: 195px;"  @on-change="jlBM">
               <Option value="运营部">运营部</Option>
               <Option value="客服中心">客服中心</Option>
             </Select>
-            <!--<CommonSelect type="EJBM"  :selectValue="formItem.jlbm" style="width: 195px;"></CommonSelect>-->
           </FormItem>
           <FormItem label="记录人" style="margin-bottom: 25px" prop="jlr">
             <Input v-model="formItem.jlr" placeholder="记录人" class="text_width"/>
@@ -77,44 +71,42 @@
             </Select>
           </FormItem>
           <FormItem label="来电/来访" style="margin-bottom: 25px" prop="lfxs">
-            <Select v-model="formItem.lfxs" :transfer="true" :disabled="this.tip=='edit'" style="width: 195px;" @on-change="changesLf">
+            <Select v-model="formItem.lfxs" :transfer="true" :disabled="true" style="width: 195px;">
+              <Option value="">无</Option>
               <Option value="0">来电</Option>
               <Option value="1">来访</Option>
             </Select>
           </FormItem>
-          <FormItem label="事件类别" style="margin-bottom: 25px" v-show="this.formItem.lfxs!=1">
-            <Select v-model="formItem.sjlb" :transfer="true" :disabled="this.tip=='edit'" style="width: 195px;" @on-change="changes">
+          <FormItem label="事件类别" style="margin-bottom: 25px" v-show="this.formItem.jlbm!=='运营部'">
+            <Select v-model="formItem.sjlb" :transfer="true" :disabled="this.tip=='edit'" style="width: 195px;" @on-change="sjlb">
               <Option value="0">责任性事件</Option>
               <Option value="1">疑难性事件</Option>
               <Option value="2">普通事件</Option>
             </Select>
           </FormItem>
-          <FormItem label="状态" style="margin-bottom: 25px" v-show="this.formItem.lfxs!=1">
-            <Select v-model="formItem.zt" :transfer="true" style="width: 195px;">
+          <FormItem label="状态" style="margin-bottom: 25px">
+            <Select v-model="formItem.zt" :transfer="true" style="width: 195px;" :disabled="this.formItem.jlbm==='运营部'||this.formItem.sjlb==2">
               <Option value="1">处理中</Option>
               <Option value="2">处理完成</Option>
             </Select>
           </FormItem>
-          <FormItem label="提交部门" style="margin-bottom: 25px" v-show="this.formItem.sjlb!=2&&this.formItem.lfxs!=1" prop="bm">
-            <!--<Select v-model="formItem.bm" :transfer="true" style="width: 195px;">-->
-              <!--<Option value="公交一公司">公交一公司</Option>-->
-              <!--<Option value="公交二公司">公交二公司</Option>-->
-            <!--</Select>-->
-            <CommonSelect type="EJGS"  :selectValue="formItem.bm" style="width: 195px;"></CommonSelect>
+          <FormItem label="提交部门" style="margin-bottom: 25px" prop="bm" v-show="this.formItem.jlbm!=='运营部'&&this.formItem.sjlb!=2">
+            <CommonSelect type="EJGS"  :selectValue="formItem.bm" style="width: 195px;" v-show="this.formItem.sjlb!=1"></CommonSelect>
+            <Input v-model="formItem.bm" placeholder="备注" class="text_width" v-show="this.formItem.sjlb==1" :disabled="true"/>
           </FormItem>
           <FormItem label="备注" style="margin-bottom: 25px">
             <Input v-model="formItem.bz" placeholder="备注" class="text_width"/>
           </FormItem>
           <FormItem label="事由" style="margin-bottom: 25px">
-            <Input v-model="formItem.sy" placeholder="事由" style="width: 470px;"/>
+            <Input v-model="formItem.sy" placeholder="事由" style="width: 490px;"/>
           </FormItem>
-          <FormItem label="反馈时间" style="margin-bottom: 25px" v-show="this.formItem.sjlb==2">
-            <DatePicker type="date" placeholder="反馈时间" :transfer="true" v-model="formItem.fksj"
+          <FormItem label="处理时间" style="margin-bottom: 25px" v-show='this.formItem.sjlb==2'>
+            <DatePicker type="date" placeholder="处理时间" :transfer="true" v-model="formItem.fksj"
                         class="text_width"></DatePicker>
           </FormItem>
-          <FormItem label="反馈信息" v-show="this.formItem.sjlb==2">
-            <Input style="width: 470px;" v-model="formItem.cljg" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
-                   placeholder="填写反馈信息"></Input>
+          <FormItem label="处理信息" v-show='this.formItem.sjlb==2'>
+            <Input style="width: 490px;" v-model="formItem.cljg" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
+                   placeholder="填写处理信息"></Input>
           </FormItem>
         </div>
       </Form>
@@ -177,22 +169,24 @@
       }
     },
     methods: {
-      changes: function (value) {
-        //console.log(value)
-        if (value == 2) {
+      jlBM(value){
+        console.log(value);
+        if(value==='运营部'){
+          this.formItem.lfxs = '1'
+          this.formItem.zt = '2'
+        }else {
+          this.formItem.lfxs = '0'
           this.formItem.zt = ''
-          this.formItem.bm = ''
-        } else {
-          this.formItem.fksj = ''
-          this.formItem.cljg = ''
         }
       },
-      changesLf: function (value) {
-        //console.log(value);
-        if (value == 1) {
-          this.formItem.sjlb = '';
-          this.formItem.zt = '';
-          this.formItem.bm = ''
+      sjlb(value){
+        if(value==2){
+          this.formItem.zt = '2'
+        }else if(value==1){
+          this.formItem.bm = '运营部'
+          this.formItem.zt = ''
+        } else {
+          this.formItem.zt = ''
         }
       },
       save: function (name) {

@@ -40,7 +40,10 @@
         </div>
       </Form>
     </Card>
-    <Table :columns="columns12" :data="data12" border height="500" style="margin-top: 10px;" size="small"></Table>
+    <div style="margin-top: 10px;font-size: 18px;width: 100%;text-align: center;border: 1px solid #dddee1;height: 40px;line-height: 40px;font-weight: bold;border-bottom: 0">
+      {{this.formItem2.nian}}年{{this.formItem2.yue}}月修理公司经济指标情况
+    </div>
+    <Table :columns="columns12" :data="data12" border height="500" style="margin-top: 0px;" size="small"></Table>
   </div>
 </template>
 <script>

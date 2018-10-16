@@ -9,6 +9,8 @@ const userAuth = {
     menuList: [],
     classifyList: [],
     appList: [],
+    userAccount:'',
+    userName:''
   },
   mutations: {
     getCurrentAuth(state){//这里的state对应着上面这个state
@@ -54,8 +56,11 @@ const userAuth = {
           .then(res => {
             console.log(res);
             if (res.success === true) {
-              sessionStorage.setItem("account", res.account);
-              sessionStorage.setItem("name", res.name);
+              state.userAccount = res.account
+              state.userName = res.name
+
+              // sessionStorage.setItem("account", res.account);
+              // sessionStorage.setItem("name", res.name);
             } else {
 
             }
