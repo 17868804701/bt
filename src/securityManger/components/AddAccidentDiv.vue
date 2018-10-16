@@ -73,8 +73,8 @@
         <FormItem prop="swrs" label="死亡人数">
           <Input v-model="formValidate.swrs" placeholder="死亡人数..." style="width: 120px"></Input>
         </FormItem>
-        <FormItem prop="kf" label="追加扣分">
-          <Input v-model="formValidate.kf" placeholder="追加扣分..." style="width: 120px"></Input>
+        <FormItem prop="kf" label="扣分">
+          <Input v-model="formValidate.kf" placeholder="扣分..." style="width: 120px"></Input>
         </FormItem>
       </div>
 

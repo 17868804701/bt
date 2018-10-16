@@ -117,8 +117,8 @@
             <div style="width: 120px;" v-else>{{formValidate.swrs}}</div>
           </FormItem>
 
-          <FormItem prop="kf" label="追加扣分:">
-            <Input v-if="isEdit" v-model="formValidate.kf" placeholder="追加扣分..." style="width: 120px"></Input>
+          <FormItem prop="kf" label="扣分:">
+            <Input v-if="isEdit" v-model="formValidate.kf" placeholder="扣分..." style="width: 120px"></Input>
             <div style="width: 120px;" v-else>{{formValidate.kf}}</div>
           </FormItem>
 
