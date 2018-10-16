@@ -71,7 +71,7 @@
         this.requestListData();
       },
       search() {
-        this.formItem.currPage = 1;
+        this.form1Item.currPage = 1;
         this.requestListData();
       },
       requestListData() {

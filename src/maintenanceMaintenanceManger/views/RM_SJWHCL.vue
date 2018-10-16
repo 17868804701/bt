@@ -75,7 +75,7 @@
         this.requestListData();
       },
       search() {
-        this.formItem.currPage = 1;
+        this.form2Item.currPage = 1;
         this.requestListData();
       },
       requestListData() {
@@ -87,7 +87,6 @@
         let url = this.$url.maintain_BBGL_SJWHCL_list;
         this.$fetch(url, params)
         .then(res => {
-          console.log(res);
           if (res.code === 0) {
             this.tableData = res.page.list;
             this.totalSize = res.page.totalCount;
