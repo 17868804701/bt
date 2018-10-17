@@ -6,7 +6,7 @@
           <Col span="24">
           <FormItem label="按年份查询" style="margin: 0;">
             <DatePicker type="year" placeholder="请选择年份" :transfer="true" placement="bottom-end"
-                        v-model="formItem.nf"></DatePicker>
+                        v-model="formItem.jhsj"></DatePicker>
             <Button type="primary" icon="ios-search" @click="search" v-has="'srjhzd_fgssr_search'">搜索</Button>
 
 
@@ -79,9 +79,9 @@
               <Option value="小型">小型</Option>
             </Select>
           </FormItem>
-          <FormItem label="年份" prop="nf">
+          <FormItem label="年份" prop="jhsj">
             <DatePicker type="year" placeholder="请选择年份" :transfer="true" placement="bottom-end"
-                        v-model="formItem1.nf"></DatePicker>
+                        v-model="formItem1.jhsj"></DatePicker>
           </FormItem>
           <FormItem label="计划时间" prop="jhsj">
             <DatePicker type="date" placeholder="计划时间" :transfer="true" placement="bottom-end"
@@ -93,6 +93,9 @@
         </Form>
       </div>
     </Modal>
+    <div style="margin-top: 10px;font-size: 18px;width: 100%;text-align: center;border: 1px solid #dddee1;height: 40px;line-height: 40px;font-weight: bold;border-bottom: 0">
+      {{this.year}}年市内公交收入计划
+    </div>
     <Table stripe :columns="columns1" :data="data1" size="small" style="margin-top: 10px;"></Table>
     <Page :total="total" show-total style="margin-top: 10px;" @on-change="step"></Page>
   </div>
@@ -105,12 +108,13 @@
     },
     data () {
       return {
+        year:'',
         addProgram: false,
         exports: false,
         type: '',
         total:0,
         formItem: {
-          nf: '',
+          jhsj: '',
           current: 1,
           size: 10
         },
@@ -123,7 +127,7 @@
             {required: true, message: '必填字段', trigger: 'blur', type: 'date'}
           ], ndjh: [
             {required: true, message: '必填字段', trigger: 'blur'}
-          ], nf: [
+          ], jhsj: [
             {required: true, message: '必填字段', trigger: 'blur', type: 'date'}
           ],
         },
@@ -147,102 +151,102 @@
             }
           },
           {
-            title: '年份',
-            key: 'nf'
-          },
-          {
             title: '类别',
-            key: 'lb'
+            key: 'lx'
           },
           {
             title: '年度计划（万元）',
-            key: 'ndjh'
+            key: 'bnjh'
           },
-          {
-            title: '编制时间',
-            key: 'bzsj'
-          }
-          ,
-          {
-            title: '计划时间',
-            key: 'jhsj'
-          },
-          {
-            title: '操作',
-            key: 'cz',
-            render: (h, params) => {
-              return h('div', [
-                h('Poptip', {
-                  props: {
-                    confirm: true,
-                    type: 'error',
-                    size: 'large',
-                    title: '你确定要删除吗?'
-                  },
-                  on: {
-                    'on-ok': () => {
-                      //console.log(params.row.id)
-                      this.$fetch(this.$url.delFgssrjh, {id: params.row.id})
-                        .then(res => {
-                          //console.log(res)
-                          if (res.success === true) {
-                            this.$Message.info('删除成功')
-                            this.getList()
-                          } else {
-                            this.$Message.error('删除失败')
-                          }
-                        })
-                    }
-                  }
-                }, [
-                  h('Button', {
-                    props: {
-                      type: 'error',
-                      size: 'small'
-                    },
-                    style: {
-                      marginRight: '5px'
-                    },
-                    directives: [
-                      {
-                        name: 'has',
-                        value: 'srjhzd_fgssr_delete',
-                      }
-                    ],
-                  }, '删除')]),
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      //console.log(params.row);
-                      this.type = 'edit';
-                      this.addProgram = true;
-                      this.formItem1 = params.row
-                    }
-                  },
-                  directives: [
-                    {
-                      name: 'has',
-                      value: 'srjhzd_fgssr_edit',
-                    }
-                  ],
-                }, '修改'),
-              ]);
-            }
-          }
+          // {
+          //   title: '编制单位',
+          //   key: 'bzsj'
+          // },
+          // {
+          //   title: '制定时间',
+          //   key: 'bzsj'
+          // }
+          // ,
+          // {
+          //   title: '计划时间',
+          //   key: 'jhsj'
+          // },
+          // {
+          //   title: '操作',
+          //   key: 'cz',
+          //   render: (h, params) => {
+          //     return h('div', [
+          //       h('Poptip', {
+          //         props: {
+          //           cojhsjirm: true,
+          //           type: 'error',
+          //           size: 'large',
+          //           title: '你确定要删除吗?'
+          //         },
+          //         on: {
+          //           'on-ok': () => {
+          //             //console.log(params.row.id)
+          //             this.$fetch(this.$url.delFgssrjh, {id: params.row.id})
+          //               .then(res => {
+          //                 //console.log(res)
+          //                 if (res.success === true) {
+          //                   this.$Message.ijhsjo('删除成功')
+          //                   this.getList()
+          //                 } else {
+          //                   this.$Message.error('删除失败')
+          //                 }
+          //               })
+          //           }
+          //         }
+          //       }, [
+          //         h('Button', {
+          //           props: {
+          //             type: 'error',
+          //             size: 'small'
+          //           },
+          //           style: {
+          //             marginRight: '5px'
+          //           },
+          //           directives: [
+          //             {
+          //               name: 'has',
+          //               value: 'srjhzd_fgssr_delete',
+          //             }
+          //           ],
+          //         }, '删除')]),
+          //       h('Button', {
+          //         props: {
+          //           type: 'primary',
+          //           size: 'small'
+          //         },
+          //         style: {
+          //           marginRight: '5px'
+          //         },
+          //         on: {
+          //           click: () => {
+          //             //console.log(params.row);
+          //             this.type = 'edit';
+          //             this.addProgram = true;
+          //             this.formItem1 = params.row
+          //           }
+          //         },
+          //         directives: [
+          //           {
+          //             name: 'has',
+          //             value: 'srjhzd_fgssr_edit',
+          //           }
+          //         ],
+          //       }, '修改'),
+          //     ]);
+          //   }
+          // }
         ],
         data1: []
       }
     },
     methods: {
       ok () {
-        this.$Message.info('Clicked ok');
+        // this.$Message.ijhsjo('Clicked ok');
       },
       step(current){
         this.formItem.current = current
@@ -257,82 +261,48 @@
       getList: function () {
         this.$fetch(this.$url.fgssrjhList, this.formItem)
           .then(res => {
-            //console.log(res,'***********************')
+            console.log(res,'***********************')
             if (res.success === true) {
               if (res.data.total === 0) {
                 this.$Message.info('暂无信息');
                 this.data1 = res.data.records;
                 this.total = res.data.total
               } else {
-                res.data.records.forEach(item => {
-                  item.bzsj = this.$formatDate(item.bzsj).substring(0, 10)
-                  item.jhsj = this.$formatDate(item.jhsj).substring(0, 10)
-                  item.nf = item.nf.toString()
-                });
                 this.data1 = res.data.records;
                 this.total = res.data.total
               }
             }
           })
       },
-      save: function (name) {
-        this.$refs[name].validate((valid) => {
-          if (valid) {
-            this.formItem1.nf = this.$formatDate(this.formItem1.nf).substring(0, 4)
-            this.formItem1.jhsj = this.$formatDate(this.formItem1.jhsj).substring(0, 10)
-            //console.log(this.formItem1);
-            this.$post(this.$url.saveFgssrjh, this.formItem1)
-              .then(res => {
-                //console.log(res)
-                if (res.success === true) {
-                  this.$Message.info('添加成功')
-                  this.getList();
-                  this.formItem1 = {}
-                  this.addProgram = false
-                }
-              })
-          } else {
-            this.$Message.error('请填写完整字段!');
-          }
-        });
-      },
       search: function () {
-        if (this.formItem.nf == '') {
-          this.formItem.nf = ''
+        if (this.formItem.jhsj == '') {
+          this.formItem.jhsj = '';
+          let date = new Date;
+          let year = date.getFullYear();
+          this.year = year+1
         } else {
-          this.formItem.nf = this.$formatDate(this.formItem.nf).substring(0, 4)
+          this.formItem.jhsj = this.$formatDate(this.formItem.jhsj).substring(0, 4)
+          this.year = this.$formatDate(this.formItem.jhsj).substring(0, 4)
         }
         //console.log(this.formItem)
         this.getList()
       },
-      xiugai: function () {
-        //console.log(this.formItem1)
-        this.formItem1.nf = this.$formatDate(this.formItem1.nf).substring(0, 4)
-        this.formItem1.jhsj = this.$formatDate(this.formItem1.jhsj).substring(0, 10)
-        this.$post(this.$url.updatefgssrjh, this.formItem1)
-          .then(res => {
-            //console.log(res)
-            if (res.success === true) {
-              this.$Message.info('修改成功');
-              this.addProgram = false
-              this.getList()
-            } else {
-              this.$Message.error('修改失败')
-            }
-          })
-      },
 
       daochu: function () {
-        if (this.formItem.nf == '') {
-          this.formItem.nf = ''
+        if (this.formItem.jhsj == '') {
+          this.formItem.jhsj = ''
         } else {
-          this.formItem.nf = this.$formatDate(this.formItem.nf).substring(0, 4)
+          this.formItem.jhsj = this.$formatDate(this.formItem.jhsj).substring(0, 4)
         }
-        this.$getExcel(process.env.BASE_URL + this.$url.fgssrjhdc + '?nf=' + this.formItem.nf)
+        this.$getExcel(process.env.BASE_URL + this.$url.fgssrjhdc + '?jhsj=' + this.formItem.jhsj)
       },
     },
     mounted () {
-
+      let date = new Date;
+      let year = date.getFullYear();
+      let month = (date.getMonth() + 1).toString();
+      month = (month < 10 ? "0" + month : month);
+      this.year = year+1;
     }
   }
 </script>

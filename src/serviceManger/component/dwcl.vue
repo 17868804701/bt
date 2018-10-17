@@ -111,7 +111,11 @@
             width: 120,
             render: (h, params) => {
               let texts = '';
-              texts = this.$store.state.dictData.parseDict.EJGS[params.row.bm];
+              if(params.row.bm=='运营部'){
+                texts='运营部'
+              }else {
+                texts = this.$store.state.dictData.parseDict.EJGS[params.row.bm];
+              }
               return h('div', {
                 props: {},
               }, texts)

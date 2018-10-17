@@ -5,48 +5,25 @@
       <Form :model="formItem" :label-width="80">
         <Row>
           <Col span="24">
-          <FormItem label="按年份查询" style="margin: 0;">
-            <DatePicker type="year" placeholder="选择年份" :transfer="true" placement="bottom-end"
-                        v-model="formItem.nf"></DatePicker>
-            <Button type="primary" icon="ios-search" @click="search" v-has="'srjhzd_sngjzsr_search'">搜索</Button>
-            <!--<Button type="primary" icon="android-download" @click="exports=true"-->
-            <!--style="float: right">导入计划表-->
-            <!--</Button>-->
-            <Button type="primary" icon="android-download"
-                    style="float: right;margin-right: 10px" @click="daochu" v-has="'srjhzd_sngjzsr_export'">导出Excel
-            </Button>
-            <Button type="primary" icon="android-download" @click="addProgram=true"
-                    style="float: right;margin-right: 10px;" v-has="'srjhzd_sngjzsr_add'">计划生成
-            </Button>
-          </FormItem>
+            <FormItem label="按年份查询" style="margin: 0;">
+              <DatePicker type="year" placeholder="选择年份" :transfer="true" placement="bottom-end"
+                          v-model="formItem.jhsj"></DatePicker>
+              <Button type="primary" icon="ios-search" @click="search" v-has="'srjhzd_sngjzsr_search'">搜索</Button>
+              <!--<Button type="primary" icon="android-download" @click="exports=true"-->
+              <!--style="float: right">导入计划表-->
+              <!--</Button>-->
+              <Button type="primary" icon="android-download"
+                      style="float: right;margin-right: 10px" @click="daochu" v-has="'srjhzd_sngjzsr_export'">导出Excel
+              </Button>
+              <Button type="primary" icon="android-download" @click="addProgram=true"
+                      style="float: right;margin-right: 10px;" v-has="'srjhzd_sngjzsr_add'">计划生成
+              </Button>
+            </FormItem>
           </Col>
         </Row>
       </Form>
     </Card>
-    <!--上传-->
-    <Modal
-      v-model="exports"
-      title="导入计划表"
-      @on-ok="ok"
-      width="400"
-      :mask-closable="false"
-      style="height:auto"
-      @on-cancel="cancel">
-      <Steps :current="0" direction="vertical">
-        <Step title="第一步" content="下载收入计划报表模板"></Step>
-        <Step title="第二步" content="上传报表"></Step>
-        <Step title="第三部" content="系统自动导入"></Step>
-      </Steps>
-      <div style="display: flex;flex-direction: column;position: absolute;top:90px;margin-left: 240px;">
-        <Button type="dashed" icon="android-download"
-                style="margin-bottom: 10px;margin-top: -15px;width: 110px;">下载
-        </Button>
-        <Upload action="//jsonplaceholder.typicode.com/posts/">
-          <Button type="primary" icon="ios-cloud-upload-outline" style="width: 110px;margin-top: 17px;">上传</Button>
-        </Upload>
-      </div>
-    </Modal>
-    <!--新增计划-->
+    <!--修改-->
     <Modal
       v-model="addProgram"
       title="计划信息"
@@ -60,84 +37,80 @@
         </Button>
         <Button type="primary" style="float: right;margin-right: 10px" v-else @click="add">新增
         </Button>
-
         <Button type="primary" style="float: right;margin-right: 10px" @click="cancel">取消</Button>
       </div>
       <div style="height:auto">
         <Form :model="formItem1" :label-width="120">
-          <FormItem label="路别" v-show="this.type!=='edit'" prop="lb">
-            <!--<Select v-model="formItem1.lb" style="width: 195px;">-->
-              <!--&lt;!&ndash;<Option value="102路">102路</Option>&ndash;&gt;-->
-              <!--&lt;!&ndash;<Option value="103路">103路</Option>&ndash;&gt;-->
-              <!--&lt;!&ndash;<Option value="286路">286路</Option>&ndash;&gt;-->
-             <!---->
-            <!--</Select>-->
+          <FormItem label="路别" prop="lb">
             <CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
           </FormItem>
-          <FormItem label="单位" v-show="this.type!=='edit'" prop="lb">
-            <!--<Select v-model="formItem1.lb" style="width: 195px;">-->
-            <!--&lt;!&ndash;<Option value="102路">102路</Option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<Option value="103路">103路</Option>&ndash;&gt;-->
-            <!--&lt;!&ndash;<Option value="286路">286路</Option>&ndash;&gt;-->
-            <!---->
-            <!--</Select>-->
-            <CommonSelect type="EJGS" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
+          <FormItem label="单位" prop="dw">
+            <CommonSelect type="EJGS" :selectValue="formItem1.dw" style="width: 195px;"></CommonSelect>
           </FormItem>
-          <FormItem label="类别" prop="lb">
-            <Select v-model="formItem1.lb" style="width: 195px;">
-                <Option value="102路">大中车</Option>
-                <Option value="103路">小客车</Option>
-                <Option value="286路">小计</Option>
+          <FormItem label="类别" prop="lx">
+            <Select v-model="formItem1.lx" style="width: 195px;">
+              <Option value="大中车">大中车</Option>
+              <Option value="小客车">小客车</Option>
+              <Option value="小计">小计</Option>
             </Select>
           </FormItem>
           <FormItem label="本年预计">
-            <Input v-model="formItem1.bqsj" placeholder="本年预计" style="width: 195px;"/>
+            <Input v-model="formItem1.qnyj" placeholder="本年预计" style="width: 195px;"/>
           </FormItem>
           <FormItem label="明年计划">
-            <Input v-model="formItem1.mnyj" placeholder="明年计划" style="width: 195px;"/>
+            <Input v-model="formItem1.bnjh" placeholder="明年计划" style="width: 195px;"/>
           </FormItem>
           <FormItem label="明年计划车次">
-            <Input v-model="formItem1.mnjhcc" placeholder="明年计划车次" style="width: 195px;"/>
+            <Input v-model="formItem1.bnjhcc" placeholder="明年计划车次" style="width: 195px;"/>
           </FormItem>
         </Form>
       </div>
     </Modal>
-    <Table stripe :columns="columns1" :data="data1" size="small" style="margin-top: 10px;"></Table>
+    <div style="margin-top: 10px;font-size: 18px;width: 100%;text-align: center;border: 1px solid #dddee1;height: 40px;line-height: 40px;font-weight: bold;border-bottom: 0">
+      {{this.year}}年市内公交总收入计划制定
+    </div>
+    <Table stripe :columns="columns1" :data="data1" size="small" style="margin-top: 0px;"></Table>
     <Page :total="total" show-total style="margin-top: 10px;" @on-change="step"></Page>
   </div>
 </template>
 <script>
   import CommonSelect from '../components/common/CommonSelect.vue'
+
   export default {
     components: {
       CommonSelect,
     },
-    data () {
+    data() {
       return {
+        year:'',
         addProgram: false,
         exports: false,
         type: 0,
-        total:0,
+        total: 0,
         formItem: {
           current: 1,
           size: 10,
-          nf: ''
+          jhsj: ''
         },
         formItem1: {
           lb: '',
-          bqsj: '',
-          mnyj: '',
-          mnjhcc: '',
-          bnkyl: ''
+          dw: '',
+          lx: '',
+          qnyj: '',
+          bnjh: '',
+          bnjhcc: ''
         },
         columns1: [
           {
             title: '单位',
-            key: 'dw'
-          },
-          {
-            title: '年度',
-            key: 'nd'
+            key: 'dw',
+            render: (h, params) => {
+              let texts = '';
+              texts = this.$store.state.dictData.parseDict.EJGS[params.row.dw];
+              return h('div', {
+                props: {},
+              }, texts)
+            }
           },
           {
             title: '路别',
@@ -152,36 +125,36 @@
           },
           {
             title: '前年实际（万元）',
-            key: 'qnsj'
+            key: 'qannsj'
           },
           {
             title: '去年计划（万元）',
-            key: 'bnjh'
+            key: 'qnjh'
           },
 
           {
-            title: '1-10月本期',
-            key: 'bqsj'
+            title: '去年1-10月',
+            key: 'qnsj'
           },
           {
             title: '去年预计1（万）',
-            key: 'bnyj'
+            key: 'qnyj'
           },
           {
             title: '本年计划（万）',
-            key: 'mnyj'
+            key: 'bnjh'
           },
           {
             title: '本年计划车次（万）',
-            key: 'mnjhcc'
+            key: 'bnjhcc'
           },
           {
             title: '去年每车次客运量（万）',
-            key: 'bnkyl'
+            key: 'qnmcc'
           },
           {
             title: '前年每车次客运量（万）',
-            key: 'qnkyl'
+            key: 'qannmcc'
           },
           {
             title: '操作',
@@ -218,52 +191,60 @@
       }
     },
     methods: {
-      ok () {
+      ok() {
       },
-      cancel () {
+      cancel() {
         this.type = '',
-          this.addProgram = false
+          this.formItem1 ={},
+          // this.formItem1.dw = '',
+          // this.formItem1.lx = '',
+          // this.formItem1.qnyj = '',
+          // this.formItem1.bnjh = '',
+          // this.formItem1.bnjhcc = ''
+        this.addProgram = false
       },
-      step(current){
+      step(current) {
         this.formItem.current = current
         this.getList()
       },
       add: function () {
-        //console.log(this.formItem1);
-        this.$post(this.$url.saveSngj + '?lb=' + this.formItem1.lb + '&bqsj=' + this.formItem1.bqsj + '&mnyj=' + this.formItem1.mnyj + '&mnjhcc=' + this.formItem1.mnjhcc + '&bnkyl=' + this.formItem1.bnkyl)
+        console.log(this.formItem1);
+        this.$post(this.$url.saveSngj, this.formItem1)
           .then(res => {
-            //console.log(res);
+            console.log(res);
             if (res.success === true) {
               this.$Message.info('添加成功')
               this.addProgram = false
+              this.formItem1 ={},
               this.getList()
-            } else if(res.msg === '保存失败，本年改线路计划已存在'){
-              this.$Message.error('保存失败，本年改线路计划已存在')
             } else {
-              this.$Message.error('添加失败')
+              this.$Message.error('添加失败，计划已经制定')
+              this.addProgram = false
+              this.formItem1 ={}
             }
           })
       },
       update: function () {
         this.$post(this.$url.updateSnsrjh, this.formItem1)
           .then(res => {
-            //console.log(res);
             if (res.success === true) {
               this.$Message.info('修改成功')
               this.addProgram = false
+              this.formItem1 ={}
               this.getList()
             } else {
+              this.formItem1 ={}
               this.$Message.error('修改失败')
             }
           })
       },
       daochu: function () {
-        if (this.formItem.nf == '') {
-          this.formItem.nf = ''
+        if (this.formItem.jhsj == '') {
+          this.formItem.jhsj = ''
         } else {
-          this.formItem.nf = this.$formatDate(this.formItem.nf).substring(0, 4)
+          this.formItem.jhsj = this.$formatDate(this.formItem.jhsj).substring(0, 4)
         }
-        this.$getExcel(process.env.BASE_URL + this.$url.sngjjhdc + '?nf=' + this.formItem.nf)
+        this.$getExcel(process.env.BASE_URL + this.$url.sngjjhdc + '?jhsj=' + this.formItem.jhsj)
       },
       getList: function () {
         this.$fetch(this.$url.snjhList, this.formItem)
@@ -285,16 +266,24 @@
           })
       },
       search: function () {
-        if (this.formItem.nf == '') {
-          this.formItem.nf = ''
+        if (this.formItem.jhsj == '') {
+          this.formItem.jhsj = '';
+          let date = new Date;
+          let year = date.getFullYear();
+          this.year = year+1
         } else {
-          this.formItem.nf = this.$formatDate(this.formItem.nf).substring(0, 4)
+          this.formItem.jhsj = this.$formatDate(this.formItem.jhsj).substring(0, 4)
+          this.year = this.$formatDate(this.formItem.jhsj).substring(0, 4)
         }
         this.getList();
       }
     },
-    mounted(){
-
+    mounted() {
+      let date = new Date;
+      let year = date.getFullYear();
+      let month = (date.getMonth() + 1).toString();
+      month = (month < 10 ? "0" + month : month);
+      this.year = year+1;
     }
   }
 </script>

@@ -138,7 +138,7 @@ const NetworkInterface = {
   yyjhtzList:'/erp-modules-yygl/yyjhtz/getYyjhtzList',//运营计划调整列表
   saveYyjh:'/erp-modules-yygl/yyjhtz/saveYyjhtz',//新增运营计划调整
   updateYyjh:'/erp-modules-yygl/yyjhtz/updateYyjhtz',//修改运营计划调整
-  fgssrjhList:'/erp-modules-yygl/fsrjh/getFsrjhList',//分公司收入计划
+  fgssrjhList:'/erp-modules-yygl/jtsrjh/getFsrjhList',//分公司收入计划
   saveFgssrjh:'/erp-modules-yygl/fsrjh/saveFsrjh',//分公司收入计划新增
   delFgssrjh:'/erp-modules-yygl/fsrjh/deleteFsrjh',//分公司收入计划删除
   updateFgssrjh:'/erp-modules-yygl/yyscjh/updateJih',//分公计划修改
