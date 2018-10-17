@@ -93,12 +93,14 @@
         this.$fetch(url)
         .then(res => {
           if (res.success === true) {
-            res.data.forEach(item => {
-              item.dw = allDict.EJGS[item.dw];
-            })
+//            res.data.forEach(item => {
+//              item.dw = allDict.EJGS[item.dw];
+//            })
             that.PA_XCZR_Rate_Data = res.data;
-            that.xslc = res.data[0].yylcSum;
-            that.qntq = res.data[0].oldyylcSum;
+            if (res.data.length > 0) {
+              that.xslc = res.data[0].yylcSum;
+              that.qntq = res.data[0].oldyylcSum;
+            }
           }
         });
       },

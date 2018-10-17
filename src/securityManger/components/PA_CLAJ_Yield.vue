@@ -4,15 +4,16 @@
     <Card>
       <Form :model="formItem" :label-width="80">
         <div style="display: flex;align-items: center">
-          <DatePicker type="year" placeholder="选择年份" :transfer="true" placement="bottom-end" v-model="formItem.tab7Date"></DatePicker>
-          <CheckboxGroup v-model="formItem.tab7Select" style="margin-left: 20px;">
-            <Checkbox label="1">第一季度</Checkbox>
-            <Checkbox label="2">第二季度</Checkbox>
-            <Checkbox label="3">第三季度</Checkbox>
-            <Checkbox label="4">第四季度</Checkbox>
-          </CheckboxGroup>
-          <Button type="primary" icon="ios-search" @click="requestListData" v-has="'aqscqkfx_claj_search'">搜索</Button>
-          <Button type="primary" icon="android-download" style="position: absolute;right: 10px" @click="exportExcel" v-has="'aqscqkfx_claj_export'">导出excel</Button>
+            <DatePicker type="year" placeholder="选择年份" :transfer="true" placement="bottom-end" v-model="formItem.tab7Date"></DatePicker>
+            <CheckboxGroup v-model="formItem.tab7Select" style="margin-left: 20px;">
+              <Checkbox label="1">第一季度</Checkbox>
+              <Checkbox label="2">第二季度</Checkbox>
+              <Checkbox label="3">第三季度</Checkbox>
+              <Checkbox label="4">第四季度</Checkbox>
+            </CheckboxGroup>
+            <Button type="primary" icon="ios-search" @click="requestListData" v-has="'aqscqkfx_claj_search'">搜索</Button>
+            <Button type="primary" icon="plus" style="position: absolute;right: 100px;" @click="addModal = true" >新增</Button>
+            <Button type="primary" icon="android-download" style="position: absolute;right: 10px" @click="exportExcel" v-has="'aqscqkfx_claj_export'">导出</Button>
         </div>
       </Form>
     </Card>
@@ -21,16 +22,54 @@
         {{tableTitle}}
       </div>
     </Table>
+    <Modal
+      v-model="addModal"
+      title="新增车辆安检信息"
+      width="50%"
+      :mask-closable="false"
+      :closable="false">
+      <div slot="footer" style="height: 30px;">
+        <Button type="primary" style="float: right;margin-right: 10px" @click="saveCLAJ('addItem')">保存</Button>
+        <Button type="primary" style="float: right;margin-right: 10px" @click="addModal = false">取消</Button>
+      </div>
+      <div style="padding: 0px; height: 100%;">
+        <Form :model="addItem" ref="addItem" :rules="ruleValidate" :label-width="90">
+          <div style="display: flex;flex-wrap: wrap;justify-content: flex-start;">
+            <FormItem label="单位:" style="margin-bottom: 0px" prop="dw">
+              <CommonSelect type="EJGS" :selectValue="addItem.dw" style="width: 135px;"></CommonSelect>
+            </FormItem>
+            <FormItem prop="date" label="年份月份:" style="margin-top: 0px;">
+              <DatePicker
+                style="width: 140px;"
+                type="month"
+                placeholder="选择时间"
+                :transfer="true"
+                placement="bottom-end"
+                v-model="addItem.date">
+              </DatePicker>
+            </FormItem>
+            <FormItem label="检车台次">
+              <InputNumber v-model="addItem.ajJctc" style="width: 135px;"></InputNumber>
+            </FormItem>
+            <FormItem label="不合格">
+              <InputNumber v-model="addItem.ajBhg" style="width: 135px;"></InputNumber>
+            </FormItem>
+          </div>
+        </Form>
+      </div>
+    </Modal>
   </div>
 </template>
 
 <script>
   import PATableData from '../views/PATableData.js';
   import QuarterQuery from './QuarterQuery.vue';
-  import * as DateTool from '../../../utils/DateTool'
+  import * as DateTool from '../../../utils/DateTool';
+  import CommonSelect from '../../components/common/CommonSelect.vue'
   export default {
     components: {
-      QuarterQuery
+      QuarterQuery,
+      CommonSelect
     },
     data () {
       return {
@@ -40,9 +79,24 @@
           tab7Date: this.initDate(),
           tab7Select: ['1'],
         },
+        addItem: {
+          dw: '',
+          ajJctc: 0,
+          ajBhg: 0,
+          date: ''
+        },
+        addModal: false,
         tableTitle: '',
         PA_CLAJ_Yield: [],
         PA_CLAJ_Yield_Data: [],
+        ruleValidate: {
+          dw: [
+            { required: true, message: '此项不能为空', trigger: 'blur' }
+          ],
+          date: [
+            { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
+          ]
+        }
       }
     },
     computed: {
@@ -112,6 +166,39 @@
         params.exportURL = this.exportURL;
         return params;
       },
+      saveCLAJ(name) {
+        this.$refs[name].validate(valid=>{
+          if (valid) {
+            this.requestSave();
+          }else{
+            this.$Message.error('请按照规则来填写内容!');
+          }
+        })
+      },
+      requestSave() {
+      	let params = {
+          ajBhg: this.addItem.ajBhg,
+          ajJctc: this.addItem.ajJctc,
+          dw: this.addItem.dw,
+          nf: this.addItem.date.getFullYear(),
+          yf: this.addItem.date.getMonth()+1,
+        };
+
+      	this.$post(this.$url.security_SCQKFX_add, params)
+        .then(res => {
+          if (res.success === true) {
+            this.addModal = false;
+            this.addItem = {
+              dw: '',
+              ajJctc: 0,
+              ajBhg: 0,
+              date: ''
+            }
+          }else{
+            this.$Message.error('添加出错!');
+          }
+        })
+      }
     },
     mounted () {
       this.getTableTitle();
@@ -122,7 +209,16 @@
   }
 </script>
 
-
+<!--
+"ajBhg": 0,
+  "ajJctc": 0,
+    "clbxHpe": 0,
+  "dw": "string",
+  "nf": 0,
+  "yf": 0,
+  "dwtbHpe": 0,
+  "dwtbSj": 0,
+-->
 
 
 

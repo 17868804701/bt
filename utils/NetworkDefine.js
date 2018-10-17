@@ -53,6 +53,7 @@ const NetworkInterface = {
   security_LASGJSLZB_exportExcel: baseURL+'/erp-modules-yygl/lasg/exportAqsczbLasgjslExcel', // 立案事故经损率指标 --- 报表导出
   security_CLAJ_exportExcel: baseURL+'/erp-modules-yygl/lasg/exportAqsczbAjtcExcel', // 车辆安检 --- 报表导出
   security_DWTBJQXJPF_exportExcel: baseURL+'/erp-modules-yygl/lasg/exportAqsczbDwtbExcel', // 对外投保交强险及赔付情况 --- 报表导出
+  security_SCQKFX_add: '/erp-modules-yygl/lasg/saveClaj',
   
   // **********        维修养护            *********** //
   maintain_BYGL_DATA_WXGXX_list: '/weix/dataDictionary/listWXGXX',                              // 基础数据 - 维修工信息管理列表

@@ -83,9 +83,9 @@
         this.$fetch(url)
         .then(res => {
           if (res.success === true) {
-            res.data.forEach(item => {
-              item.dw = allDict.EJGS[item.dw];
-            })
+//            res.data.forEach(item => {
+//              item.dw = allDict.EJGS[item.dw];
+//            })
             that.PA_LASG_LossRateTarget_Data = res.data;
           }
         });

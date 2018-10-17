@@ -82,10 +82,11 @@
         let url = this.$url.security_AQSCFGS_list + '?year=' + params.year + '&jidus=' + params.jidus;
         this.$fetch(url)
         .then(res => {
-          if (res.data.success === true) {
-          	res.data.forEach(item => {
-              item.dw = allDict.EJGS[item.dw];
-            })
+          if (res.success === true) {
+//            debugger
+//          	res.data.forEach(item => {
+//              item.dw = allDict.EJGS[item.dw];
+//            })
             that.PA_LASG_Data = res.data;
           }
         });

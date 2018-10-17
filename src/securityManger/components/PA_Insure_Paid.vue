@@ -12,7 +12,8 @@
             <Checkbox label="4">第四季度</Checkbox>
           </CheckboxGroup>
           <Button type="primary" icon="ios-search" @click="requestListData" v-has="'aqscqkfx_dwtbjqxjpfqk_search'">搜索</Button>
-          <Button type="primary" icon="android-download" style="position: absolute;right: 10px" @click="exportExcel" v-has="'aqscqkfx_dwtbjqxjpfqk_export'">导出excel</Button>
+          <Button type="primary" icon="plus" style="position: absolute;right: 100px;" @click="addModal = true" >新增</Button>
+          <Button type="primary" icon="android-download" style="position: absolute;right: 10px" @click="exportExcel" v-has="'aqscqkfx_dwtbjqxjpfqk_export'">导出</Button>
         </div>
       </Form>
     </Card>
@@ -21,6 +22,45 @@
         {{tableTitle}}
       </div>
     </Table>
+    <Modal
+      v-model="addModal"
+      title="新增对外投保及赔付情况"
+      width="50%"
+      :mask-closable="false"
+      :closable="false">
+      <div slot="footer" style="height: 30px;">
+        <Button type="primary" style="float: right;margin-right: 10px" @click="saveDWTB('addItem')">保存</Button>
+        <Button type="primary" style="float: right;margin-right: 10px" @click="addModal = false">取消</Button>
+      </div>
+      <div style="padding: 0px; height: 100%;">
+        <Form :model="addItem" ref="addItem" :rules="ruleValidate" :label-width="100">
+          <div style="display: flex;flex-wrap: wrap;justify-content: flex-start;">
+            <FormItem label="单位:" style="margin-bottom: 0px" prop="dw">
+              <CommonSelect type="EJGS" :selectValue="addItem.dw" style="width: 135px;"></CommonSelect>
+            </FormItem>
+            <FormItem prop="date" label="年份月份:" style="margin-top: 0px;">
+              <DatePicker
+                style="width: 140px;"
+                type="month"
+                placeholder="选择时间"
+                :transfer="true"
+                placement="bottom-end"
+                v-model="addItem.date">
+              </DatePicker>
+            </FormItem>
+            <FormItem label="对外投保事件:">
+              <InputNumber v-model="addItem.dwtbSj" style="width: 135px;"></InputNumber>
+            </FormItem>
+            <FormItem label="对外投保回赔额:">
+              <InputNumber v-model="addItem.dwtbHpe" style="width: 135px;"></InputNumber>
+            </FormItem>
+            <FormItem label="车辆保险及安检回赔额:">
+              <InputNumber v-model="addItem.clbxHpe" style="width: 135px;"></InputNumber>
+            </FormItem>
+          </div>
+        </Form>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -28,9 +68,12 @@
   import PATableData from '../views/PATableData.js';
   import QuarterQuery from './QuarterQuery.vue';
   import * as DateTool from '../../../utils/DateTool'
+  import CommonSelect from '../../components/common/CommonSelect.vue'
+
   export default {
     components: {
-      QuarterQuery
+      QuarterQuery,
+      CommonSelect
     },
     data () {
       return {
@@ -42,6 +85,22 @@
         tableTitle: '',
         PA_Insure_Paid: [],
         PA_Insure_Paid_Data: [],
+        addItem: {
+          dw: '',
+          date: '',
+          clbxHpe: 0,
+          dwtbHpe: 0,
+          dwtbSj: 0,
+        },
+        addModal: false,
+        ruleValidate: {
+          dw: [
+            { required: true, message: '此项不能为空', trigger: 'blur' }
+          ],
+          date: [
+            { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
+          ]
+        }
       }
     },
     computed: {
@@ -83,9 +142,10 @@
         this.$fetch(url)
         .then(res => {
           if (res.success === true) {
-            res.data.forEach(item => {
-              item.dw = allDict.EJGS[item.dw];
-            })
+//          	debugger
+//            res.data.forEach(item => {
+//              item.dw = allDict.EJGS[item.dw];
+//            })
             that.PA_Insure_Paid_Data = res.data
           }
         });
@@ -111,6 +171,41 @@
         params.exportURL = this.exportURL;
         return params;
       },
+      saveDWTB(name) {
+        this.$refs[name].validate(valid=>{
+          if (valid) {
+            this.requestDWTB();
+          }else{
+            this.$Message.error('请按照规则来填写内容!');
+          }
+        })
+      },
+      requestDWTB() {
+        let params = {
+          clbxHpe: this.addItem.ajBhg,
+          dwtbHpe: this.addItem.ajJctc,
+          dwtbSj: this.addItem.dwtbSj,
+          dw: this.addItem.dw,
+          nf: this.addItem.date.getFullYear(),
+          yf: this.addItem.date.getMonth()+1,
+        };
+
+        this.$post(this.$url.security_SCQKFX_add, params)
+        .then(res => {
+          if (res.success === true) {
+          	this.addModal = false;
+            this.addItem = {
+                dw: '',
+                date: '',
+                clbxHpe: 0,
+                dwtbHpe: 0,
+                dwtbSj: 0,
+            }
+          }else{
+          	this.$Message.error('添加出错!');
+          }
+        })
+      }
     },
     mounted () {
       this.getTableTitle();
@@ -120,9 +215,6 @@
     }
   }
 </script>
-
-
-
 
 
 
