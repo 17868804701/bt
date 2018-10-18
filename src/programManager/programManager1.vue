@@ -296,7 +296,7 @@
               },
               {
                 title: '合计',
-                key: 'fyyxj',
+                key: 'fyyhj',
                 align: 'center',
                 width: 100,
               },

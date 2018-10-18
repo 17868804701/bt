@@ -150,7 +150,7 @@ const NetworkInterface = {
   snjhList:'/erp-modules-yygl/jtsrjh/getJtsrjhList',//市内公交总计划制定列表
   addFgsyyjh:'/erp-modules-yygl/yyscjh/saveJih',//分公司运营计划新增
   yyjhgldc:'/erp-modules-yygl/yyjhtz/exportJtyyjh',//运营计划管理导出
-  fgssrjhdc:'/erp-modules-yygl/fsrjh/exportFsrjh',//分公司收入计划导出
+  fgssrjhdc:'/erp-modules-yygl/jtsrjh/exportFgssrjh',//分公司收入计划导出
   sngjjhdc:'/erp-modules-yygl/jtsrjh/exportJtsrjh',//市内公交计划导出
   fgsyyjhdc:'/erp-modules-yygl/yyscjh/exportFgsjh',//导出分公司运营计划
   updatefgssrjh:'/erp-modules-yygl/fsrjh/updateFsrjh',//修改分公司收入计划

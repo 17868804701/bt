@@ -63,7 +63,7 @@
               },
               {
                 title: '实际价',
-                key: 'zrsjj',
+                key: 'zrsjje',
                 align: 'center',
                 width: 150,
               },     {
@@ -73,7 +73,7 @@
                 width: 150,
               }, {
                 title: '计划价',
-                key: 'zrjhj',
+                key: 'zrjhje',
                 align: 'center',
                 width: 150,
               },   {
@@ -98,7 +98,7 @@
               },
               {
                 title: '实际价',
-                key: 'htsjj',
+                key: 'htsjje',
                 align: 'center',
                 width: 150,
               },    {
@@ -108,7 +108,7 @@
                 width: 150,
               },  {
                 title: '计划价',
-                key: 'htjhj',
+                key: 'htjhje',
                 align: 'center',
                 width: 150,
               },    {
@@ -127,18 +127,18 @@
             children: [
               {
                 title: '气量',
-                key: 'hjql',
+                key: 'ql',
                 align: 'center',
                 width: 150,
               },
               {
                 title: '实际价',
-                key: 'hjsjj',
+                key: 'sjje',
                 align: 'center',
                 width: 150,
               }, {
                 title: '计划价',
-                key: 'hjjhj',
+                key: 'jhje',
                 align: 'center',
                 width: 150,
               },
@@ -158,11 +158,6 @@
               this.data12 = res.data.records;
               this.totalPage1 = res.data.total;
             } else {
-              res.data.records.forEach(item=>{
-                 item.hjql = item.htql+item.zrql
-                 item.hjsjj = item.htsjj+item.zrsjj
-                 item.hjjhj = item.htjhj+item.zrjhj
-              });
               this.data12 = res.data.records;
               this.totalPage1 = res.data.total;
             }

@@ -124,11 +124,11 @@
             }
           },
           {
-            title: '前年实际（万元）',
+            title: '前年实际',
             key: 'qannsj'
           },
           {
-            title: '去年计划（万元）',
+            title: '去年计划',
             key: 'qnjh'
           },
 
@@ -137,23 +137,23 @@
             key: 'qnsj'
           },
           {
-            title: '去年预计1（万）',
+            title: '去年预计1',
             key: 'qnyj'
           },
           {
-            title: '本年计划（万）',
+            title: '本年计划',
             key: 'bnjh'
           },
           {
-            title: '本年计划车次（万）',
+            title: '本年计划车次',
             key: 'bnjhcc'
           },
           {
-            title: '去年每车次客运量（万）',
+            title: '去年每车次客运量',
             key: 'qnmcc'
           },
           {
-            title: '前年每车次客运量（万）',
+            title: '前年每车次客运量',
             key: 'qannmcc'
           },
           {
