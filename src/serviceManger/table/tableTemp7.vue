@@ -157,7 +157,7 @@
        </tr>
        <tr>
          <td>星级级别</td>
-         <td colspan="4"></td>
+         <td colspan="4">{{xjgzList.xjjb}}</td>
        </tr>
        <tr>
          <td>备注</td>
@@ -178,6 +178,7 @@
     props: {
       scoreList: '',
       kfsmList:'',
+      xjgzList:'',
       month:'',
       year:'',
       titles:''

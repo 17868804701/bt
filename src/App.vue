@@ -202,7 +202,8 @@ export default {
         .then(res => {
           if (res.success === true) {
             VueCookie.set('access_token', '', -1);
-            window.location.href = process.env.BASE_URL + "/login?service=http://106.12.19.134:8080/bterp";
+            // window.location.href = process.env.BASE_URL + "/login?service=http://106.12.19.134:8080/bterp";
+            window.location.href = process.env.BASE_URL + "/login?service=http://192.168.17.106:8080/bterp";
             // window.location.href = process.env.BASE_URL + "/login?service=http://localhost:8081/#/";
           }
         })

@@ -107,7 +107,7 @@
             </div>
             <div class="head jbxx_right">
               <img class="head_img"
-                   :src="'http://10.50.0.144:8088/'+formItem.zpdz"
+                   :src="'http://192.168.17.106:8080/'+formItem.zpdz"
                    alt="" style="border: 1px solid #eae9ec">
               <Upload :headers="header" :action='uploadFile' :on-success="handleSuccess" :show-upload-list="false">
                 <Button type="primary" icon="ios-cloud-upload-outline">上传头像</Button>
@@ -292,7 +292,7 @@
         width="70%"
         title="查看pdf">
         <vuePdfjs
-          :url="this.$route.query.tip == 'add' ? ' ':'http://10.50.0.144:8088/'+this.$route.query.row.ygfz"
+          :url="this.$route.query.tip == 'add' ? ' ':'http://192.168.17.106:8080/'+this.$route.query.row.ygfz"
           :type="0"></vuePdfjs>000
       </Modal>
       <!--填写变更原因-->

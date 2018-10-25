@@ -177,7 +177,7 @@
            scoreList['人力资源管理']+
            scoreList['四防工作']+
            scoreList['基础管理']+
-           scoreList['机务管理']+
+           scoreList['计划生育']+
            scoreList['现场管理']
            }}
          </td>
@@ -260,14 +260,14 @@
        </tr>
        <tr>
          <td>领导班子正职（元）</td>
-         <td colspan="2"></td>
-         <td rowspan="2"></td>
-         <td></td>
+         <td colspan="2">{{xjgzList.zzgwgzbz}}</td>
+         <td rowspan="2">{{xjgzList.xjjb}}</td>
+         <td>{{xjgzList.fzxjgzbz}}</td>
        </tr>
        <tr>
          <td>副职（元）</td>
-         <td colspan="2"></td>
-         <td></td>
+         <td colspan="2">{{xjgzList.fzgwgzbz}}</td>
+         <td>{{xjgzList.zzxjgzbz}}</td>
        </tr>
        <tr>
          <td>生产一线（司乘）（元）</td>
@@ -293,6 +293,7 @@
       scoreList:'',
       kfsmList:'',
       year:'',
+      xjgzList:'',
       month:'',
       titles:''
     },

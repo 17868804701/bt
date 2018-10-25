@@ -139,6 +139,7 @@
     props: {
       scoreList: '',
       month:'',
+      xjgzList:'',
       year:'',
       titles:''
     },

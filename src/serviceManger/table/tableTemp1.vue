@@ -142,14 +142,14 @@
         </tr>
         <tr>
           <td>领导班子正职（元）</td>
-          <td colspan="2"></td>
-          <td rowspan="2"></td>
-          <td></td>
+          <td colspan="2">{{xjgzList.zzgwgzbz}}</td>
+          <td rowspan="2">{{xjgzList.xjjb}}</td>
+          <td>{{xjgzList.fzxjgzbz}}</td>
         </tr>
         <tr>
           <td>副职（元）</td>
-          <td colspan="2"></td>
-          <td></td>
+          <td colspan="2">{{xjgzList.fzgwgzbz}}</td>
+          <td>{{xjgzList.zzxjgzbz}}</td>
         </tr>
         <tr>
           <td>备注</td>
@@ -170,6 +170,8 @@
     props: {
       scoreList:'',
       kfsmList:'',
+      xjgzList:'',
+
       month:'',
       year:'',
       titles:''

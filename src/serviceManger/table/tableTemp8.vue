@@ -273,6 +273,7 @@
     props: {
       scoreList: '',
       kfsmList:'',
+      xjgzList:'',
       month:'',
       year:'',
       titles:''

@@ -46,29 +46,29 @@
                 <Button type="primary" style="float: right;margin-right: 10px" @click="quxiao">取消</Button>
               </div>
               <div id="pdfDom">
-                <TPL1 v-show="this.formItem.table_title.indexOf('票款')==0" :titles="this.title"
+                <TPL1 v-show="this.formItem.table_title.indexOf('票款')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL1>
-                <TPL2 v-show="this.formItem.table_title.indexOf('公交')==0" :titles="this.title"
+                <TPL2 v-show="this.formItem.table_title.indexOf('公交')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL2>
-                <TPL3 v-show="this.formItem.table_title.indexOf('站务管理')==0" :titles="this.title"
+                <TPL3 v-show="this.formItem.table_title.indexOf('站务管理')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL3>
-                <TPL4 v-show="this.formItem.table_title.indexOf('职工培训')==0" :titles="this.title"
+                <TPL4 v-show="this.formItem.table_title.indexOf('职工培训')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL4>
-                <TPL5 v-show="this.formItem.table_title.indexOf('修理公司')==0" :titles="this.title"
+                <TPL5 v-show="this.formItem.table_title.indexOf('修理公司')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL5>
-                <TPL6 v-show="this.formItem.table_title.indexOf('稽查大队')==0" :titles="this.title"
+                <TPL6 v-show="this.formItem.table_title.indexOf('稽查大队')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL6>
-                <TPL7 v-show="this.formItem.table_title.indexOf('吉运')==0" :titles="this.title"
+                <TPL7 v-show="this.formItem.table_title.indexOf('吉运')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL7>
-                <TPL8 v-show="this.formItem.table_title.indexOf('长客')==0" :titles="this.title"
+                <TPL8 v-show="this.formItem.table_title.indexOf('长客')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL8>
-                <TPL9 v-show="this.formItem.table_title.indexOf('大自然')==0" :titles="this.title"
+                <TPL9 v-show="this.formItem.table_title.indexOf('大自然')==0" :titles="this.title" :xjgzList="this.xjgzList"
                       :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL9>
-                <TPL10 v-show="this.formItem.table_title.indexOf('机关部室')==0" :titles="this.title"
+                <TPL10 v-show="this.formItem.table_title.indexOf('机关部室')==0" :titles="this.title" :xjgzList="this.xjgzList"
                        :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL10>
-                <TPL11 v-show="this.formItem.table_title.indexOf('经营业绩')==0" :titles="this.title"
+                <TPL11 v-show="this.formItem.table_title.indexOf('经营业绩')==0" :titles="this.title" :xjgzList="this.xjgzList"
                        :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL11>
-                <TPL12 v-show="this.formItem.table_title.indexOf('各二级')==0" :titles="this.title"
+                <TPL12 v-show="this.formItem.table_title.indexOf('各二级')==0" :titles="this.title" :xjgzList="this.xjgzList"
                        :scoreList="this.scoreList" :kfsmList="this.kfsmList " :month="this.showMonth" :year="this.showYear"></TPL12>
               </div>
             </Modal>
@@ -152,6 +152,7 @@
     },
     data () {
       return {
+        xjgzList:{},
         modal1: false,
         value1: 1,
         scoreList: '',
@@ -231,12 +232,10 @@
           this.$Message.error('请先选择时间, 再进行操作!');
           return;
         }
-
         if (this.formItem.table_title === '' || this.formItem.table_title.length <= 0) {
           this.$Message.error('请选择要操作的报表!');
           return;
         }
-
         let year = this.formItem.time.getFullYear();
         let month = this.formItem.time.getMonth() + 1;
         let params = {
@@ -247,26 +246,36 @@
         this.showMonth = this.formItem.time.getMonth() + 1;
         this.showYear = this.formItem.time.getFullYear();
         this.title = this.formItem.table_title;
-        this.$fetch(this.$url.getReportData, params)
-          .then(res => {
-            console.log(res);
-            if (res.success === true) {
-              this.TPLData = res.data;
-              let arr = {};
-              let arr1 = {}
-              res.data.forEach(item => {
-                arr[item['subOptionName']] = item['score']
-                arr1[item['subOptionName']] = item['kfsm']
-              });
-              console.log(arr);
-              console.log(arr1)
-              this.scoreList = arr;
-              this.kfsmList = arr1;
-              this.modal1 = true;
-            } else {
-              this.$Message.error('获取数据失败, 请重试!');
-            }
-          })
+
+        if(this.formItem.table_title==='各二级单位领导月薪表'){
+          this.$getExcel(process.env.BASE_URL+this.$url.gejdwyxb+'?khYear='+year + '&khMonth='+month)
+        }else if(this.formItem.table_title==='机关部室星级考核表'){
+          this.$getExcel(process.env.BASE_URL+this.$url.jggbskhb+'?khYear='+year + '&khMonth='+month)
+        }else {
+          this.$fetch(this.$url.getReportData, params)
+            .then(res => {
+              console.log(res,'********************************************');
+              if (res.success === true) {
+                this.TPLData = res.data;
+                let arr = {};
+                let arr1 = {};
+                res.data.forEach(item => {
+                  arr[item['subOptionName']] = item['score']
+                  arr1[item['subOptionName']] = item['kfsm']
+                });
+                console.log(arr);
+                console.log(arr1)
+                this.xjgzList = res.data1
+                this.scoreList = arr;
+                this.kfsmList = arr1;
+                this.modal1 = true;
+                console.log(this.xjgzList)
+                console.log(this.kfsmList)
+              } else {
+                this.$Message.error('获取数据失败, 请重试!');
+              }
+            })
+        }
       },
 
       // 请求当前用户的所有报表的打分选项
@@ -275,6 +284,7 @@
         this.$fetch(this.$url.getUserPFList)
           .then(res => {
             if (res.success === true) {
+              console.log(res,'********************************************88')
               let dataArray = res.data;
               dataArray.forEach(item => {
                 that.allReportTitle.push(item.tableTitle);

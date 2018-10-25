@@ -41,13 +41,13 @@
       </div>
       <div style="height:auto">
         <Form :model="formItem1" :label-width="120">
-          <FormItem label="路别" prop="lb">
+          <FormItem label="路别" prop="lb" v-show="this.type!=='edit'">
             <CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
           </FormItem>
-          <FormItem label="单位" prop="dw">
+          <FormItem label="单位" prop="dw" v-show="this.type!=='edit'">
             <CommonSelect type="EJGS" :selectValue="formItem1.dw" style="width: 195px;"></CommonSelect>
           </FormItem>
-          <FormItem label="类别" prop="lx">
+          <FormItem label="类别" prop="lx" v-show="this.type!=='edit'">
             <Select v-model="formItem1.lx" style="width: 195px;">
               <Option value="大中车">大中车</Option>
               <Option value="小客车">小客车</Option>
@@ -111,6 +111,10 @@
                 props: {},
               }, texts)
             }
+          },
+          {
+            title: '类型',
+            key: 'lx'
           },
           {
             title: '路别',
