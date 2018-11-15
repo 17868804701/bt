@@ -36,26 +36,26 @@
         <Checkbox label="gh">工号</Checkbox>
         <Checkbox label="rybh">人员编号</Checkbox>
         <Checkbox label="sfzh">身份证号</Checkbox>
-        <Checkbox label="bxdh">保险档号</Checkbox>
+        <Checkbox label="sbgrzh">社保个人账号</Checkbox>
         <Checkbox label="bm">部门</Checkbox>
-        <Checkbox label="gjjzh">公积金账号</Checkbox>
-        <Checkbox label="gjjdh">公积金档号</Checkbox>
-        <Checkbox label="gjjzt">公积金状态</Checkbox>
+        <Checkbox label="sbcbsj">社保参保时间</Checkbox>
+        <Checkbox label="sbjfjs">社保缴费基数</Checkbox>
+        <Checkbox label="sbjfzt">社保缴费状态</Checkbox>
         <Checkbox label="gjjjcbz">公积金缴存情况备注</Checkbox>
         <Checkbox label="gjjkhsj">公积金开户时间</Checkbox>
-        <Checkbox label="ylbx">医疗保险</Checkbox>
-        <Checkbox label="ylzh">养老证号</Checkbox>
+        <Checkbox label="zzqkbgyy">在职情况变更原因</Checkbox>
+        <Checkbox label="zfgjjzh">住房公积金账号</Checkbox>
         <Checkbox label="fby">服兵役</Checkbox>
         <Checkbox label="rdsj">入党时间</Checkbox>
         <Checkbox label="gzsj">工作时间</Checkbox>
         <Checkbox label="bdwgzsj">本单位工作时间</Checkbox>
-        <Checkbox label="txsj">退休时间</Checkbox>
+        <Checkbox label="tlsj">退离时间</Checkbox>
         <Checkbox label="txdz">通讯地址</Checkbox>
         <Checkbox label="lxdh">联系电话</Checkbox>
         <Checkbox label="dw">单位</Checkbox>
         <Checkbox label="bm">部门</Checkbox>
-        <Checkbox label="zyjszc">专业技术职称</Checkbox>
-        <Checkbox label="qdsj">取得时间</Checkbox>
+        <Checkbox label="gjjjcjs">公积金缴存基数</Checkbox>
+        <Checkbox label="zzqkbgsj">在职情况变更时间</Checkbox>
         <Checkbox label="xl">学历</Checkbox>
         <Checkbox label="byyx">毕业院校</Checkbox>
         <Checkbox label="sxzy">所学专业</Checkbox>
@@ -65,10 +65,10 @@
         <Checkbox label="gzzh">工作证号</Checkbox>
         <Checkbox label="zyzgjn">职业资格技能</Checkbox>
         <Checkbox label="jkzk">健康状况</Checkbox>
-        <Checkbox label="gsbx">工伤保险</Checkbox>
+        <Checkbox label="gjjjczt">公积金缴存状态</Checkbox>
         <Checkbox label="gwzt">岗位状态</Checkbox>
         <Checkbox label="rybgqk">人员变更情况</Checkbox>
-        <Checkbox label="zgsf">职工身份</Checkbox>
+        <Checkbox label="ldhtxs">劳动合同形式</Checkbox>
         <Checkbox label="poqk">配偶情况</Checkbox>
         <Checkbox label="htkssj">合同开始时间</Checkbox>
         <Checkbox label="htjssj">合同结束时间</Checkbox>
@@ -76,8 +76,6 @@
         <Checkbox label="bz">备注</Checkbox>
         <Checkbox label="ld">路队</Checkbox>
         <Checkbox label="zzqk">在职情况</Checkbox>
-        <Checkbox label="sscj">所属车间</Checkbox>
-        <Checkbox label="wxbz">维修班组</Checkbox>
       </Checkbox-group>
     </Modal>
     <Modal
@@ -223,13 +221,13 @@
         tableColumns2: [],
         tableColumnsChecked: [
           'sfzh',
-          'bxdh',
-          'gjjzh',
-          'gjjdh',
-          'gjjzt',
+          'sbgrzh',
+          'sbcbsj',
+          'sbjfjs',
+          'sbjfzt',
           'gjjjcbz',
           'gjjkhsj',
-          'ylzh',
+          'zfgjjzh',
           'fby',
           'xmdx',
           'xm',
@@ -242,11 +240,11 @@
           'rdsj',
           'gzsj',
           'bdwgzsj',
-          'txsj',
+          'tlsj',
           'lxdh',
           'dw',
           'bm',
-          'zyjszc',
+          'gjjjcjs',
           'xl',
           'byyx',
           'sxzy',
@@ -255,25 +253,23 @@
           'gzzh',
           'zyzgjn',
           'jkzk',
-          'gsbx',
-          'zgsf',
+          'gjjjczt',
+          'ldhtxs',
           'htkssj',
           'htjssj',
           'lrsj',
           'bz',
           'ld',
           'gh',
-          'qdsj',
+          'zzqkbgsj',
           'zc',
           'gwzt',
           'rybgqk',
           'poqk',
-          'ylbx',
+          'zzqkbgyy',
           'txdz',
           'zzqk',
-          'sscj',
           'cz',
-          'wxbz'
         ],
         modal2: false,
         tabValue: 0
@@ -324,27 +320,27 @@
             width: 150,
             align:'center'
           },
-          bxdh: {
-            title: '保险档号',
-            key: 'bxdh',
+          sbgrzh: {
+            title: '社保个人账号',
+            key: 'sbgrzh',
             width: 150,
             align:'center'
           },
-          gjjzh: {
-            title: '公积金账号',
-            key: 'gjjzh',
+          sbcbsj: {
+            title: '社保参保时间',
+            key: 'sbcbsj',
             width: 150,
             align:'center'
           },
-          gjjdh: {
-            title: '公积金档号',
-            key: 'gjjdh',
+          sbjfjs: {
+            title: '社保缴费基数',
+            key: 'sbjfjs',
             width: 150,
             align:'center'
           },
-          gjjzt: {
-            title: '公积金状态',
-            key: 'gjjzt',
+          sbjfzt: {
+            title: '社保缴费状态',
+            key: 'sbjfzt',
             width: 150,
             align:'center'
           },
@@ -360,9 +356,9 @@
             width: 150,
             align:'center'
           },
-          ylzh: {
-            title: '养老证号',
-            key: 'ylzh',
+          zfgjjzh: {
+            title: '住房公积金账号',
+            key: 'zfgjjzh',
             width: 150,
             align:'center'
           },
@@ -437,9 +433,9 @@
             width: 150,
             align:'center'
           },
-          txsj: {
-            title: '退休时间',
-            key: 'txsj',
+          tlsj: {
+            title: '退离时间',
+            key: 'tlsj',
             width: 150,
             align:'center'
           },
@@ -461,9 +457,9 @@
             width: 150,
             align:'center'
           },
-          zyjszc: {
-            title: '专业技术职称',
-            key: 'zyjszc',
+          gjjjcjs: {
+            title: '公积金缴存基数',
+            key: 'gjjjcjs',
             width: 150,
             align:'center'
           },
@@ -515,15 +511,15 @@
             width: 150,
             align:'center'
           },
-          gsbx: {
-            title: '工伤保险',
-            key: 'gsbx',
+          gjjjczt: {
+            title: '公积金缴存状态',
+            key: 'gjjjczt',
             width: 150,
             align:'center'
           },
-          zgsf: {
-            title: '职工身份',
-            key: 'zgsf',
+          ldhtxs: {
+            title: '劳动合同形式',
+            key: 'ldhtxs',
             width: 150,
             align:'center'
           },
@@ -565,21 +561,9 @@
             width: 150,
             align:'center'
           },
-          sscj: {
-            title: '所属车间',
-            key: 'sscj',
-            width: 150,
-            align:'center'
-          },
-          wxbz: {
-            title: '维修班组',
-            key: 'wxbz',
-            width: 150,
-            align:'center'
-          },
-          qdsj: {
-            title: '取得时间',
-            key: 'qdsj',
+          zzqkbgsj: {
+            title: '在职情况变更时间',
+            key: 'zzqkbgsj',
             width: 150,
             align:'center'
           },
@@ -595,9 +579,9 @@
             width: 150,
             align:'center'
           },
-          ylbx: {
-            title: '医疗保险',
-            key: 'ylbx',
+          zzqkbgyy: {
+            title: '在职情况变更原因',
+            key: 'zzqkbgyy',
             width: 150,
             align:'center'
           },
@@ -688,13 +672,16 @@
               this.tableData2 = res.data.records;
             } else {
               res.data.records.forEach(item => {
+                item.tlsj = item.tlsj===null?'':this.$formatDate(item.tlsj).substring(0, 10);
+                item.zzqkbgsj = item.zzqkbgsj===null?'':this.$formatDate(item.zzqkbgsj).substring(0, 10);
+                item.sbcbsj = item.sbcbsj===null?'':this.$formatDate(item.sbcbsj).substring(0, 10);
+
                 item.gzsj = item.gzsj==null?'':this.$formatDate(item.gzsj).substring(0, 10);
                 item.lrsj = item.lrsj==null?'':this.$formatDate(item.lrsj).substring(0, 10);
                 item.rdsj = item.rdsj==null?'':this.$formatDate(item.rdsj).substring(0, 10);
                 item.gjjkhsj = item.gjjkhsj==null?'':this.$formatDate(item.gjjkhsj).substring(0, 10);
-                item.qdsj = item.qdsj==null?'':this.$formatDate(item.qdsj).substring(0, 10);
+                item.zzqkbgsj = item.zzqkbgsj==null?'':this.$formatDate(item.zzqkbgsj).substring(0, 10);
                 item.bdwgzsj = item.bdwgzsj ==null?'':this.$formatDate(item.bdwgzsj).substring(0, 10);
-                item.txsj = item.txsj==null?'':this.$formatDate(item.txsj).substring(0, 10);
                 item.htkssj = item.htkssj ==null?'':this.$formatDate(item.htkssj).substring(0, 10);
                 item.htjssj = item.htjssj==null?'':this.$formatDate(item.htjssj).substring(0, 10);
                 item.csny = item.csny ==null?'':this.$formatDate(item.csny).substring(0, 10);
@@ -775,12 +762,14 @@
                 item.lrsj = item.lrsj===null?item.lrsj='':this.$formatDate(item.lrsj).substring(0, 10);
                 item.rdsj = item.rdsj===null?item.rdsj='':this.$formatDate(item.rdsj).substring(0, 10);
                 item.gjjkhsj = item.gjjkhsj===null?item.gjjkhsj='':this.$formatDate(item.gjjkhsj).substring(0, 10);
-                item.qdsj = item.qdsj===null?item.qdsj='':this.$formatDate(item.qdsj).substring(0, 10);
+                item.zzqkbgsj = item.zzqkbgsj===null?item.zzqkbgsj='':this.$formatDate(item.zzqkbgsj).substring(0, 10);
                 item.bdwgzsj = item.bdwgzsj===null?item.bdwgzsj='':this.$formatDate(item.bdwgzsj).substring(0, 10);
-                item.txsj = item.txsj===null?item.txsj='':this.$formatDate(item.txsj).substring(0, 10);
                 item.htkssj = item.htkssj==null?item.htkssj='':this.$formatDate(item.htkssj).substring(0, 10);
                 item.htjssj = item.htjssj===null?item.htjssj='':this.$formatDate(item.htjssj).substring(0, 10);
                 item.csny = item.csny===null?item.csny='':this.$formatDate(item.csny).substring(0, 10);
+                item.tlsj = item.tlsj===null?item.tlsj='':this.$formatDate(item.tlsj).substring(0, 10);
+                item.zzqkbgsj = item.zzqkbgsj===null?item.zzqkbgsj='':this.$formatDate(item.zzqkbgsj).substring(0, 10);
+                item.sbcbsj = item.sbcbsj===null?item.sbcbsj='':this.$formatDate(item.sbcbsj).substring(0, 10);
               });
               this.totalPage = res.data.total;
               this.tableData2 = res.data.records;

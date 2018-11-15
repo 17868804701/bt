@@ -135,8 +135,27 @@
           </Button>
         </div>
         <div style="display: flex;flex-wrap: wrap">
-          <FormItem :label-width="160" label="公积金账号">
-            <Input :disabled="isEdit_gjj" v-model="formItem.gjjzh" placeholder="公积金账号" class="input_item"/>
+          <!--<FormItem :label-width="160" label="公积金账号">-->
+            <!--<Input :disabled="isEdit_gjj" v-model="formItem.gjjzh" placeholder="公积金账号" class="input_item"/>-->
+          <!--</FormItem>-->
+          <FormItem :label-width="160" label="社保个人账号">
+            <Input :disabled="isEdit_gjj" v-model="formItem.sbgrzh" placeholder="社保个人账号" class="input_item"/>
+          </FormItem>
+          <FormItem :label-width="160" label="社保参保时间">
+            <DatePicker :disabled="isEdit_gjj" type="date" style="width: 170px;" placeholder="社保参保时间"
+                        v-model="formItem.sbcbsj"></DatePicker>
+          </FormItem>
+          <FormItem :label-width="160" label="社保缴费基数">
+            <Input :disabled="isEdit_gjj" v-model="formItem.sbjfjs" placeholder="社保缴费基数" class="input_item"/>
+          </FormItem>
+          <FormItem :label-width="160" label="社保缴费状态">
+            <Input :disabled="isEdit_gjj" v-model="formItem.sbjfzt" placeholder="社保缴费状态" class="input_item"/>
+          </FormItem>
+          <FormItem :label-width="160" label="社保缴存备注">
+            <Input :disabled="isEdit_gjj" v-model="formItem.sbjcbz" placeholder="社保缴存备注" class="input_item"/>
+          </FormItem>
+          <FormItem :label-width="160" label="住房公积金账号">
+            <Input :disabled="isEdit_gjj" v-model="formItem.zfgjjzh" placeholder="住房公积金账号" class="input_item"/>
           </FormItem>
           <FormItem :label-width="160" label="公积金开户时间">
             <DatePicker :disabled="isEdit_gjj" type="date" style="width: 170px;" placeholder="选择时间"
@@ -145,12 +164,15 @@
           <FormItem :label-width="160" label="公积金缴存情况备注">
             <Input :disabled="isEdit_gjj" v-model="formItem.gjjjcbz" placeholder="公积金缴存情况备注" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="160" label="公积金档号">
+          <FormItem :label-width="160" label="公积金缴存基数">
+            <Input :disabled="isEdit_gjj" v-model="formItem.gjjjcjs" placeholder="公积金缴存基数" class="input_item"/>
+          </FormItem>
+          <FormItem :label-width="160" label="公积金缴存状态">
+            <Input :disabled="isEdit_gjj" v-model="formItem.gjjjczt" placeholder="公积金缴存状态" class="input_item"/>
+          </FormItem>
+<!--          <FormItem :label-width="160" label="公积金档号">
             <Input :disabled="isEdit_gjj" v-model="formItem.gjjdh" placeholder="公积金档号" class="input_item"/>
-          </FormItem>
-          <FormItem :label-width="160" label="公积金状态">
-            <Input :disabled="isEdit_gjj" v-model="formItem.gjjzt" placeholder="公积金状态" class="input_item"/>
-          </FormItem>
+          </FormItem>-->
         </div>
       </Card>
       <!--<Button type="primary" icon="paper-airplane" size="small" style="margin-top:10px;">单位基本信息</Button>-->
@@ -179,80 +201,24 @@
             </Select>
 
           </FormItem>
-
-          <FormItem :label-width="120" label="专业技术职称">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.ztjszc" placeholder="专业技术职称" class="input_item"/>
+          <FormItem :label-width="120" label="路队" prop="ld">
+            <Input :disabled="isEdit_dwxx" v-model="formItem.ld" placeholder="路队" class="input_item" v-show="isEdit_dwxx"/>
+            <CommonSelect type="LB"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.ld"  class="input_item"></CommonSelect>
           </FormItem>
-          <FormItem :label-width="120" label="取得时间">
-            <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
-                        v-model="formItem.qdsj"></DatePicker>
-          </FormItem>
-          <FormItem :label-width="120" label="退离类别">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.txlb" placeholder="退离类别" class="input_item"/>
+          <FormItem :label-width="120" label="岗位状态" prop="gwzt">
+            <!--<Select :disabled="isEdit_dwxx" v-model="formItem.gwzt" style="width: 170px;">-->
+            <!--<Option value="二级">二级</Option>-->
+            <!--<Option value="三级">三级</Option>-->
+            <!--<Option value="司机">司机</Option>-->
+            <!--<Option value="修理">修理</Option>-->
+            <!--</Select>-->
+            <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.gwzt" placeholder="岗位状态" class="input_item"/>
+            <CommonSelect type="RYXX_GWZT"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.gwzt"  class="input_item"></CommonSelect>
           </FormItem>
           <FormItem :label-width="120" label="工种职务">
             <Input :disabled="isEdit_dwxx" v-model="formItem.gzzw" placeholder="工种职务" class="input_item"/>
           </FormItem>
 
-          <FormItem :label-width="120" label="路队" prop="ld">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.ld" placeholder="路队" class="input_item" v-show="isEdit_dwxx"/>
-            <CommonSelect type="LB"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.ld"  class="input_item"></CommonSelect>
-          </FormItem>
-          <FormItem :label-width="120" label="工伤保险">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.gsbx" placeholder="工伤保险" class="input_item"/>
-          </FormItem>
-          <FormItem :label-width="120" label="所属车间" prop="sscj">
-            <!--<Select :disabled="isEdit_dwxx" v-model="formItem.sscj" style="width: 170px;">-->
-              <!--<Option value="第一车间">第一车间</Option>-->
-              <!--<Option value="第二车间">第二车间</Option>-->
-              <!--<Option value="第三车间">第三车间</Option>-->
-              <!--<Option value="第四车间">第四车间</Option>-->
-            <!--</Select>-->
-            <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.sscj" placeholder="所属车间" class="input_item"/>
-            <CommonSelect type="CJXX"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.sscj"  class="input_item"></CommonSelect>
-          </FormItem>
-          <FormItem :label-width="120" label="在职情况" prop="zzqk">
-            <!--<Select :disabled="isEdit_dwxx" v-model="formItem.zzqk" style="width: 170px;">-->
-              <!--<Option value="正式">正式</Option>-->
-              <!--<Option value="试用">试用</Option>-->
-              <!--<Option value="退休">退休</Option>-->
-              <!--<Option value="离职">离职</Option>-->
-            <!--</Select>-->
-            <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.zzqk" placeholder="在职情况" class="input_item"/>
-            <CommonSelect type="RYXX_ZZQK"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.zzqk"  class="input_item"></CommonSelect>
-          </FormItem>
-          <FormItem :label-width="120" label="岗位状态" prop="gwzt">
-            <!--<Select :disabled="isEdit_dwxx" v-model="formItem.gwzt" style="width: 170px;">-->
-              <!--<Option value="二级">二级</Option>-->
-              <!--<Option value="三级">三级</Option>-->
-              <!--<Option value="司机">司机</Option>-->
-              <!--<Option value="修理">修理</Option>-->
-            <!--</Select>-->
-            <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.gwzt" placeholder="岗位状态" class="input_item"/>
-            <CommonSelect type="RYXX_GWZT"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.gwzt"  class="input_item"></CommonSelect>
-          </FormItem>
-          <FormItem :label-width="120" label="维修班组" prop="wxbz">
-            <!--<Select :disabled="isEdit_dwxx" v-model="formItem.wxbz" style="width: 170px;">-->
-              <!--<Option value="一组">一组</Option>-->
-              <!--<Option value="二组">二组</Option>-->
-              <!--<Option value="三组">三组</Option>-->
-              <!--<Option value="四组">四组</Option>-->
-            <!--</Select>-->
-            <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.wxbz" placeholder="维修班组" class="input_item"/>
-            <CommonSelect type="WXBZ"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.wxbz"  class="input_item"></CommonSelect>
-          </FormItem>
-          <FormItem :label-width="120" label="职工身份">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.zgsf" placeholder="职工身份" class="input_item"/>
-          </FormItem>
-          <FormItem :label-width="120" label="保险档号">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.bxdh" placeholder="保险档号" class="input_item"/>
-          </FormItem>
-          <FormItem :label-width="120" label="医疗保险">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.ylbx" placeholder="医疗保险" class="input_item"/>
-          </FormItem>
-          <FormItem :label-width="120" label="养老证号">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.ylzh" placeholder="养老证号" class="input_item"/>
-          </FormItem>
           <FormItem :label-width="120" label="工作时间">
             <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
                         v-model="formItem.gzsj"></DatePicker>
@@ -261,10 +227,10 @@
             <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
                         v-model="formItem.bdwgzsj"></DatePicker>
           </FormItem>
-          <FormItem :label-width="120" label="退休时间">
-            <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
-                        v-model="formItem.txsj"></DatePicker>
+          <FormItem :label-width="120" label="合同形式">
+            <Input :disabled="isEdit_dwxx" v-model="formItem.ldhtxs" placeholder="合同形式" class="input_item"/>
           </FormItem>
+
           <FormItem :label-width="120" label="合同自起">
             <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
                         v-model="formItem.htkssj"></DatePicker>
@@ -273,6 +239,81 @@
             <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
                         v-model="formItem.htjssj"></DatePicker>
           </FormItem>
+          <FormItem :label-width="120" label="在职情况" prop="zzqk">
+            <!--<Select :disabled="isEdit_dwxx" v-model="formItem.zzqk" style="width: 170px;">-->
+            <!--<Option value="正式">正式</Option>-->
+            <!--<Option value="试用">试用</Option>-->
+            <!--<Option value="退休">退休</Option>-->
+            <!--<Option value="离职">离职</Option>-->
+            <!--</Select>-->
+            <Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.zzqk" placeholder="在职情况" class="input_item"/>
+            <CommonSelect type="RYXX_ZZQK"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.zzqk"  class="input_item"></CommonSelect>
+          </FormItem>
+          <FormItem :label-width="120" label="在职情况变更时间">
+            <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
+                        v-model="formItem.zzqkbgsj"></DatePicker>
+          </FormItem>
+
+          <FormItem :label-width="120" label="在职情况变更原因">
+            <Input :disabled="isEdit_dwxx" v-model="formItem.zzqkbgyy" placeholder="在职情况变更原因" class="input_item"/>
+          </FormItem>
+          <FormItem :label-width="120" label="退离类别">
+            <Input :disabled="isEdit_dwxx" v-model="formItem.txlb" placeholder="退离类别" class="input_item"/>
+          </FormItem>
+          <FormItem :label-width="120" label="退离时间">
+            <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
+                        v-model="formItem.tlsj"></DatePicker>
+          </FormItem>
+          <!--<FormItem :label-width="120" label="专业技术职称">-->
+            <!--<Input :disabled="isEdit_dwxx" v-model="formItem.ztjszc" placeholder="专业技术职称" class="input_item"/>-->
+          <!--</FormItem>-->
+          <!--<FormItem :label-width="120" label="取得时间">-->
+            <!--<DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"-->
+                        <!--v-model="formItem.qdsj"></DatePicker>-->
+          <!--</FormItem>-->
+
+
+
+          <!--<FormItem :label-width="120" label="工伤保险">-->
+            <!--<Input :disabled="isEdit_dwxx" v-model="formItem.gsbx" placeholder="工伤保险" class="input_item"/>-->
+          <!--</FormItem>-->
+          <!--<FormItem :label-width="120" label="所属车间" prop="sscj">-->
+            <!--&lt;!&ndash;<Select :disabled="isEdit_dwxx" v-model="formItem.sscj" style="width: 170px;">&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="第一车间">第一车间</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="第二车间">第二车间</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="第三车间">第三车间</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="第四车间">第四车间</Option>&ndash;&gt;-->
+            <!--&lt;!&ndash;</Select>&ndash;&gt;-->
+            <!--<Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.sscj" placeholder="所属车间" class="input_item"/>-->
+            <!--<CommonSelect type="CJXX"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.sscj"  class="input_item"></CommonSelect>-->
+          <!--</FormItem>-->
+
+
+          <!--<FormItem :label-width="120" label="维修班组" prop="wxbz">-->
+            <!--&lt;!&ndash;<Select :disabled="isEdit_dwxx" v-model="formItem.wxbz" style="width: 170px;">&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="一组">一组</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="二组">二组</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="三组">三组</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="四组">四组</Option>&ndash;&gt;-->
+            <!--&lt;!&ndash;</Select>&ndash;&gt;-->
+            <!--<Input v-show="isEdit_dwxx" :disabled="isEdit_dwxx" v-model="formItem.wxbz" placeholder="维修班组" class="input_item"/>-->
+            <!--<CommonSelect type="WXBZ"  v-show="!isEdit_dwxx" :aria-disabled="true" :selectValue="formItem.wxbz"  class="input_item"></CommonSelect>-->
+          <!--</FormItem>-->
+          <!--<FormItem :label-width="120" label="职工身份">-->
+            <!--<Input :disabled="isEdit_dwxx" v-model="formItem.zgsf" placeholder="职工身份" class="input_item"/>-->
+          <!--</FormItem>-->
+          <!--<FormItem :label-width="120" label="保险档号">-->
+            <!--<Input :disabled="isEdit_dwxx" v-model="formItem.bxdh" placeholder="保险档号" class="input_item"/>-->
+          <!--</FormItem>-->
+          <!--<FormItem :label-width="120" label="医疗保险">-->
+            <!--<Input :disabled="isEdit_dwxx" v-model="formItem.ylbx" placeholder="医疗保险" class="input_item"/>-->
+          <!--</FormItem>-->
+          <!--<FormItem :label-width="120" label="养老证号">-->
+            <!--<Input :disabled="isEdit_dwxx" v-model="formItem.ylzh" placeholder="养老证号" class="input_item"/>-->
+          <!--</FormItem>-->
+
+
+
         </div>
       </Card>
       <!--<Button type="primary" icon="paper-airplane" size="small" style="margin-top:10px;">其他信息</Button>-->
@@ -344,60 +385,62 @@
           ],
         },
         formItem: {
-          xm: "",
-          cym: "",
-          xb: "",
-          mz: "",
-          csny: "",
-          jg: "",
-          lxdh: "",
-          zzmm: "",
-          xmdx: '',
-          xl: "",
-          byyx: "",
-          sxzy: "",
-          zc: "",
-          zyzgjn: "",
-          lrsj: "",
-          poqk: "",
-          sfzh: "",
-          jkzk: "",
-          fby: "",
-          txdz: "",
-          rdsj: "",
-          gjjzh: "",
-          gjjkhsj: "",
-          gjjjcbz: "",
-          gjjdh: "",
-          gjjzt: "",
-          rybh: "",
-          gh: "",
-          sscj: "",
-          wxbz: "",
-          dw: "",
-          bm: "",
-          zyjszc: "",
-          qdsj: "",
-          txlb: "",
-          gzzw: "",
-          gzzh: "",
-          ld: "",
-          gsbx: "",
-          zzqk: "",
-          gwzt: "",
-          zgsf: "",
-          bxdh: "",
-          ylbx: "",
-          ylzh: "",
-          gzsj: "",
           bdwgzsj: "",
-          txsj: "",
-          htkssj: "",
-          htjssj: "",
+          bm: "",
+          byyx: "",
           bz: "",
+          csny: "",
+          cym: "",
+          dw: "",
+          fby: "",
+          gh: "",
+          gjjjcbz: "",
+          gjjjcjs: '',
+          gjjjczt: '',
+          gjjkhsj: "",
+          gwzt: "",
+          gzsj: "",
+          gzzh: "",
+          gzzw: "",
+          htjssj: "",
+          htkssj: "",
+          id: "",
+          jg: "",
+          jkzk: "",
+          ld: "",
+          ldhtxs: '',
+          lrsj: "",
+          lxdh: "",
+          mz: "",
+          poqk: "",
+          qdsj: "",
+          rdsj: "",
+          rybgqk: '',
+          rybh: "",
+          sbcbsj: '',
+          sbgrzh: '',
+          sbjcbz: '',
+          sbjfjs: '',
+          sbjfzt: '',
+          sfzh: "",
+          sxzy: "",
+          tlsj: '',
+          txdz: "",
+          txlb: "",
+          txsj: "",
+          xb: "",
+          xl: "",
+          xm: "",
           xmszm: "",
           ygfz: "",
-          zpdz: "", // 照片地址
+          zc: "",
+          zfgjjzh: '',
+          zpdz: "",
+          zyzgjn: "",
+          zzmm: "",
+          zzqk: "",
+          zzqkbgsj: '',
+          zzqkbgyy: '',
         },
         columns1: [
           {
@@ -498,7 +541,7 @@
             //console.log('结果', this.formItem);
             this.formItem.dw = this.formItem.dw .split('-')[0];
             this.formItem.xl = this.$store.state.dictData.parseDict.RYXX.RYXX_XLDM[this.formItem.xl];
-            this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];
+            this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];//暂时屏蔽
             // this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
             this.formItem.sscj = this.$store.state.dictData.parseDict.CJXX[this.formItem.sscj];
             this.formItem.zzqk = this.$store.state.dictData.parseDict.RYXX.RYXX_ZZQK[this.formItem.zzqk];
@@ -528,7 +571,7 @@
         let url = this.$url.userManager_updateUserInfo + '?bgyy=' + this.bgyy;
         this.formItem.dw = this.formItem.dw .split('-')[0];
         this.formItem.xl = this.$store.state.dictData.parseDict.RYXX.RYXX_XLDM[this.formItem.xl];
-        this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];
+        this.formItem.ld = this.$store.state.dictData.parseDict.LB[this.formItem.ld];//暂时屏蔽
         this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dw];
         // this.formItem.bm = this.$store.state.dictData.parseDict.EJBM[this.formItem.bm];
         this.formItem.sscj = this.$store.state.dictData.parseDict.CJXX[this.formItem.sscj];
