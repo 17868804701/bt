@@ -469,26 +469,7 @@ export const PA_LASG_LossRateTarget_Data = {
 
 // 车辆按键台次及合格率
 export const PA_CLAJ_Yield = [
-  {
-    title: '单位',
-    key: 'dw',
-    align: 'center',
-  },
-  {
-    title: '检车台次',
-    key: 'jctcSum',
-    align: 'center',
-  },
-  {
-    title: '不合格',
-    key: 'bhgSum',
-    align: 'center',
-  },
-  {
-    title: '合格率',
-    key: 'jctcHgl',
-    align: 'center',
-  },
+
 ];
 // 车辆按键台次及合格率 --- 静态数据
 export const PA_CLAJ_Yield_Data = {
@@ -501,38 +482,7 @@ export const PA_CLAJ_Yield_Data = {
 
 // 对外投保交强险及赔付情况
 export const PA_Insure_Paid = [
-  {
-    title: '对外投保交强险及赔付情况',
-    align: 'center',
-    children: [
-      {
-        title: '单位',
-        key: 'dw',
-        align: 'center',
-      },
-      {
-        title: '回赔额',
-        key: 'dwtbHpeSum',
-        align: 'center',
-      },
-      {
-        title: '事件（起）',
-        key: 'dwtbSjSum',
-        align: 'center',
-      }
-    ],
-  },
-  {
-    title: '车辆保险缴费及案件理赔情况',
-    align: 'center',
-    children: [
-      {
-        title: '回赔额',
-        key: 'clbxHpeSum',
-        align: 'center',
-      }
-    ],
-  },
+
 ];
 // 对外投保交强险及赔付情况  --- 静态数据
 export const PA_Insure_Paid_Data = {

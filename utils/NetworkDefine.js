@@ -53,8 +53,18 @@ const NetworkInterface = {
   security_LASGJSLZB_exportExcel: baseURL+'/erp-modules-yygl/lasg/exportAqsczbLasgjslExcel', // 立案事故经损率指标 --- 报表导出
   security_CLAJ_exportExcel: baseURL+'/erp-modules-yygl/lasg/exportAqsczbAjtcExcel', // 车辆安检 --- 报表导出
   security_DWTBJQXJPF_exportExcel: baseURL+'/erp-modules-yygl/lasg/exportAqsczbDwtbExcel', // 对外投保交强险及赔付情况 --- 报表导出
+
+
+
   security_SCQKFX_add: '/erp-modules-yygl/lasg/saveClaj',
-  
+  claj_list: '/erp-modules-yygl/lasg/ClajList',//车辆安检列表
+  claj_del: '/erp-modules-yygl/lasg/deleteClaj',//车辆安检列表
+  claj_update: '/erp-modules-yygl/lasg/updateClaj',//车辆安检列表
+  dwtb_list: '/erp-modules-yygl/lasg/DwtbList',//对外投保列表
+  dwtb_save: '/erp-modules-yygl/lasg/saveDwtb',//对外投保新增
+  dwtb_update: '/erp-modules-yygl/lasg/updateDwtb',//对外投保更新
+  dwtb_del: '/erp-modules-yygl/lasg/deleteDwtb',//对外投保更新
+
   // **********        维修养护            *********** //
   maintain_BYGL_DATA_WXGXX_list: '/weix/dataDictionary/listWXGXX',                              // 基础数据 - 维修工信息管理列表
   maintain_BYGL_DATA_WXGXX_saveOrUpdate: '/weix/dataDictionary/saveWXGXX',                      // 基础数据 - 维修工信息新增或更新
@@ -223,6 +233,11 @@ const NetworkInterface = {
   yejikaoheList: '/erp-modules-bbgl/jjzbFgs/yejikaoheList',                            //公交分公司列表
   yejikaoheDaochu: '/erp-modules-bbgl/jjzbFgs/exportYejikaoheExcel',                            //公交分公司列表
 
+
+  // 经济活动分析
+    getFgsBglsr:'/bbgl/Jjhdfx/getFgsBglsr',
+    getJjxxfx:'/bbgl/Jjhdfx/getJjxxfx',
+  getFgsSrwcdb:'/bbgl/Jjhdfx/getFgsSrwcdb',
 
 
 

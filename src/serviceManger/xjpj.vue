@@ -20,9 +20,9 @@
 <template>
   <div>
     <div class="container">
-      <h2>星级评价</h2>
+      <h2>星级考核</h2>
     </div>
-    <div v-if="$showMenu('星级评价')">
+    <div v-if="$showMenu('星级考核')">
       <Card style="margin-top: 10px;width: 98%;margin-left: 1%">
         <p slot="title">导出表格</p>
         <Form :model="formItem" :label-width="110">
@@ -101,7 +101,7 @@
                              style="width: 50px"></InputNumber>&nbsp;&nbsp;分
               </td>
               <td>
-                <Input v-model="subOption.kfsm" placeholder="说明扣分原因" style="width: 300px"/>
+                <Input v-model="subOption.kfsm" placeholder="说明指标具体情况和口分原因" style="width: 300px"/>
               </td>
               <td>{{subOption.maxScore}}分</td>
             </tr>

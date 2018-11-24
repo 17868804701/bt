@@ -15,7 +15,7 @@
                 <!--<Option value="2路">2路</Option>-->
                 <!--<Option value="3路">3路</Option>-->
               <!--</Select>-->
-              <CommonSelect type="LB"  :selectValue="formItem1._lb" style="width: 180px;"></CommonSelect>
+              <CommonSelect type="LB"  :selectValue="formItem1._lb" style="width: 150px;"></CommonSelect>
             </FormItem>
             <FormItem label="选择公司" style="margin: 0" prop="_dw">
               <!--<Select v-model="formItem1.dw" :transfer="true" style="width: 150px;" >-->
@@ -24,11 +24,11 @@
                 <!--<Option value="公交二公司">公交二公司</Option>-->
                 <!--<Option value="公交三公司">公交三公司</Option>-->
               <!--</Select>-->
-              <CommonSelect type="EJGS"  :selectValue="formItem1._dw" style="width: 180px;"></CommonSelect>
+              <CommonSelect type="EJGS"  :selectValue="formItem1._dw" style="width: 150px;"></CommonSelect>
             </FormItem>
-            <FormItem label="车牌号" style="margin: 0">
-              <Input v-model="formItem1.cph" placeholder="车牌号" class="text_width" style="width: 150px;"/>
-            </FormItem>
+            <!--<FormItem label="车牌号" style="margin: 0">-->
+              <!--<Input v-model="formItem1.cph" placeholder="车牌号" class="text_width" style="width: 150px;"/>-->
+            <!--</FormItem>-->
           </div>
           <div style="width: 100%;justify-content: center;display: flex;margin-top: 10px;">
             <ButtonGroup>

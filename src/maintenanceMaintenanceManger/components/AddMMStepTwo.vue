@@ -39,7 +39,7 @@
               </DatePicker>
             </FormItem>
             <FormItem prop="ghdw" label="供货单位" style="margin-top: 0px;">
-              <div style="width: 120px;">掌握公司</div>
+              <Input v-model="clItem.ghdw" style="width:120px;"></Input>
             </FormItem>
             <FormItem prop="jldw" label="计量单位" style="margin-top: 0px;">
               <Input v-model="clItem.jldw" style="width:120px;"></Input>
@@ -151,7 +151,7 @@
         clItem: {
           cph: "",
           wpmc: "",
-          ghdw: "掌握公司",
+          ghdw: "",
           jldw: "",
           gg: "",
           ppxh: "",
@@ -338,7 +338,7 @@
               this.clItem = {
                 cph: "",
                 wpmc: "",
-                ghdw: "掌握公司",
+                ghdw: "",
                 jldw: "",
                 gg: "",
                 ppxh: "",
@@ -367,7 +367,7 @@
               this.clItem = {
                 cph: "",
                 wpmc: "",
-                ghdw: "掌握公司",
+                ghdw: "",
                 jldw: "",
                 gg: "",
                 ppxh: "",
@@ -393,7 +393,7 @@
         this.clItem = {
           cph: "",
           wpmc: "",
-          ghdw: "掌握公司",
+          ghdw: "",
           jldw: "",
           gg: "",
           ppxh: "",

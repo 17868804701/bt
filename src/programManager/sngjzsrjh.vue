@@ -49,9 +49,8 @@
           </FormItem>
           <FormItem label="类别" prop="lx" v-show="this.type!=='edit'">
             <Select v-model="formItem1.lx" style="width: 195px;">
-              <Option value="大中车">大中车</Option>
-              <Option value="小客车">小客车</Option>
-              <Option value="小计">小计</Option>
+              <Option value="大公交">大公交</Option>
+              <Option value="中客车">中客车</Option>
             </Select>
           </FormItem>
           <FormItem label="本年预计">

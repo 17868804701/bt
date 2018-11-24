@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main" id="peopleInfo">
     <Button type="primary" icon="paper-airplane" size="small">人员详细信息</Button>
     <router-link to="/userinfo">
       <span class="back">返回列表页>></span>
@@ -138,36 +138,36 @@
           <!--<FormItem :label-width="160" label="公积金账号">-->
             <!--<Input :disabled="isEdit_gjj" v-model="formItem.gjjzh" placeholder="公积金账号" class="input_item"/>-->
           <!--</FormItem>-->
-          <FormItem :label-width="160" label="社保个人账号">
+          <FormItem :label-width="120" label="社保个人账号">
             <Input :disabled="isEdit_gjj" v-model="formItem.sbgrzh" placeholder="社保个人账号" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="160" label="社保参保时间">
+          <FormItem :label-width="120" label="社保参保时间">
             <DatePicker :disabled="isEdit_gjj" type="date" style="width: 170px;" placeholder="社保参保时间"
                         v-model="formItem.sbcbsj"></DatePicker>
           </FormItem>
-          <FormItem :label-width="160" label="社保缴费基数">
+          <FormItem :label-width="120" label="社保缴费基数">
             <Input :disabled="isEdit_gjj" v-model="formItem.sbjfjs" placeholder="社保缴费基数" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="160" label="社保缴费状态">
+          <FormItem :label-width="120" label="社保缴费状态">
             <Input :disabled="isEdit_gjj" v-model="formItem.sbjfzt" placeholder="社保缴费状态" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="160" label="社保缴存备注">
+          <FormItem :label-width="120" label="社保缴存备注">
             <Input :disabled="isEdit_gjj" v-model="formItem.sbjcbz" placeholder="社保缴存备注" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="160" label="住房公积金账号">
+          <FormItem :label-width="120" label="住房公积金账号">
             <Input :disabled="isEdit_gjj" v-model="formItem.zfgjjzh" placeholder="住房公积金账号" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="160" label="公积金开户时间">
+          <FormItem :label-width="120" label="公积金开户时间">
             <DatePicker :disabled="isEdit_gjj" type="date" style="width: 170px;" placeholder="选择时间"
                         v-model="formItem.gjjkhsj"></DatePicker>
           </FormItem>
-          <FormItem :label-width="160" label="公积金缴存情况备注">
+          <FormItem :label-width="120" label="公积金缴存备注">
             <Input :disabled="isEdit_gjj" v-model="formItem.gjjjcbz" placeholder="公积金缴存情况备注" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="160" label="公积金缴存基数">
+          <FormItem :label-width="120" label="公积金缴存基数">
             <Input :disabled="isEdit_gjj" v-model="formItem.gjjjcjs" placeholder="公积金缴存基数" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="160" label="公积金缴存状态">
+          <FormItem :label-width="120" label="公积金缴存状态">
             <Input :disabled="isEdit_gjj" v-model="formItem.gjjjczt" placeholder="公积金缴存状态" class="input_item"/>
           </FormItem>
 <!--          <FormItem :label-width="160" label="公积金档号">
@@ -649,7 +649,9 @@
   .main {
     padding: 20px;
   }
-
+  #peopleInfo .ivu-form-item{
+    margin-bottom: 10px;
+  }
   .card_file {
     width: 99%;
   }
@@ -682,14 +684,14 @@
   }
 
   .jbxx_left {
-    width: 85%;
+    width: 2000px;
     display: flex;
     flex-wrap: wrap;
   }
 
   .jbxx_right {
     height: 300px;
-    width: 15%;
+    width: 200px;
     display: flex;
     justify-content: space-around;
     align-items: center;

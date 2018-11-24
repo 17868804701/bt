@@ -3,140 +3,144 @@
   <div>
     <Row type="flex" justify="center" align="middle" style="margin-top: 0px;margin-bottom: 40px;margin-top: 20px;">
       <Col span="23">
-      <Card style="height: 800px;">
-        <p slot="title" class="card-title">
-          <Icon type="ios-pulse-strong"></Icon>
-          六个公司百公里收入对比图
-        </p>
-        <div style="width:100%;height:700px;" id="data_source_con_1"></div>
-      </Card>
+        <Card style="height: 800px;">
+          <p slot="title" class="card-title">
+            <Icon type="ios-pulse-strong"></Icon>
+            六个公司百公里收入对比图
+          </p>
+          <Form :model="params" :label-width="80" :inline="true">
+            <FormItem label="单位"  prop="ejdw">
+              <CommonSelect type="EJGS" :selectValue="params.ejdw" style="width: 180px;"></CommonSelect>
+            </FormItem>
+            <FormItem label="年份">
+              <DatePicker type="year" placeholder="请选择日期" style="width: 180px;" v-model="params.nd"></DatePicker>
+            </FormItem>
+            <FormItem>
+              <Button type="primary" @click="search">搜索</Button>
+            </FormItem>
+          </Form>
+          <div style="width:100%;height:700px;margin-top: 20px;" id="data_source_con_1"></div>
+        </Card>
       </Col>
     </Row>
 
   </div>
 </template>
 <script>
-
+  import CommonSelect from '../../components/common/CommonSelect.vue'
   import echarts from 'echarts';
 
   export default {
-    data () {
+    components: {
+      CommonSelect,
+    },
+    data() {
       return {
-        columnsTitle: ['总计','不含退离','在岗女工','公司领导','二级','三级(主任科员)','一般管理','辅助','司机','修理','其他在岗','其他不在岗','内退',
-          '病假','产假','女工长假','下岗','工伤','待岗','停薪','外借','退离'],
-        columnsCode: ['zj','bhtl','zgng','gsld','ej','sj','ybgl','fz','siji','xl','qtzg','qtbzg','nt','cj','bj','ngcj','xg','gs','dg','tx','wj','tl'],
-        tableData:[],
+        lb: [],
+        bn_bgl: [],
+        dw: [],
+        qn_bgl: [],
+        zzl: [],
+        columnsTitle: ['总计', '不含退离', '在岗女工', '公司领导', '二级', '三级(主任科员)', '一般管理', '辅助', '司机', '修理', '其他在岗', '其他不在岗', '内退',
+          '病假', '产假', '女工长假', '下岗', '工伤', '待岗', '停薪', '外借', '退离'],
+        columnsCode: ['zj', 'bhtl', 'zgng', 'gsld', 'ej', 'sj', 'ybgl', 'fz', 'siji', 'xl', 'qtzg', 'qtbzg', 'nt', 'cj', 'bj', 'ngcj', 'xg', 'gs', 'dg', 'tx', 'wj', 'tl'],
+        tableData: [],
+        params: {nd: '', dw:'',ejdw:'YGS'}
       }
     },
-    computed: {
-
-    },
+    computed: {},
     methods: {
+      search(){
+        this.requestData()
+      },
       requestData() {
-        this.$fetch(this.$url.userManager_counts)
-        .then(res => {
-          this.tableData = res.data;
-          // 构建图表数据
-          this.$nextTick(() => {
-            this.pieData();
-          });
-        })
+        if(this.params.nd==''){
+          this.params.nd = ''
+        }else {
+           this.lb= [],
+           this.bn_bgl= [],
+           this.dw= [],
+           this.qn_bgl= [],
+           this.zzl= [],
+          this.params.nd = this.$formatDate(this.params.nd).substring(0,4)
+          this.params.dw = this.$store.state.dictData.parseDict.EJGS[this.params.ejdw];
+        }
+        this.$fetch(this.$url.getFgsBglsr, this.params)
+          .then(res => {
+            console.log(res.data)
+            res.data.forEach(item => {
+              console.log(item)
+              this.lb.push(item.lb)
+              this.bn_bgl.push(item.bn_bgl)
+              this.zzl.push(item.zzl)
+              this.qn_bgl.push(item.qn_bgl)
+              this.dw.push(item.dw)
+            })
+            // 构建图表数据
+            this.$nextTick(() => {
+              this.pieData();
+            });
+          })
       },
       pieData() {
         var dataSourcePie = echarts.init(document.getElementById('data_source_con_1'));
-//        let dwData = [];
-//        let series = [];
-//        for (let i = 0; i < this.tableData.length; i++) {
-//          let countData = [];
-//          countData.push(this.tableData[i].zj);
-//          countData.push(this.tableData[i].bhtl);
-//          countData.push(this.tableData[i].zgng);
-//          countData.push(this.tableData[i].gsld);
-//          countData.push(this.tableData[i].ej);
-//          countData.push(this.tableData[i].sj);
-//          countData.push(this.tableData[i].ybgl);
-//          countData.push(this.tableData[i].fz);
-//          countData.push(this.tableData[i].siji);
-//          countData.push(this.tableData[i].xl);
-//          countData.push(this.tableData[i].qtzg);
-//          countData.push(this.tableData[i].qtbzg);
-//          countData.push(this.tableData[i].nt);
-//          countData.push(this.tableData[i].bj);
-//          countData.push(this.tableData[i].cj);
-//          countData.push(this.tableData[i].ngcj);
-//          countData.push(this.tableData[i].xg);
-//          countData.push(this.tableData[i].gs);
-//          countData.push(this.tableData[i].dg);
-//          countData.push(this.tableData[i].tx);
-//          countData.push(this.tableData[i].wj);
-//          countData.push(this.tableData[i].tl);
-//          countData.push(this.tableData[i].sm);
-//
-//          dwData.push(this.tableData[i].dw);
-//          series.push({
-//            name:this.tableData[i].dw,
-//            type:'line',
-//            data:countData,
-//          },);
-//        }
 
         const option = {
-          tooltip : {
+          tooltip: {
             trigger: 'axis'
           },
           toolbox: {
-            show : true,
-            feature : {
-              mark : {show: false},
-              dataView : {show: false, readOnly: false},
+            show: true,
+            feature: {
+              mark: {show: false},
+              dataView: {show: false, readOnly: false},
               magicType: {show: false, type: ['line', 'bar']},
-              restore : {show: false},
-              saveAsImage : {show: true}
+              restore: {show: false},
+              saveAsImage: {show: true}
             }
           },
-          calculable : true,
+          calculable: true,
           legend: {
-            data:['本期','上年同期','增减百分比']
+            data: ['本期', '上年同期', '增减百分比']
           },
-          xAxis : [
+          xAxis: [
             {
-              type : 'category',
-              data : ['1路','2路','3路','4路','5路','6路','7路','8路','9路','10路','11路','12路']
+              type: 'category',
+              data: this.lb
             }
           ],
-          yAxis : [
+          yAxis: [
             {
-              type : 'value',
-              name : '收入',
-              axisLabel : {
+              type: 'value',
+              name: '收入',
+              axisLabel: {
                 formatter: '{value} 万元'
               }
             },
             {
-              type : 'value',
-              name : '增减百分比刻度',
-              axisLabel : {
+              type: 'value',
+              name: '增减百分比刻度',
+              axisLabel: {
                 formatter: '{value} %'
               }
             }
           ],
-          series : [
-
+          series: [
             {
-              name:'本期',
-              type:'bar',
-              data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
+              name: '本期',
+              type: 'bar',
+              data: this.bn_bgl
             },
             {
-              name:'上年同期',
-              type:'bar',
-              data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
+              name: '上年同期',
+              type: 'bar',
+              data: this.qn_bgl
             },
             {
-              name:'增减百分比',
-              type:'line',
+              name: '增减百分比',
+              type: 'line',
               yAxisIndex: 1,
-              data:[2.0, 2.2, 3.3, 4.5, 6.3, 10.2, 20.3, 23.4, 23.0, 16.5, 12.0, 6.2]
+              data: this.zzl
             }
           ]
         };
@@ -147,8 +151,11 @@
         });
       },
     },
-    mounted () {
-
+    mounted() {
+      this.requestData()
+      let date = new Date;
+      let year = (date.getFullYear()).toString();
+      this.params.nd = year;
     },
   }
 </script>

@@ -107,7 +107,7 @@
         <div style="display: flex;flex-wrap: wrap">
           <FormItem label="按年份查询" style="margin: 0;">
             <DatePicker type="year" placeholder="选择年份" :transfer="true" placement="bottom-end"
-                        v-model="searchItem.year"></DatePicker>
+                        v-model="searchItem.nf"></DatePicker>
           </FormItem>
           <FormItem label="公司名" style="margin: 0" prop="gsm">
             <!--<Select v-model="searchItem.gsm" style="width: 195px;">-->
@@ -169,7 +169,7 @@
           jqts: ''
         },
         searchItem: {
-          year: '',
+          nf: '',
           gsm:'',
           current: 1,
           size: 10
@@ -500,22 +500,22 @@
           })
       },
       daochu:function () {
-        if(this.searchItem.year==''){
-          this.searchItem.year=''
+        if(this.searchItem.nf==''){
+          this.searchItem.nf=''
         }else {
-          this.searchItem.year = this.$formatDate(this.searchItem.year).substring(0,4)
+          this.searchItem.nf = this.$formatDate(this.searchItem.nf).substring(0,4)
         }
 
         if(this.searchItem.gsm==''){
           this.searchItem.gsm='YGS'
         }
-        this.$getExcel(process.env.BASE_URL + this.$url.fgsyyjhdc+'?year='+this.searchItem.year+'&gsm='+this.searchItem.gsm)
+        this.$getExcel(process.env.BASE_URL + this.$url.fgsyyjhdc+'?nf='+this.searchItem.nf+'&gsm='+this.searchItem.gsm)
       },
       sousuo:function () {
-        if(this.searchItem.year==''){
-          this.searchItem.year=''
+        if(this.searchItem.nf==''){
+          this.searchItem.nf=''
         }else {
-          this.searchItem.year = this.$formatDate(this.searchItem.year).substring(0,4)
+          this.searchItem.nf = this.$formatDate(this.searchItem.nf).substring(0,4)
         }
         this.getList()
       }

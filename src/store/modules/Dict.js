@@ -65,9 +65,9 @@ const Dict = {
           console.log(res.page)
           let lbArray = []
           let lbArrays = {}
-          res.page.forEach(item=>{
-            lbArray.push({"title":item.lineAlias,code:'LB_'+item.lineName});
-            lbArrays['LB_'+item.lineName] = item.lineAlias
+          res.data.forEach(item=>{
+            lbArray.push({"title":item.lineAlias,code:item.lineName});
+            lbArrays[item.lineName] = item.lineAlias
           })
           state.allDict.LB = lbArray;
           state.parseDict.LB = lbArrays;

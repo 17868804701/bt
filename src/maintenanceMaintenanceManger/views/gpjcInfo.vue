@@ -110,7 +110,7 @@
         <FormItem label="操作类型" style="margin: 0 0 10px 0">
           <Select v-model="changeGp.type" :transfer="true" style="width: 195px;">
             <Option value="0">换瓶</Option>
-            <Option value="1">加气</Option>
+            <Option value="1">报废</Option>
           </Select>
         </FormItem>
         <FormItem label="操作时间" style="margin: 0 0 10px 0">
@@ -138,7 +138,7 @@
     <Card style="width:98%;margin: 10px 1%">
       <p slot="title">钢瓶更换记录</p>
       <Tabs value="name1" style="margin-top: -15px;" @on-click="changesTabs">
-        <TabPane label="加气记录" name="name1">
+        <TabPane label="报废记录" name="name1">
           <Table :columns="columns3" :data="data3" size="small" border style="margin-top: 10px;"></Table>
         </TabPane>
         <TabPane label="换瓶记录" name="name2">
