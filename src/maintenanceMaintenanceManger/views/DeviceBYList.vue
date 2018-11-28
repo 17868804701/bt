@@ -85,7 +85,7 @@
           <Button type="primary" style="float: right;margin-right: 10px" @click="chooseDeviceModal=false">取消</Button>
         </div>
         <div>
-          <Form ref="chooseDeviceItem" v-model="chooseDeviceItem" :rules="ruleValidate" :label-width="180">
+          <Form ref="chooseDeviceItem" :model="chooseDeviceItem" :rules="ruleValidate" :label-width="180">
             <div style="display: flex;flex-wrap: wrap;justify-content: flex-start;">
               <FormItem prop="sbbh" label="请根据设备编号选择设备:" style="margin-top: 0px;">
                 <Select v-model="chooseDeviceItem.sbbh" placeholder="请选择设备" style="width: 120px;" filterable>
@@ -157,6 +157,11 @@
         },
         chooseDeviceItem: {
           sbbh: '',
+        },
+        tmpRule: {
+          sbbh: [
+            { required: true, message: '请选择设备', trigger: 'blur' },
+          ],
         },
         ruleValidate: {
           sbid: [

@@ -32,11 +32,11 @@
           <DatePicker v-model="formValidate.larq" type="date" placeholder="Select date" style="width: 120px"></DatePicker>
         </FormItem>
         <FormItem prop="dw" label="登记单位">
-          <CommonSelect type="EJGS" :selectValue="formValidate.dw" style="width: 120px;"></CommonSelect>
+          <CommonSelect type="EJGS" :selectValue="formValidate.dw" style="width: 120px;" @selectChange="selectDwChange"></CommonSelect>
         </FormItem>
         <FormItem prop="zbh" label="自编号">
           <Select v-model="formValidate.zbh" filterable @on-change="selectCLItem" style="width: 120px;" placeholder="请选择">
-            <Option v-for="(item, index) in $store.state.dictData.CLArray" :value="item" :key="index">{{ item }}</Option>
+            <Option v-for="(item, index) in dwCLArray" :value="item.zbh" :key="index">{{ item.zbh }}</Option>
           </Select>
         </FormItem>
         <FormItem label="牌照">
@@ -175,7 +175,8 @@
           zr: [
             { required: true, message: '此项不能为空', trigger: 'blur', }
           ]
-        }
+        },
+        dwCLArray: [],
       }
     },
     methods: {
@@ -183,8 +184,28 @@
         console.log('选择了事故属性');
       },
       selectCLItem(value) {
-        this.selectCL = this.$store.state.dictData.CLDict[value];
-        this.$emit('selectCL', this.selectCL);
+        let cl = this.$store.state.dictData.CLDict[value];
+        this.$emit('selectCL', cl);
+      },
+      selectDwChange() {
+        let params = {
+          dw: this.formValidate.dw
+        };
+        this.$store.state.dictData.allDict.EJGS.forEach(item => {
+        	if (item.code === this.formValidate.dw) {
+            params.dw = item.groupname;
+          }
+        })
+        let that = this;
+        this.$fetch(this.$url.getZbhByDw, params)
+        .then(res => {
+          if (res.success === true) {
+          	that.dwCLArray = [];
+          	res.data.forEach(item => {
+          		that.dwCLArray.push(item);
+            })
+          }
+        })
       }
 //      validateDW(rule, value, callback) {
 //        debugger;

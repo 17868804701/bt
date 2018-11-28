@@ -327,8 +327,13 @@
         })
       },
       updateCLInfo(info) {
-        this.formValidate.pz = info.busNum;
-        this.formValidate.lb = info.lineName;
+      	if (typeof info === 'object') {
+          this.formValidate.pz = info.busNum;
+          this.formValidate.lb = info.lineName;
+        }else{
+          this.formValidate.pz = '';
+          this.formValidate.lb = '';
+        }
       },
 
       // ***********  network ********** //

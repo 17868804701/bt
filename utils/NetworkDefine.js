@@ -241,7 +241,7 @@ const NetworkInterface = {
   getAllList:'/chel/busRoutesController/getAllList',
   getDwByLb:'/chel/busRoutesController/getDwByLb',
   getCphByDwLb:'/chel/busRoutesController/getCphByDwLb',
-
+  getZbhByDw: '/chel/busRoutesController/getZbhByDw',
 
 
   getUserInfo:'/3e-platform-modules-auth/user/getUserInfo',

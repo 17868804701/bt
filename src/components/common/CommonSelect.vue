@@ -40,6 +40,7 @@
     methods: {
       selectOption(val) {
         this.$parent.form.model[this.$parent._props.prop] = val;
+        this.$emit('selectChange');
       },
       check(val) {
         this.$parent.form.model[this.$parent._props.prop] = val;
