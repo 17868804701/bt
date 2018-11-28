@@ -127,7 +127,7 @@
       </Card>
       <!--<Button type="primary" icon="paper-airplane" size="small" style="margin-top:10px;">公积金基本信息</Button>-->
       <Card class="card_file" style="margin-top: 10px">
-        <p slot="title">公积金基本信息</p>
+        <p slot="title">公积金和社保信息</p>
         <div slot="extra">
           <Button type="primary" size="small" v-show="this.$route.query.tip!='add'"
                   :icon="this.isEdit_gjj==false?'checkmark-circled':'edit'" @click="gjj">
@@ -138,6 +138,7 @@
           <!--<FormItem :label-width="160" label="公积金账号">-->
             <!--<Input :disabled="isEdit_gjj" v-model="formItem.gjjzh" placeholder="公积金账号" class="input_item"/>-->
           <!--</FormItem>-->
+          <div style="display: flex;flex-wrap: wrap">
           <FormItem :label-width="120" label="社保个人账号">
             <Input :disabled="isEdit_gjj" v-model="formItem.sbgrzh" placeholder="社保个人账号" class="input_item"/>
           </FormItem>
@@ -157,6 +158,8 @@
           <FormItem :label-width="120" label="住房公积金账号">
             <Input :disabled="isEdit_gjj" v-model="formItem.zfgjjzh" placeholder="住房公积金账号" class="input_item"/>
           </FormItem>
+          </div>
+          <div style="display: flex;flex-wrap: wrap">
           <FormItem :label-width="120" label="公积金开户时间">
             <DatePicker :disabled="isEdit_gjj" type="date" style="width: 170px;" placeholder="选择时间"
                         v-model="formItem.gjjkhsj"></DatePicker>
@@ -170,6 +173,7 @@
           <FormItem :label-width="120" label="公积金缴存状态">
             <Input :disabled="isEdit_gjj" v-model="formItem.gjjjczt" placeholder="公积金缴存状态" class="input_item"/>
           </FormItem>
+          </div>
 <!--          <FormItem :label-width="160" label="公积金档号">
             <Input :disabled="isEdit_gjj" v-model="formItem.gjjdh" placeholder="公积金档号" class="input_item"/>
           </FormItem>-->

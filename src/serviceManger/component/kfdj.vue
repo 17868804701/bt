@@ -199,6 +199,11 @@
             align: 'center',
             width: 120,
           }, {
+            title: '反馈时间',
+            key: 'fksj',
+            align: 'center',
+            width: 120,
+          }, {
             title: '备注',
             key: 'bz',
             align: 'center',
@@ -240,6 +245,8 @@
                     click: () => {
                       //console.log(params.row.zt.toString())
                       params.row.zt = params.row.zt.toString()
+                      params.row.xl = params.row.xl+'路'
+                      console.log(params.row)
                       params.row.fksj = this.$formatDate(params.row.fksj);
                       this.$router.push({
                         path: '/addkfxx',
@@ -274,6 +281,7 @@
             } else {
               res.data.records.forEach(item => {
                 item.tssj = this.$formatDate(item.tssj)
+                item.fksj = this.$formatDate(item.fksj)
               });
               this.data10 = res.data.records;
               this.totalPage = res.data.total;

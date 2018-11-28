@@ -36,9 +36,38 @@
     <Card style="padding-left: 15px;margin-top: 20px;">
       <Form :model="formItem" ref="formItem" :rules="ruleValidate" :label-width="100">
         <div class="search">
-          <FormItem label="线路" style="margin-bottom: 25px" prop="xl">
-            <CommonSelect type="LB"  :selectValue="formItem.xl" style="width: 195px;"></CommonSelect>
+          <FormItem label="线路" style="margin-bottom: 25px">
+            <Select v-model="xl" filterable style="width: 195px;" @on-change="chooseLb">
+              <Option v-for="item in cityList" :value="item.lineAlias" :key="item.lineAlias">{{ item.lineAlias }}</Option>
+            </Select>
           </FormItem>
+          <FormItem label="事件类别" style="margin-bottom: 25px" v-show="this.formItem.jlbm!=='运营部'">
+            <Select v-model="formItem.sjlb" :transfer="true" :disabled="this.tip=='edit'" style="width: 195px;" @on-change="sjlb">
+              <Option value="0">责任性事件</Option>
+              <Option value="1">疑难性事件</Option>
+              <Option value="2">普通事件</Option>
+            </Select>
+          </FormItem>
+          <FormItem label="提交部门" style="margin-bottom: 25px" prop="bm" v-show="this.formItem.jlbm!=='运营部'&&this.formItem.sjlb!=2">
+            <Select v-model="formItem.bm" filterable style="width: 195px;" @on-change="chooseBm" v-show="this.formItem.sjlb!=1">
+              <Option v-for="item in bmList" :value="item.dw" :key="item.dw">{{ item.dw }}</Option>
+            </Select>
+            <!--<CommonSelect type="EJGS"  :selectValue="formItem.bm" style="width: 195px;" v-show="this.formItem.sjlb!=1"></CommonSelect>-->
+            <Input v-model="formItem.bm" placeholder="备注" class="text_width" v-show="this.formItem.sjlb==1" :disabled="true"/>
+          </FormItem>
+
+
+          <FormItem label="车号" style="margin-bottom: 25px" prop="ch">
+            <Select v-model="formItem.ch" filterable style="width: 195px;">
+              <Option v-for="item in chList" :value="item.cph" :key="item.cph">{{ item.cph }}</Option>
+            </Select>
+            <!--<Input v-model="formItem.ch" placeholder="车号" class="text_width"/>-->
+          </FormItem>
+
+
+          <!--<FormItem label="线路" style="margin-bottom: 25px" prop="xl">-->
+            <!--<CommonSelect type="LB"  :selectValue="formItem.xl" style="width: 195px;"></CommonSelect>-->
+          <!--</FormItem>-->
           <FormItem label="记录部门" style="margin-bottom: 25px" prop="jlbm">
             <Select v-model="formItem.jlbm" :transfer="true" style="width: 195px;"  @on-change="jlBM">
               <Option value="运营部">运营部</Option>
@@ -48,9 +77,7 @@
           <FormItem label="记录人" style="margin-bottom: 25px" prop="jlr">
             <Input v-model="formItem.jlr" placeholder="记录人" class="text_width"/>
           </FormItem>
-          <FormItem label="车号" style="margin-bottom: 25px" prop="ch">
-            <Input v-model="formItem.ch" placeholder="车号" class="text_width"/>
-          </FormItem>
+
           <FormItem label="投诉人姓名" style="margin-bottom: 25px" prop="tsr">
             <Input v-model="formItem.tsr" placeholder="投诉人姓名" class="text_width"/>
           </FormItem>
@@ -59,7 +86,7 @@
           </FormItem>
 
           <FormItem label="投诉类别" style="margin-bottom: 25px" prop="tslb">
-            <Select v-model="formItem.tslb" :transfer="true" style="width: 195px;" @on-change="changesLf">
+            <Select v-model="formItem.tslb" :transfer="true" style="width: 195px;">
               <Option value="DZBTC">到站不停车</Option>
               <Option value="JZ">拒载</Option>
               <Option value="DJG">大间隔</Option>
@@ -77,27 +104,18 @@
               <Option value="1">来访</Option>
             </Select>
           </FormItem>
-          <FormItem label="事件类别" style="margin-bottom: 25px" v-show="this.formItem.jlbm!=='运营部'">
-            <Select v-model="formItem.sjlb" :transfer="true" :disabled="this.tip=='edit'" style="width: 195px;" @on-change="sjlb">
-              <Option value="0">责任性事件</Option>
-              <Option value="1">疑难性事件</Option>
-              <Option value="2">普通事件</Option>
-            </Select>
-          </FormItem>
+
           <FormItem label="状态" style="margin-bottom: 25px">
             <Select v-model="formItem.zt" :transfer="true" style="width: 195px;" :disabled="this.formItem.jlbm==='运营部'||this.formItem.sjlb==2">
               <Option value="1">处理中</Option>
               <Option value="2">处理完成</Option>
             </Select>
           </FormItem>
-          <FormItem label="提交部门" style="margin-bottom: 25px" prop="bm" v-show="this.formItem.jlbm!=='运营部'&&this.formItem.sjlb!=2">
-            <CommonSelect type="EJGS"  :selectValue="formItem.bm" style="width: 195px;" v-show="this.formItem.sjlb!=1"></CommonSelect>
-            <Input v-model="formItem.bm" placeholder="备注" class="text_width" v-show="this.formItem.sjlb==1" :disabled="true"/>
-          </FormItem>
+
           <FormItem label="备注" style="margin-bottom: 25px">
             <Input v-model="formItem.bz" placeholder="备注" class="text_width"/>
           </FormItem>
-          <FormItem label="事由" style="margin-bottom: 25px">
+          <FormItem label="事由" style="margin-bottom: 25px" prop="sy">
             <Input v-model="formItem.sy" placeholder="事由" style="width: 490px;"/>
           </FormItem>
           <FormItem label="处理时间" style="margin-bottom: 25px" v-show='this.formItem.sjlb==2'>
@@ -128,6 +146,24 @@
     },
     data () {
       return {
+        cityList:[],
+        chList:[],
+        bmList:[
+          // {code:'CKGS',name:"长客公司"},
+          // {code:'DCZX',name:"点钞中心"},
+          // {code:'EGS',name:"公交二公司"},
+          // {code:'JCDD',name:"稽查大队"},
+          // {code:'JYGS',name:"吉运公司"},
+          // {code:'LGS',name:"公交六公司"},
+          // {code:'PXZX',name:"培训中心"},
+          // {code:'SGS',name:"公交三公司"},
+          // {code:'SIGS',name:"公交四公司"},
+          // {code:'WGS',name:"公交五公司"},
+          // {code:'XLGS',name:"修理公司"},
+          // {code:'YGS',name:"公交一公司"},
+          // {code:'ZGZX',name:"站管中心"},
+        ],
+        xl:'',
 //          注意：这块要根据选择的事件类型不同去判断所填的项目
         formItem: {
           bm: "",
@@ -160,6 +196,8 @@
             {required: true, message: '必填项不能为空', trigger: 'blur'}
           ], lxdh: [
             {required: true, message: '必填项不能为空', trigger: 'blur'}
+          ],sy: [
+            {required: true, message: '必填项不能为空', trigger: 'blur'}
           ], tslb: [
             {required: true, message: '必填项不能为空', trigger: 'blur'}
           ], lfxs: [
@@ -169,6 +207,46 @@
       }
     },
     methods: {
+      chooseBm(val){
+        let lb = this.xl.split('路')[0]
+        this.$fetch(this.$url.getCphByDwLb,{lb:lb,dw:val})
+          .then(res => {
+            console.log(res);
+            if (res.success == true) {
+              this.chList = res.data
+            } else {
+              this.$Message.error("查询车牌号")
+            }
+          })
+      },
+      chooseLb(val){
+        console.log(val.split('路')[0])
+        let LB = val.split('路')[0]
+        this.$fetch(this.$url.getDwByLb,{lb:LB})
+          .then(res => {
+            console.log(res);
+            if (res.success == true) {
+              this.bmList = res.data
+            } else {
+              this.$Message.error("查询部门失败")
+            }
+          })
+      },
+      getallList(){
+        this.$post(this.$url.getAllList)
+          .then(res => {
+            //console.log(res);
+            if (res.success == true) {
+              console.log(res.data)
+              this.cityList = res.data
+            } else {
+              this.$Message.error("查询线路失败")
+            }
+          })
+      },
+      filterMethod (value, option) {
+        return option.toUpperCase().indexOf(value.toUpperCase()) !== -1;
+      },
       jlBM(value){
         console.log(value);
         if(value==='运营部'){
@@ -184,9 +262,9 @@
           this.formItem.zt = '2'
         }else if(value==1){
           this.formItem.bm = '运营部'
-          this.formItem.zt = ''
+          this.formItem.zt = '1'
         } else {
-          this.formItem.zt = ''
+          this.formItem.zt = '1'
         }
       },
       save: function (name) {
@@ -197,21 +275,24 @@
             } else {
               this.formItem.fksj = this.formItem.fksj
             }
-            //console.log(this.formItem);
-            // this.formItem.xl = this.$store.state.dictData.parseDict.LB[ this.formItem._xl];
-            // this.formItem.bm = this.$store.state.dictData.parseDict.EJBM[ this.formItem._bm];
-            // this.formItem.jlbm = this.$store.state.dictData.parseDict.EJBM[ this.formItem._jlbm];
+            console.log(this.xl.split('路')[0]);
+            this.formItem.xl = this.xl.split('路')[0]
+            console.log(this.formItem.xl)
             console.log(this.formItem)
-            this.$post(this.$url.savekfxx, this.formItem)
-              .then(res => {
-                //console.log(res);
-                if (res.success == true) {
-                  this.$Message.info("添加成功")
-                  this.$router.push({path: '/kfxxList',})
-                } else {
-                  this.$Message.error("添加失败")
-                }
-              })
+            if(this.xl===''||this.formItem.bm===''){
+              this.$Message.error("请填写路别或者提交部门")
+            }else {
+              this.$post(this.$url.savekfxx, this.formItem)
+                .then(res => {
+                  //console.log(res);
+                  if (res.success == true) {
+                    this.$Message.info("添加成功")
+                    this.$router.push({path: '/kfxxList',})
+                  } else {
+                    this.$Message.error("添加失败")
+                  }
+                })
+            }
           } else {
             this.$Message.error('请填写完整信息');
           }
@@ -219,6 +300,7 @@
 
       },
       update: function () {
+        this.formItem.xl = this.xl.split('路')[0]
         this.$post(this.$url.updatekfxx, this.formItem)
           .then(res => {
             //console.log(res);
@@ -232,12 +314,14 @@
       },
     },
     mounted: function () {
+      this.getallList()
       let tip = this.$route.query.tip;
       let row = this.$route.query.row;
       //console.log(row)
       this.tip = tip;
       if (tip === 'edit') {
         this.formItem = row
+        this.xl = row.xl
       } else {
 
       }

@@ -38,9 +38,9 @@
             <DatePicker type="daterange" placeholder="选择时间" :transfer="true" v-model="time"
                         class="text_width"></DatePicker>
           </FormItem>
-          <FormItem label="部门" style="margin-bottom: 0px" prop="bm">
-            <CommonSelect type="EJGS"  :selectValue="formItem1.bm" style="width: 180px;"></CommonSelect>
-          </FormItem>
+          <!--<FormItem label="部门" style="margin-bottom: 0px" prop="bm">-->
+            <!--<CommonSelect type="EJGS"  :selectValue="formItem1.bm" style="width: 180px;"></CommonSelect>-->
+          <!--</FormItem>-->
           <Button type="primary" icon="ios-search" class="search_btn" @click="search2" v-has="'kfxxlbym_dwcllb_search'">
             查询
           </Button>
@@ -86,7 +86,7 @@
         formItem1: {
           current: 1,
           size: 10,
-          bm:'',
+          // bm:'',
           startTime: '',
           endTime: ''
         },

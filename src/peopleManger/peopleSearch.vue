@@ -153,7 +153,10 @@
               <CommonSelect type="RYXX_GWZT" iviewType="checkbox" :selectValue="cxItem.gwzt"></CommonSelect>
             </FormItem>
             <FormItem prop="dw" label="按单位查询" style="margin-left: -50px;">
-              <CommonSelect type="EJGS" iviewType="checkbox" :selectValue="cxItem.dw"></CommonSelect>
+              <CheckboxGroup v-model="cxItem.dw">
+                <Checkbox v-for="(item,index) in zzjgList" :label="item.groupname" v-show="item.grouptype=='EJGS'||item.grouptype=='EJBM'||item.grouptype=='JTGS'"></Checkbox>
+              </CheckboxGroup>
+              <!--<CommonSelect type="EJGS" iviewType="checkbox" :selectValue="cxItem.dw"></CommonSelect>-->
               <!--<CommonSelect type="EJGS" iviewType="checkbox" :selectValue="cxItem.dw"></CommonSelect>-->
             </FormItem>
           </Form>
@@ -194,6 +197,7 @@
     data () {
       return {
 //          查询区域
+        zzjgList:[],
         exports: false,
         modal1: false,
         uploadFiles: process.env.BASE_URL + "/erp-modules-yygl/userInfo/importExcel",
@@ -717,10 +721,10 @@
         let newDw = [];
         let newGwzt = [];
         let zzqk = '';
-        this.cxItem.dw.forEach(item => {
-          let itemTitle = this.$store.state.dictData.parseDict.EJGS[item];
-          newDw.push(itemTitle);
-        })
+        // this.cxItem.dw.forEach(item => {
+        //   let itemTitle = this.$store.state.dictData.parseDict.EJGS[item];
+        //   newDw.push(itemTitle);
+        // })
         this.cxItem.gwzt.forEach(item => {
           let itemTitle1 = this.$store.state.dictData.parseDict.RYXX.RYXX_GWZT[item];
           newGwzt.push(itemTitle1);
@@ -747,7 +751,7 @@
           htkssj: this.cxItem.htkssj,
           htjssj: this.cxItem.htjssj,
           gwzt:newGwzt.toString(),
-          dw: newDw.toString(),
+          dw: this.cxItem.dw.toString(),
           current: 1,
           size: 10
         })
@@ -779,10 +783,22 @@
 //      导出报表
       daochu: function () {
         this.$getExcel(process.env.BASE_URL + this.$url.userManager_exportExcel + '?xmszm=' + this.cxItem.xmszm + '&&dw=' + this.cxItem.dw + '&&gwzt=' + this.cxItem.gwzt + '&&zzqk=' + this.cxItem.zzqk + '&&htkssj=' + this.cxItem.htkssj + '&&htjssj=' + this.cxItem.htjssj);
+      },
+      getTrees(){
+        debugger
+        this.$fetch(this.$url.zzjg)
+          .then(res => {
+            console.log(res)
+          })
       }
     },
     mounted () {
       this.changeTableColumns();
+      this.$fetch(this.$url.zzjg)
+        .then(res => {
+          console.log(res.data)
+          this.zzjgList = res.data
+        })
     }
   }
 </script>

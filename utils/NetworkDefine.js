@@ -238,6 +238,9 @@ const NetworkInterface = {
     getFgsBglsr:'/bbgl/Jjhdfx/getFgsBglsr',
     getJjxxfx:'/bbgl/Jjhdfx/getJjxxfx',
   getFgsSrwcdb:'/bbgl/Jjhdfx/getFgsSrwcdb',
+  getAllList:'/chel/busRoutesController/getAllList',
+  getDwByLb:'/chel/busRoutesController/getDwByLb',
+  getCphByDwLb:'/chel/busRoutesController/getCphByDwLb',
 
 
 

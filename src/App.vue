@@ -129,6 +129,21 @@
       <Layout style="background: #495060">
         <Sider hide-trigger :style="{background: '#495060'}" id="Sider">
           <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']" :accordion="true">
+            <router-link v-for="(item2,index) in $store.state.userAuth.appList" :to="item2.apath" v-show="item2.aname=='星级考核'" :key="item2.cid+item2.apath">
+              <MenuItem :name="index" style="height: 50px;line-height:25px;">
+                <Icon type="ios-navigate"></Icon> <span style="font-size: 12px;"> {{item2.aname}}</span>
+              </MenuItem>
+            </router-link>
+            <a v-for="(item2,index) in $store.state.userAuth.appList" :href="item2.apath" target="_blank" v-show="item2.aname=='车辆系统'" :key="item2.cid+item2.apath">
+              <MenuItem :name="index" style="height: 50px;line-height:25px;">
+                <Icon type="ios-navigate"></Icon> <span style="font-size: 12px;">{{item2.aname}}</span>
+              </MenuItem>
+            </a>
+              <!--<MenuItem :name="index" style="height: 40px;line-height:11px;">-->
+                <!--<Icon type="ios-navigate"></Icon> <span style="font-size: 12px;">111</span>-->
+              <!--</MenuItem>-->
+          </Menu>
+          <Menu active-name="1-2" theme="dark" width="auto" :open-names="['1']" :accordion="true">
             <Submenu :name="item1.cid" v-for="(item1,index) in $store.state.userAuth.classifyList" v-show="item1.ctype!=1" :key="item1.cid+item1.cname">
               <template slot="title" style="height: 30px;">
                 <Icon type="ios-navigate"></Icon> <span style="font-size: 12px;">{{item1.cname}}</span>
