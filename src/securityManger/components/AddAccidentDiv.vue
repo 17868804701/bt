@@ -31,14 +31,18 @@
         <FormItem prop="larq" label="立案日期">
           <DatePicker v-model="formValidate.larq" type="date" placeholder="Select date" style="width: 120px"></DatePicker>
         </FormItem>
-        <FormItem prop="dw" label="登记单位">
-          <CommonSelect type="EJGS" :selectValue="formValidate.dw" style="width: 120px;" @selectChange="selectDwChange"></CommonSelect>
-        </FormItem>
         <FormItem prop="zbh" label="自编号">
           <Select v-model="formValidate.zbh" filterable @on-change="selectCLItem" style="width: 120px;" placeholder="请选择">
-            <Option v-for="(item, index) in dwCLArray" :value="item.zbh" :key="index">{{ item.zbh }}</Option>
+            <Option v-for="(item, index) in $store.state.dictData.CLArray" :value="item" :key="index">{{ item }}</Option>
           </Select>
         </FormItem>
+        <FormItem prop="dw" label="登记单位">
+          <div style="width: 120px">
+            {{formValidate.dw}}
+          </div>
+          <!--<CommonSelect type="EJGS" :selectValue="formValidate.dw" style="width: 120px;" @selectChange="selectDwChange"></CommonSelect>-->
+        </FormItem>
+
         <FormItem label="牌照">
           <div style="width: 120px">
             {{formValidate.pz}}
@@ -261,7 +265,7 @@
 
     },
     mounted () {
-
+//    	this.dwCLArray = this.$store.state.dictData.CLArray;
     }
   }
 </script>

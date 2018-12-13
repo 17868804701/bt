@@ -245,7 +245,9 @@ const NetworkInterface = {
 
 
   getUserInfo:'/3e-platform-modules-auth/user/getUserInfo',
-  updatePwd:'/3e-platform-modules-auth/user/updatePass'
+  updatePwd:'/3e-platform-modules-auth/user/updatePass',
+  
+  getAllZbh: '/chel/busRoutesController/getAllZbh'
 };
 
 export default NetworkInterface;

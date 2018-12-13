@@ -328,9 +328,11 @@
       },
       updateCLInfo(info) {
       	if (typeof info === 'object') {
+      		this.formValidate.dw = info.orgName;
           this.formValidate.pz = info.busNum;
           this.formValidate.lb = info.lineName;
         }else{
+          this.formValidate.dw = '';
           this.formValidate.pz = '';
           this.formValidate.lb = '';
         }
@@ -387,6 +389,13 @@
         params.sgxz = this.SGXZ();
         params.lasj = DateTool.yyyymmddFormatDate(params.lasj);
         params.larq = DateTool.yyyymmddFormatDate(params.larq);
+        this.$store.state.dictData.allDict.EJGS.forEach(item => {
+          if (item.groupname === params.dw) {
+            params.dw = item.code;
+          }
+        })
+
+        debugger
         //        console.log(params);
 //        debugger;
         this.$post(this.$url.security_LASG_add, params)
