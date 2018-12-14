@@ -36,7 +36,7 @@
          <td>得分</td>
        </tr>
        <tr>
-         <td>一、经费空置率</td>
+         <td>一、经费控制率</td>
          <td></td>
          <td>18</td>
          <td>{{kfsmList['经费控制率']}}</td>

@@ -242,6 +242,7 @@ const NetworkInterface = {
   getDwByLb:'/chel/busRoutesController/getDwByLb',
   getCphByDwLb:'/chel/busRoutesController/getCphByDwLb',
   getZbhByDw: '/chel/busRoutesController/getZbhByDw',
+  getZbhByLb: '/chel/busRoutesController/getZbhByLb',
 
 
   getUserInfo:'/3e-platform-modules-auth/user/getUserInfo',

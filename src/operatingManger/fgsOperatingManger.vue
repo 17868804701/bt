@@ -171,7 +171,7 @@
                 sortable: false
               },
               {
-                title: '节超（+）',
+                title: '节超（±）',
                 key: 'rlxh_jc',
                 align: 'center',
                 width: 120,
@@ -200,7 +200,7 @@
                 sortable: false
               },
               {
-                title: '节超（+）',
+                title: '节超（±）',
                 key: 'dnxh_jc',
                 align: 'center',
                 width: 120,
@@ -229,21 +229,21 @@
                 sortable: false
               },
               {
-                title: '其中：普通IC卡人',
+                title: '其中：普通IC卡人次',
                 key: 'kyl_icrc',
                 align: 'center',
                 width: 120,
                 sortable: false
               },
               {
-                title: '其中：月票卡人',
+                title: '其中：月票卡人次',
                 key: 'kyl_yprc',
                 align: 'center',
                 width: 120,
                 sortable: false
               },
               {
-                title: '其中：月票卡老年卡人次',
+                title: '其中：老年卡人次',
                 key: 'kyl_jlkrc',
                 align: 'center',
                 width: 120,

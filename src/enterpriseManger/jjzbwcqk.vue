@@ -22,9 +22,9 @@
         <JJZB3 ref="JJZB3"></JJZB3>
       </TabPane>
 
-      <TabPane v-if="$showMenu('经济指标完成情况（表四）')" label="经济指标完成情况（表四）" name="JJZB4">
-        <JJZB4 ref="JJZB4"></JJZB4>
-      </TabPane>
+      <!--<TabPane v-if="$showMenu('经济指标完成情况（表四）')" label="经济指标完成情况（表四）" name="JJZB4">-->
+        <!--<JJZB4 ref="JJZB4"></JJZB4>-->
+      <!--</TabPane>-->
 
       <TabPane v-if="$showMenu('经济指标完成情况（表五）')" label="经济指标完成情况（表五）" name="JJZB5">
         <JJZB5 ref="JJZB5"></JJZB5>

@@ -41,6 +41,12 @@
               <Option v-for="item in cityList" :value="item.lineAlias" :key="item.lineAlias">{{ item.lineAlias }}</Option>
             </Select>
           </FormItem>
+          <FormItem label="记录部门" style="margin-bottom: 25px" prop="jlbm">
+            <Select v-model="formItem.jlbm" :transfer="true" style="width: 195px;"  @on-change="jlBM">
+              <Option value="运营部">运营部</Option>
+              <Option value="客服中心">客服中心</Option>
+            </Select>
+          </FormItem>
           <FormItem label="事件类别" style="margin-bottom: 25px" v-show="this.formItem.jlbm!=='运营部'">
             <Select v-model="formItem.sjlb" :transfer="true" :disabled="this.tip=='edit'" style="width: 195px;" @on-change="sjlb">
               <Option value="0">责任性事件</Option>
@@ -48,12 +54,13 @@
               <Option value="2">普通事件</Option>
             </Select>
           </FormItem>
-          <FormItem label="提交部门" style="margin-bottom: 25px" prop="bm" v-show="this.formItem.jlbm!=='运营部'&&this.formItem.sjlb!=2">
-            <Select v-model="formItem.bm" filterable style="width: 195px;" @on-change="chooseBm" v-show="this.formItem.sjlb!=1">
-              <Option v-for="item in bmList" :value="item.dw" :key="item.dw">{{ item.dw }}</Option>
-            </Select>
-            <!--<CommonSelect type="EJGS"  :selectValue="formItem.bm" style="width: 195px;" v-show="this.formItem.sjlb!=1"></CommonSelect>-->
-            <Input v-model="formItem.bm" placeholder="备注" class="text_width" v-show="this.formItem.sjlb==1" :disabled="true"/>
+
+          <FormItem label="提交部门" style="margin-bottom: 25px" prop="bm" v-show="this.formItem.sjlb=='0'">
+            <!--<Select v-model="formItem.bm" filterable style="width: 195px;" @on-change="chooseBm">-->
+              <!--<Option v-for="item in bmList" :value="item.dw" :key="item.dw">{{ item.dw }}</Option>-->
+            <!--</Select>-->
+            <CommonSelect type="EJGS"  :selectValue="formItem.bm" style="width: 195px;" ></CommonSelect>
+            <!--<Input v-model="formItem.bm" placeholder="备注" class="text_width" v-show="this.formItem.sjlb==1" :disabled="true"/>-->
           </FormItem>
 
 
@@ -68,12 +75,7 @@
           <!--<FormItem label="线路" style="margin-bottom: 25px" prop="xl">-->
             <!--<CommonSelect type="LB"  :selectValue="formItem.xl" style="width: 195px;"></CommonSelect>-->
           <!--</FormItem>-->
-          <FormItem label="记录部门" style="margin-bottom: 25px" prop="jlbm">
-            <Select v-model="formItem.jlbm" :transfer="true" style="width: 195px;"  @on-change="jlBM">
-              <Option value="运营部">运营部</Option>
-              <Option value="客服中心">客服中心</Option>
-            </Select>
-          </FormItem>
+
           <FormItem label="记录人" style="margin-bottom: 25px" prop="jlr">
             <Input v-model="formItem.jlr" placeholder="记录人" class="text_width"/>
           </FormItem>
@@ -148,21 +150,7 @@
       return {
         cityList:[],
         chList:[],
-        bmList:[
-          // {code:'CKGS',name:"长客公司"},
-          // {code:'DCZX',name:"点钞中心"},
-          // {code:'EGS',name:"公交二公司"},
-          // {code:'JCDD',name:"稽查大队"},
-          // {code:'JYGS',name:"吉运公司"},
-          // {code:'LGS',name:"公交六公司"},
-          // {code:'PXZX',name:"培训中心"},
-          // {code:'SGS',name:"公交三公司"},
-          // {code:'SIGS',name:"公交四公司"},
-          // {code:'WGS',name:"公交五公司"},
-          // {code:'XLGS',name:"修理公司"},
-          // {code:'YGS',name:"公交一公司"},
-          // {code:'ZGZX',name:"站管中心"},
-        ],
+        bmList:[],
         xl:'',
 //          注意：这块要根据选择的事件类型不同去判断所填的项目
         formItem: {
@@ -207,26 +195,26 @@
       }
     },
     methods: {
-      chooseBm(val){
-        let lb = this.xl.split('路')[0]
-        this.$fetch(this.$url.getCphByDwLb,{lb:lb,dw:val})
+      // chooseBm(val){
+      //   let lb = this.xl.split('路')[0]
+      //   this.$fetch(this.$url.getCphByDwLb,{lb:lb,dw:val})
+      //     .then(res => {
+      //       console.log(res);
+      //       if (res.success == true) {
+      //         this.chList = res.data
+      //       } else {
+      //         this.$Message.error("查询车牌号")
+      //       }
+      //     })
+      // },
+      chooseLb(val){
+        console.log(val.split('路')[0])
+        let LB = val.split('路')[0]
+        this.$fetch(this.$url.getZbhByLb,{lb:LB})
           .then(res => {
             console.log(res);
             if (res.success == true) {
               this.chList = res.data
-            } else {
-              this.$Message.error("查询车牌号")
-            }
-          })
-      },
-      chooseLb(val){
-        console.log(val.split('路')[0])
-        let LB = val.split('路')[0]
-        this.$fetch(this.$url.getDwByLb,{lb:LB})
-          .then(res => {
-            console.log(res);
-            if (res.success == true) {
-              this.bmList = res.data
             } else {
               this.$Message.error("查询部门失败")
             }
@@ -254,7 +242,7 @@
           this.formItem.zt = '2'
         }else {
           this.formItem.lfxs = '0'
-          this.formItem.zt = ''
+          this.formItem.zt = '1'
         }
       },
       sjlb(value){
@@ -268,6 +256,7 @@
         }
       },
       save: function (name) {
+        let that = this
         this.$refs[name].validate((valid) => {
           if (valid) {
             if (this.formItem.fksj === '') {
@@ -275,13 +264,11 @@
             } else {
               this.formItem.fksj = this.formItem.fksj
             }
-            console.log(this.xl.split('路')[0]);
             this.formItem.xl = this.xl.split('路')[0]
-            console.log(this.formItem.xl)
-            console.log(this.formItem)
-            if(this.xl===''||this.formItem.bm===''){
+            if(this.xl===''){
               this.$Message.error("请填写路别或者提交部门")
             }else {
+              console.log(this.formItem)
               this.$post(this.$url.savekfxx, this.formItem)
                 .then(res => {
                   //console.log(res);
@@ -300,7 +287,10 @@
 
       },
       update: function () {
-        this.formItem.xl = this.xl.split('路')[0]
+        this.formItem.xl = this.xl.split('路')[0];
+        if(this.formItem.fksj=="NaN-NaN-NaN NaN:NaN:NaN"){
+          this.formItem.fksj = ''
+        }
         this.$post(this.$url.updatekfxx, this.formItem)
           .then(res => {
             //console.log(res);
@@ -320,6 +310,17 @@
       //console.log(row)
       this.tip = tip;
       if (tip === 'edit') {
+        this.$fetch(this.$url.getZbhByLb,{lb:row.xl.split('路')[0]})
+          .then(res => {
+            console.log(res);
+            if (res.success == true) {
+              this.chList = res.data
+            } else {
+              this.$Message.error("查询部门失败")
+            }
+          })
+
+
         this.formItem = row
         this.xl = row.xl
       } else {

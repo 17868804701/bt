@@ -238,6 +238,34 @@
                 align: 'center',
               },
             ]
+          },
+          {
+            title: '公交合计',
+            align: 'center',
+            width:150,
+            children: [
+              {
+                title: '计划',
+                key: 'jhSum',
+                width:150,
+                align: 'center',
+              }, {
+                title: '实际',
+                key: 'sjSum',
+                width:150,
+                align: 'center',
+              }, {
+                title: '±%',
+                width:150,
+                key: 'zzlAvg',
+                align: 'center',
+              }, {
+                title: '上年同期',
+                width:150,
+                key: 'sntqSum',
+                align: 'center',
+              }
+            ]
           }
         ],
         data11: [],

@@ -155,11 +155,12 @@
           <FormItem :label-width="120" label="社保缴存备注">
             <Input :disabled="isEdit_gjj" v-model="formItem.sbjcbz" placeholder="社保缴存备注" class="input_item"/>
           </FormItem>
-          <FormItem :label-width="120" label="住房公积金账号">
-            <Input :disabled="isEdit_gjj" v-model="formItem.zfgjjzh" placeholder="住房公积金账号" class="input_item"/>
-          </FormItem>
+
           </div>
           <div style="display: flex;flex-wrap: wrap">
+            <FormItem :label-width="120" label="住房公积金账号">
+              <Input :disabled="isEdit_gjj" v-model="formItem.zfgjjzh" placeholder="住房公积金账号" class="input_item"/>
+            </FormItem>
           <FormItem :label-width="120" label="公积金开户时间">
             <DatePicker :disabled="isEdit_gjj" type="date" style="width: 170px;" placeholder="选择时间"
                         v-model="formItem.gjjkhsj"></DatePicker>

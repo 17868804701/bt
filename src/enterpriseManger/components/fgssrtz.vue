@@ -93,6 +93,15 @@
                 align: 'center',
               },
               {
+                title: '月票',
+                key: 'ky_bnyp',
+                align: 'center',
+              },       {
+                title: '敬老卡人次',
+                key: 'ky_bnjlk',
+                align: 'center',
+              },
+              {
                 title: '本年IC卡',
                 key: 'ky_bnick',
                 align: 'center',
@@ -103,7 +112,7 @@
                 align: 'center',
               },
               {
-                title: '去年',
+                title: '上年同期',
                 key: 'ky_qn',
                 align: 'center',
               },
@@ -139,7 +148,7 @@
                 align: 'center',
               },
               {
-                title: '去年',
+                title: '上年同期',
                 key: 'sr_qn',
                 align: 'center',
               },
@@ -160,7 +169,7 @@
                 align: 'center',
               },
               {
-                title: '去年',
+                title: '上年同期',
                 key: 'xscc_qn',
                 align: 'center',
               },

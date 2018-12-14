@@ -56,10 +56,10 @@
           <FormItem label="本年预计">
             <Input v-model="formItem1.qnyj" placeholder="本年预计" style="width: 195px;"/>
           </FormItem>
-          <FormItem label="明年计划">
+          <FormItem label="本年计划">
             <Input v-model="formItem1.bnjh" placeholder="明年计划" style="width: 195px;"/>
           </FormItem>
-          <FormItem label="明年计划车次">
+          <FormItem label="本年计划车次">
             <Input v-model="formItem1.bnjhcc" placeholder="明年计划车次" style="width: 195px;"/>
           </FormItem>
         </Form>
@@ -140,7 +140,7 @@
             key: 'qnsj'
           },
           {
-            title: '去年预计1',
+            title: '上年预计',
             key: 'qnyj'
           },
           {

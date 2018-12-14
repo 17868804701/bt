@@ -224,7 +224,7 @@
         <td>{{xjgzList.zzxjgzbz}}</td>
       </tr>
       <tr>
-        <td>生产一线（司乘）（元）</td>
+        <td>驾驶员（元）</td>
         <td colspan="4"></td>
       </tr>
       <tr>

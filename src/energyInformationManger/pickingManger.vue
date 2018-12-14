@@ -63,16 +63,6 @@
                 <!--</Select>-->
                 <CommonSelect type="EJGS"  :selectValue="add.dw" style="width: 195px;"></CommonSelect>
               </FormItem>
-              <FormItem label="车牌号" prop="cph">
-                <Input v-model="add.cph" placeholder="车牌号" style="width: 195px;"/>
-              </FormItem>
-              <FormItem label="车型" prop="cx">
-                <Select v-model="add.cx" style="width: 195px;">
-                  <Option value="大型">大型</Option>
-                  <Option value="中型">中型</Option>
-                  <Option value="小型">小型</Option>
-                </Select>
-              </FormItem>
               <FormItem label="领料时间" prop="llsj">
                 <DatePicker type="date" placeholder="选择领料时间" v-model="add.llsj" style="width: 195px;"></DatePicker>
               </FormItem>
@@ -94,22 +84,13 @@
               <FormItem label="单价" prop="dj">
                 <Input v-model="add.dj" placeholder="单价" style="width: 195px;" :readonly="true"/>
               </FormItem>
-              <FormItem label="品牌型号" prop="ppxh">
-                <Input v-model="add.ppxh" placeholder="品牌型号" style="width: 195px;"/>
-              </FormItem>
               <FormItem label="领料数量" prop="llsl">
                 <Input v-model="add.llsl" placeholder="请输入领料数量" style="width: 195px;"/>
               </FormItem>
               <!--<FormItem label="金额" prop="je">-->
                 <!--<Input v-model="add.je" placeholder="金额" style="width: 195px;"/>-->
               <!--</FormItem>-->
-              <FormItem label="状态" prop="zt">
-                <Select v-model="add.zt" style="width: 195px;">
-                  <Option value="采购">采购</Option>
-                  <!--<Option value="派发">派发</Option>-->
-                </Select>
-              </FormItem>
-              <FormItem label="附记" prop="fj">
+              <FormItem label="附记">
                 <Input v-model="add.fj" placeholder="附记" style="width: 470px;"/>
               </FormItem>
             </div>

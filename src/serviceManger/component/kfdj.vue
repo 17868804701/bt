@@ -109,6 +109,22 @@
               }, texts)
             }
           }, {
+            title: '提交部门',
+            key: 'bm',
+            align: 'center',
+            width: 120,
+            render: (h, params) => {
+              let texts = '';
+              if(params.row.bm=='运营部'){
+                texts='运营部'
+              }else {
+                texts = this.$store.state.dictData.parseDict.EJGS[params.row.bm];
+              }
+              return h('div', {
+                props: {},
+              }, texts)
+            }
+          },  {
             title: '车号',
             key: 'ch',
             align: 'center',
@@ -215,12 +231,14 @@
             width: 120,
             render: (h, params) => {
               let texts = '';
-              if (params.row.sjlb == 0) {
+              if (params.row.sjlb == '0') {
                 texts = '责任性事件'
-              } else if (params.row.sjlb == 1) {
+              } else if (params.row.sjlb == '1') {
                 texts = '疑难性事件'
-              } else if (params.row.sjlb == 2) {
+              } else if (params.row.sjlb == '2') {
                 texts = '普通事件'
+              }else{
+                texts = ''
               }
               return h('div', {
                 props: {},
@@ -281,7 +299,11 @@
             } else {
               res.data.records.forEach(item => {
                 item.tssj = this.$formatDate(item.tssj)
-                item.fksj = this.$formatDate(item.fksj)
+                if(item.fksj===null){
+                  item.fksj = ''
+                }else {
+                   item.fksj = this.$formatDate(item.fksj)
+                }
               });
               this.data10 = res.data.records;
               this.totalPage = res.data.total;

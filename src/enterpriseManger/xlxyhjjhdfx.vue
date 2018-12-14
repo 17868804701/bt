@@ -165,16 +165,28 @@
             align: 'center',
             children:[
               {
-                title: '本期',
-                key: 'kylBq',
+                title: '本期敬老卡',
+                key: 'bqjlk',
                 width:100,
                 align: 'center',
               },   {
-                title: '上年同期',
-                key: 'kylTq',
+                title: '上年同期敬老卡',
+                key: 'sntqjlk',
                 width:100,
                 align: 'center',
               }, {
+                title: '本期月票卡',
+                key: 'bqypk',
+                width:100,
+                align: 'center',
+              }, {
+                title: '上年同期月票卡',
+                key: 'sntqypk',
+                width:100,
+                align: 'center',
+              },
+
+              {
                 title: '±%',
                 key: 'kylZzl',
                 width:100,
