@@ -56,8 +56,14 @@
     computed: {},
     methods: {
       requestData() {
+      	let params = {};
+      	for (let attr in this.params) {
+          params.nd = this.params.nd;
+          params.jd = this.params.jd;
+        }
         if (this.params.nd == '') {
           this.params.nd = ''
+          params.nd = ''
         } else {
           this.dw = [],
             this.kyl_icrc = [],
@@ -68,8 +74,11 @@
             this.sr_ick = [],
             this.sr_tbsr = [],
             this.params.nd = this.$formatDate(this.params.nd).substring(0, 4)
+          params.nd = this.$formatDate(this.params.nd).substring(0, 4)
+
         }
-        this.$fetch(this.$url.getFgsSrwcdb, this.params)
+
+        this.$fetch(this.$url.getFgsSrwcdb, params)
           .then(res => {
             console.log(res.rcdata)
             res.rcdata.forEach(item => {

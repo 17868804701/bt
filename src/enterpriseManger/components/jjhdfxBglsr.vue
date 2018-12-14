@@ -45,7 +45,7 @@
           '病假', '产假', '女工长假', '下岗', '工伤', '待岗', '停薪', '外借', '退离'],
         columnsCode: ['zj', 'bhtl', 'zgng', 'gsld', 'ej', 'sj', 'ybgl', 'fz', 'siji', 'xl', 'qtzg', 'qtbzg', 'nt', 'cj', 'bj', 'ngcj', 'xg', 'gs', 'dg', 'tx', 'wj', 'tl'],
         tableData: [],
-        params: {nd: '', dw:'',ejdw:'YGS'}
+        params: {nd: '', dw:'公交一公司',ejdw:'YGS'}
       }
     },
     computed: {},
@@ -54,8 +54,15 @@
         this.requestData()
       },
       requestData() {
+        let params = {};
+        for (let attr in this.params) {
+          params.nd = this.params.nd;
+          params.dw = this.params.dw;
+          params.ejdw = this.params.ejdw;
+        }
         if(this.params.nd==''){
           this.params.nd = ''
+          params.nd = ''
         }else {
            this.lb= [],
            this.bn_bgl= [],
@@ -64,8 +71,10 @@
            this.zzl= [],
           this.params.nd = this.$formatDate(this.params.nd).substring(0,4)
           this.params.dw = this.$store.state.dictData.parseDict.EJGS[this.params.ejdw];
+          params.nd = this.$formatDate(this.params.nd).substring(0,4)
+          params.dw = this.$store.state.dictData.parseDict.EJGS[this.params.ejdw];
         }
-        this.$fetch(this.$url.getFgsBglsr, this.params)
+        this.$fetch(this.$url.getFgsBglsr, params)
           .then(res => {
             console.log(res.data)
             res.data.forEach(item => {
@@ -152,10 +161,10 @@
       },
     },
     mounted() {
-      this.requestData()
       let date = new Date;
       let year = (date.getFullYear()).toString();
       this.params.nd = year;
+      this.requestData()
     },
   }
 </script>

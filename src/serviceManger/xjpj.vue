@@ -82,8 +82,9 @@
         </Form>
       </Card>
       <span style="font-size: 12px;color: red;margin-left: 20px;display: inline-block;margin-top: 20px;">*打分说明:在当前月7号之前(不包括7号)打分的默认是给上个月打分，7号之后打分的是给当前月打分</span>
+
       <Collapse style="width: 98%;margin-left: 1%;margin-top: 20px;">
-        <Panel v-for="(item, index) in userPJList" :name="item+index" :key="item+index">
+        <Panel v-for="(item, index) in userPJList" :name="item+index" :key="item+index" v-if="shouldShow(item)">
           {{item.tableTitle}}
           <table slot="content">
             <tr>
@@ -167,9 +168,18 @@
         userPJList: [], // 用户打分的所有选项
         allReportTitle: [], // 所有报表名称
         TPLData: [], // 预览报表的数据
+        sortList: [
+          "公交一公司经营业绩星级考核表","公交二公司经营业绩星级考核表","公交三公司经营业绩星级考核表","公交四公司经营业绩星级考核表","公交五公司经营业绩星级考核表","公交六公司经营业绩星级考核表",
+          "修理公司经营业绩星级考核表","职工培训中心经营业绩星级考核表","站务管理中心经营业绩星级考核表","票款结算中心经营业绩星级考核表","稽查大队经营业绩星级考核表",
+          "长客总公司经营业绩星级考核表","吉运汽车租赁服务有限公司经营业绩星级考核表","大自然旅游有限责任公司经营业绩星级考核表","机关部室经营业绩星级考核表",
+          "各二级单位领导月薪表","集团公司机关部室领导月薪表",
+        ], // 默认排序顺序
       }
     },
     methods: {
+    	shouldShow(item) {
+        return item.options.subOptions.length > 0;
+      },
       // 提交分数
       commitPJWithReportIndex(index) {
         let date = new Date;
@@ -292,8 +302,17 @@
                   subOptions.score = 0; // 给每条数据增加一个用来双向绑定的分值
                 })
               });
-              that.userPJList = dataArray;
-              console.log(dataArray);
+
+              let newDataArray = [];
+              for(let i = 0; i < that.sortList.length; i++) {
+                dataArray.forEach(item => {
+                  if (item.tableTitle === that.sortList[i]) {
+                    newDataArray.push(item);
+                  }
+                })
+              }
+              that.userPJList = newDataArray;
+              console.log(newDataArray);
             } else {
               this.$Message.error('加载配置数据失败!');
             }
