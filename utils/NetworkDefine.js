@@ -202,6 +202,8 @@ const NetworkInterface = {
   daochull:'/erp-modules-bbgl/Lljl/exportLljlExcel',  //领料导出
   jtdnList:'/erp-modules-bbgl/Dnxxtj/getJtdnxhList',  //集团电能列表
   jtdnListdaochu:'/erp-modules-bbgl/Dnxxtj/exportJtdnExcel',  //集团电能列表导出
+  setPrice:'/erp-modules-bbgl/Trqtj/setPrice',  //添加设置单价
+  setDnxhde:'/erp-modules-bbgl/Dnxxtj/setDnxhde',  //添加定额消耗
 
   lingliaoSearch:'/erp-modules-weix/dataDictionary/listPJXX',
 
@@ -243,11 +245,12 @@ const NetworkInterface = {
   getCphByDwLb:'/chel/busRoutesController/getCphByDwLb',
   getZbhByDw: '/chel/busRoutesController/getZbhByDw',
   getZbhByLb: '/chel/busRoutesController/getZbhByLb',
+  getAllCph: '/chel/busRoutesController/getAllCph',
 
 
   getUserInfo:'/3e-platform-modules-auth/user/getUserInfo',
   updatePwd:'/3e-platform-modules-auth/user/updatePass',
-  
+
   getAllZbh: '/chel/busRoutesController/getAllZbh'
 };
 

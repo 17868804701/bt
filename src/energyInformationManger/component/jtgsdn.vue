@@ -144,14 +144,57 @@
                 sortable: false
               },
               {
-                title: '节超（+）',
+                title: '节超（±）',
                 key: 'jc',
                 align: 'center',
                 width: 160,
                 sortable: false
               },
             ]
-          }
+          },
+          {
+            title: '客运量（人次）',
+            key: 'name',
+            align: 'center',
+            width: 120,
+            children: [
+              {
+                title: '合计',
+                key: 'kyl_hj',
+                align: 'center',
+                width: 120,
+                sortable: false
+              },
+              {
+                title: '其中：投币人次',
+                key: 'kyl_tbrc',
+                align: 'center',
+                width: 120,
+                sortable: false
+              },
+              {
+                title: '其中：普通IC卡人次',
+                key: 'kyl_ick',
+                align: 'center',
+                width: 120,
+                sortable: false
+              },
+              {
+                title: '其中：月票卡人次',
+                key: 'kyl_yp',
+                align: 'center',
+                width: 120,
+                sortable: false
+              },
+              {
+                title: '其中：老年卡人次',
+                key: 'kyl_jlk',
+                align: 'center',
+                width: 120,
+                sortable: false
+              }
+            ]
+          },
         ],
         data12: [],
       }
