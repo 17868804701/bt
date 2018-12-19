@@ -166,6 +166,7 @@ const NetworkInterface = {
   updatefgssrjh:'/erp-modules-yygl/fsrjh/updateFsrjh',//修改分公司收入计划
   updateSnsrjh:'/erp-modules-yygl/jtsrjh/updateJtsrjh',//修改分公司收入计划
   yyjhtzDel:'/erp-modules-yygl/yyjhtz/delete',//修改分公司收入计划
+  insertYuePiao:'/erp-modules-yygl/jtsrjh/insertYuePiao',//填写月票计划
 
 
 
@@ -239,6 +240,7 @@ const NetworkInterface = {
   gjfgsDaochu: '/erp-modules-bbgl/jjzbFgs/exportJjzbGjgsExcel',                            //公交分公司列表
   yejikaoheList: '/erp-modules-bbgl/jjzbFgs/yejikaoheList',                            //公交分公司列表
   yejikaoheDaochu: '/erp-modules-bbgl/jjzbFgs/exportYejikaoheExcel',                            //公交分公司列表
+  updateJjzbFgs: '/erp-modules-bbgl/jjzbFgs/updateJjzbFgs',                            //公交分公司列表
 
 
   // 经济活动分析

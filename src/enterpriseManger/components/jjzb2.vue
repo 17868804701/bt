@@ -34,6 +34,7 @@
                         class="text_width"></DatePicker>
           </FormItem>
           <Button type="primary" icon="ios-search" class="search_btn" @click="search2" v-has="'jjzbwcqk_ber_search'">查询</Button>
+          <Button type="primary" icon="plus" class="search_btn" @click="add_jjzb">添加</Button>
           <div class="btn">
             <Button type="primary" icon="android-download" @click="daochu2" v-has="'jjzbwcqk_ber_daochu'">导出Excel</Button>
           </div>
@@ -44,12 +45,59 @@
       {{this.formItem2.nian}}年{{this.formItem2.yue}}月修理公司经济指标情况
     </div>
     <Table :columns="columns12" :data="data12" border height="500" style="margin-top: 0px;" size="small"></Table>
+
+
+
+    <Modal
+      v-model="add"
+      title="添加经济指标"
+      @on-cancel="cancel">
+      <div slot="footer" style="height: 30px;">
+        <Button type="primary" style="float: right;margin-right: 10px" @click="save_jjzb">新增
+        </Button>
+        <Button type="primary" style="float: right;margin-right: 10px" @click="cancel">取消</Button>
+      </div>
+      <Form :model="formItem" :label-width="80">
+        <FormItem label="名称">
+          <Select v-model="formItem.mc">
+            <Option v-for="(item,index) in data12" :value="item.mc" :key="index">{{item.mc}}</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="单位" prop="dws">
+          <CommonSelect type="EJGS" :selectValue="formItem.dws" style="width: 195px;"></CommonSelect>
+        </FormItem>
+        <FormItem label="年月">
+          <DatePicker type="date" placeholder="选择时间" v-model="formItem.time"></DatePicker>
+        </FormItem>
+        <FormItem label="实际">
+          <Input v-model="formItem.sj" placeholder="实际"></Input>
+        </FormItem>
+        <FormItem label="计划">
+          <Input v-model="formItem.jh" placeholder="计划"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
   </div>
 </template>
 <script>
+  import CommonSelect from '../../components/common/CommonSelect.vue'
   export default {
+    components: {
+      CommonSelect,
+    },
     data () {
       return {
+        add:false,
+        formItem: {
+          dw: '',
+          dws: '',
+          time: '',
+          mc: '',
+          nd: '',
+          yf: '',
+          sj: '',
+          jh: ''
+        },
         formItem2: {
           nian: '',
           yue: ''
@@ -96,6 +144,40 @@
       }
     },
     methods: {
+      add_jjzb() {
+        this.add = true
+      },
+      clean(){
+        this.formItem.dw = '',
+          this.formItem.time = '',
+          this.formItem.mc = '',
+          this.formItem.nf = '',
+          this.formItem.yf = '',
+          this.formItem.sj = '',
+          this.formItem.jh = ''
+      },
+      cancel() {
+        this.clean()
+        this.add = false
+        this.getList()
+      },
+      save_jjzb() {
+        console.log(this.formItem)
+        this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dws];
+        this.formItem.nd = this.$formatDate(this.formItem.time).substring(0, 4)
+        this.formItem.yf = this.$formatDate(this.formItem.time).substring(5, 7)
+        this.$post(this.$url.updateJjzbFgs, this.formItem)
+          .then(res => {
+            console.log(res);
+            if (res.success === true) {
+              this.$Message.success('添加成功');
+              this.cancel()
+            } else {
+              this.$Message.error('添加失败');
+              this.cancel()
+            }
+          })
+      },
       getList:function () {
         this.$fetch(this.$url.xlgsList, this.formItem2)
           .then(res => {
