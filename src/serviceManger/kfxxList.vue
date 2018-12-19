@@ -41,6 +41,12 @@
       <TabPane v-if="$showMenu('待我处理列表')" label="待我处理列表" name="DWCL">
         <DWCL ref="DWCL"></DWCL>
       </TabPane>
+      <TabPane  label="分公司需知列表" name="XZLB">
+        <XZLB ref="XZLB"></XZLB>
+      </TabPane>
+      <TabPane  label="客服热线日汇总表" name="RHZB">
+        <RHZB ref="RHZB"></RHZB>
+      </TabPane>
     </Tabs>
   </div>
 </template>
@@ -48,10 +54,14 @@
   import * as DateTool from '../../utils/DateTool'
   import KFDJ from './component/kfdj.vue'
   import DWCL from './component/dwcl.vue'
+  import XZLB from './component/xzlb.vue'
+  import RHZB from './component/rhzb.vue'
   export default {
     components:{
       KFDJ,
-      DWCL
+      DWCL,
+      XZLB,
+      RHZB
     },
     data () {
       return {

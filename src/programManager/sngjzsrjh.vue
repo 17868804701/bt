@@ -2,23 +2,32 @@
   <div>
     <!--</router-link>-->
     <Card>
-      <Form :model="formItem" :label-width="80">
+      <Form :model="formItem" :label-width="80" :inline="true">
         <Row>
           <Col span="24">
             <FormItem label="按年份查询" style="margin: 0;">
               <DatePicker type="year" placeholder="选择年份" :transfer="true" placement="bottom-end"
                           v-model="formItem.jhsj"></DatePicker>
-              <Button type="primary" icon="ios-search" @click="search" v-has="'srjhzd_sngjzsr_search'">搜索</Button>
-              <!--<Button type="primary" icon="android-download" @click="exports=true"-->
-              <!--style="float: right">导入计划表-->
-              <!--</Button>-->
-              <Button type="primary" icon="android-download"
-                      style="float: right;margin-right: 10px" @click="daochu" v-has="'srjhzd_sngjzsr_export'">导出Excel
-              </Button>
-              <Button type="primary" icon="android-download" @click="addProgram=true"
-                      style="float: right;margin-right: 10px;" v-has="'srjhzd_sngjzsr_add'">计划生成
-              </Button>
             </FormItem>
+            <FormItem label="选择公司" style="margin: 0" prop="dw">
+              <!--<Select v-model="formItem.dw" :transfer="true" style="width: 150px;">-->
+              <!--<Option value="">全部</Option>-->
+              <!--<Option value="公交一公司">公交一公司</Option>-->
+              <!--<Option value="公交二公司">公交二公司</Option>-->
+              <!--<Option value="公交三公司">公交三公司</Option>-->
+              <!--</Select>-->
+              <CommonSelect type="EJGS" :selectValue="formItem.dw" style="width: 190px;"></CommonSelect>
+            </FormItem>
+            <Button type="primary" icon="ios-search" @click="search" v-has="'srjhzd_sngjzsr_search'">搜索</Button>
+            <!--<Button type="primary" icon="android-download" @click="exports=true"-->
+            <!--style="float: right">导入计划表-->
+            <!--</Button>-->
+            <Button type="primary" icon="android-download"
+                    style="float: right;margin-right: 10px" @click="daochu" v-has="'srjhzd_sngjzsr_export'">导出Excel
+            </Button>
+            <Button type="primary" icon="android-download" @click="addProgram=true"
+                    style="float: right;margin-right: 10px;" v-has="'srjhzd_sngjzsr_add'">计划生成
+            </Button>
           </Col>
         </Row>
       </Form>
@@ -56,11 +65,11 @@
           <FormItem label="本年预计">
             <Input v-model="formItem1.qnyj" placeholder="本年预计" style="width: 195px;"/>
           </FormItem>
-          <FormItem label="本年计划">
-            <Input v-model="formItem1.bnjh" placeholder="明年计划" style="width: 195px;"/>
+          <FormItem label="上年计划">
+            <Input v-model="formItem1.bnjh" placeholder="上年计划" style="width: 195px;"/>
           </FormItem>
           <FormItem label="本年计划车次">
-            <Input v-model="formItem1.bnjhcc" placeholder="明年计划车次" style="width: 195px;"/>
+            <Input v-model="formItem1.bnjhcc" placeholder="本年计划车次" style="width: 195px;"/>
           </FormItem>
         </Form>
       </div>
@@ -89,7 +98,8 @@
         formItem: {
           current: 1,
           size: 10,
-          jhsj: ''
+          jhsj: '',
+          dw:''
         },
         formItem1: {
           lb: '',
@@ -146,6 +156,13 @@
           {
             title: '本年计划',
             key: 'bnjh'
+          },
+          {
+            title: '增减量',
+            key: 'zjl'
+          },    {
+            title: '增减率',
+            key: 'zjlv'
           },
           {
             title: '本年计划车次',
@@ -242,12 +259,13 @@
           })
       },
       daochu: function () {
+        debugger
         if (this.formItem.jhsj == '') {
           this.formItem.jhsj = ''
         } else {
           this.formItem.jhsj = this.$formatDate(this.formItem.jhsj).substring(0, 4)
         }
-        this.$getExcel(process.env.BASE_URL + this.$url.sngjjhdc + '?jhsj=' + this.formItem.jhsj)
+        this.$getExcel(process.env.BASE_URL + this.$url.sngjjhdc + '?jhsj=' + this.formItem.jhsj+'&dw='+this.formItem.dw)
       },
       getList: function () {
         this.$fetch(this.$url.snjhList, this.formItem)

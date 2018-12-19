@@ -182,6 +182,11 @@ const NetworkInterface = {
   dwclkfxx:'/erp-modules-yygl/kfxx/dwclkfxxList',//待我处理客服信息-导出
   plclkfxx:'/erp-modules-yygl/kfxx/updateBatchKfxx',//批量处理
   updatekfxx:'/erp-modules-yygl/kfxx/updateKfxx',//更新客服信息
+  xiapai:'/erp-modules-yygl/kfxx/xiapai',//更新客服信息
+  getXzList:'/erp-modules-yygl/kfxx/getXzList',//更新客服信息须知列表
+  getKfrxList:'/erp-modules-yygl/kfxx/getKfrxList',//更新客服信息须知列表
+  exportKfrxList:'/erp-modules-yygl/kfxx/exportKfrxList',//更新客服信息须知列表
+  deleteKfxx:'/erp-modules-yygl/kfxx/deleteKfxx',//deleteKfxx
   // 星级评价
   getUserPFList: '/erp-modules-yygl/xjkp/getMbMap', // 获取当前登录用户需要打分的所有条目数据
   commitPFWithID: '/erp-modules-yygl/xjkp/saveOrUpdXjkpKhfs', // 提交评分数据
@@ -244,14 +249,16 @@ const NetworkInterface = {
   getDwByLb:'/chel/busRoutesController/getDwByLb',
   getCphByDwLb:'/chel/busRoutesController/getCphByDwLb',
   getZbhByDw: '/chel/busRoutesController/getZbhByDw',
-  getZbhByLb: '/chel/busRoutesController/getZbhByLb',
+  getZbhByLb: '/chel/busRoutesController/getZbhByLb',//根据车牌查自编号和车牌号
   getAllCph: '/chel/busRoutesController/getAllCph',
+  getAllByZbh: '/chel/busRoutesController/getAllByZbh',//根据自编号或车牌号查询信息
 
 
   getUserInfo:'/3e-platform-modules-auth/user/getUserInfo',
   updatePwd:'/3e-platform-modules-auth/user/updatePass',
 
-  getAllZbh: '/chel/busRoutesController/getAllZbh'
+  getAllZbh: '/chel/busRoutesController/getAllZbh',
+    getAllMsg: '/chel/busRoutesController/getAllMsg',
 };
 
 export default NetworkInterface;

@@ -64,10 +64,7 @@
             <DatePicker type="month" placeholder="请选择时间" v-model="formItem2.time" style="width: 190px;"></DatePicker>
           </FormItem>
           <FormItem label="车牌号">
-            <Select
-              v-model="formItem2.cph"
-              filterable
-              remote>
+            <Select v-model="formItem2.cph" filterable style="width: 190px;" @on-change="chooseLb">
               <Option v-for="(item,index) in cphList" :value="item.bus_num" :key="index">{{item.bus_num}}</Option>
             </Select>
           </FormItem>
@@ -344,7 +341,6 @@
         } else {
           this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem._dw];
         }
-
         if (this.formItem._lb == '') {
           this.formItem.lb = ''
         } else {

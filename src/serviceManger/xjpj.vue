@@ -102,7 +102,7 @@
                              style="width: 50px"></InputNumber>&nbsp;&nbsp;分
               </td>
               <td>
-                <Input v-model="subOption.kfsm" placeholder="说明指标具体情况和口分原因" style="width: 300px"/>
+                <Input v-model="subOption.kfsm" placeholder="说明指标具体情况和扣分原因" style="width: 300px"/>
               </td>
               <td>{{subOption.maxScore}}分</td>
             </tr>

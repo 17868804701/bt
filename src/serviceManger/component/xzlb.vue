@@ -39,14 +39,14 @@
                         class="text_width"></DatePicker>
           </FormItem>
           <!--<FormItem label="部门" style="margin-bottom: 0px" prop="bm">-->
-            <!--<CommonSelect type="EJGS"  :selectValue="formItem1.bm" style="width: 180px;"></CommonSelect>-->
+          <!--<CommonSelect type="EJGS"  :selectValue="formItem1.bm" style="width: 180px;"></CommonSelect>-->
           <!--</FormItem>-->
           <Button type="primary" icon="ios-search" class="search_btn" @click="search2" v-has="'kfxxlbym_dwcllb_search'">
             查询
           </Button>
-          <Button type="primary" icon="android-download" class="search_btn" @click="plcl"
-                  v-has="'kfxxlbym_dwcllb_mutipledeal'">批量处理
-          </Button>
+          <!--<Button type="primary" icon="android-download" class="search_btn" @click="plcl"-->
+                  <!--v-has="'kfxxlbym_dwcllb_mutipledeal'">批量处理-->
+          <!--</Button>-->
         </div>
       </Form>
     </Card>
@@ -99,11 +99,11 @@
         totalPage1: 0,
         selection: [],
         columns12: [
-          {
-            type: 'selection',
-            width: 60,
-            align: 'center',
-          },
+          // {
+          //   type: 'selection',
+          //   width: 60,
+          //   align: 'center',
+          // },
           {
             title: '部门',
             key: 'bm',
@@ -254,39 +254,40 @@
             //     props: {},
             //   }, texts)
             // }
-          }, {
-            title: '操作',
-            align: 'center',
-            fixed: 'right',
-            width: 220,
-            render: (h, params) => {
-              return h('div', [
-                h('Button', {
-                  props: {
-                    type: 'primary',
-                    size: 'small'
-                  },
-                  style: {
-                    marginRight: '5px'
-                  },
-                  on: {
-                    click: () => {
-                      //console.log(params.row.id);
-                      this.formItem2.ids.push(params.row.id)
-                      //console.log(this.formItem2.ids)
-                      this.modal1 = true;
-                    }
-                  },
-                  directives: [
-                    {
-                      name: 'has',
-                      value: 'kfxxlbym_dwcllb_deal',
-                    }
-                  ],
-                }, '处理'),
-              ]);
-            }
           },
+          // {
+          //   title: '操作',
+          //   align: 'center',
+          //   fixed: 'right',
+          //   width: 220,
+          //   render: (h, params) => {
+          //     return h('div', [
+          //       h('Button', {
+          //         props: {
+          //           type: 'primary',
+          //           size: 'small'
+          //         },
+          //         style: {
+          //           marginRight: '5px'
+          //         },
+          //         on: {
+          //           click: () => {
+          //             //console.log(params.row.id);
+          //             this.formItem2.ids.push(params.row.id)
+          //             //console.log(this.formItem2.ids)
+          //             this.modal1 = true;
+          //           }
+          //         },
+          //         directives: [
+          //           {
+          //             name: 'has',
+          //             value: 'kfxxlbym_dwcllb_deal',
+          //           }
+          //         ],
+          //       }, '处理'),
+          //     ]);
+          //   }
+          // },
         ],
         data12: []
       }
@@ -294,7 +295,7 @@
     methods: {
       //        待我处理客服信息列表
       getList: function () {
-        this.$fetch(this.$url.dwclkfxx, this.formItem1)
+        this.$fetch(this.$url.getXzList, this.formItem1)
           .then(res => {
             //console.log(res);
             if (res.data.total === 0) {

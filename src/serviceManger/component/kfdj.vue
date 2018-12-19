@@ -51,14 +51,17 @@
               <Option value="QT">其他</Option>
             </Select>
           </FormItem>
+          <FormItem label="联系电话" style="margin-bottom: 0px">
+            <Input v-model="formItem.telephone" placeholder="联系电话" class="text_width"/>
+          </FormItem>
           <div style="margin-left: 30px;">
             <ButtonGroup>
               <Button type="primary" @click="search1" style="margin-right: 3px;">
                 <Icon type="search" v-has="'kfxxlbym_kfxxdjlb_search'"></Icon>
                 搜索
               </Button>
-              <Button type="primary" @click="daochu" icon="android-download" v-has="'kfxxlbym_kfxxdjlb_export'">导出
-              </Button>
+              <Button type="primary" @click="daochu" icon="android-download" v-has="'kfxxlbym_kfxxdjlb_export'">导出</Button>
+              <Button type="primary" @click="plxp" icon="android-download" style="margin-left: 3px;">批量下派</Button>
             </ButtonGroup>
           </div>
           <router-link to="/addKfxx">
@@ -70,7 +73,7 @@
 
       </Form>
     </Card>
-    <Table :columns="columns11" :data="data10" border height="470" style="margin-top: 10px;" size="small"></Table>
+    <Table :columns="columns11" :data="data10" border height="470" style="margin-top: 10px;" size="small" @on-select="selectall"></Table>
     <Page :total="totalPage" show-total style="margin-top: 10px;" @on-change="setp"></Page>
   </div>
 </template>
@@ -79,9 +82,11 @@
   export default {
     data () {
       return {
+        ids:[],
         formItem: {
           current: 1,
           size: 10,
+          telephone:'',
           tslb: '',
           startTime: '',
           endTime: ''
@@ -92,8 +97,13 @@
         selection: [],
         columns11: [
           {
+            type: 'selection',
+            width: 60,
+            align: 'center'
+          },
+          {
             title: '投诉时间',
-            key: 'tssj',
+            key: 'djsj',
             align: 'center',
             width: 160,
           }, {
@@ -126,7 +136,7 @@
             }
           },  {
             title: '车号',
-            key: 'ch',
+            key: 'cph',
             align: 'center',
             width: 120,
           }, {
@@ -137,6 +147,11 @@
           }, {
             title: '联系电话',
             key: 'lxdh',
+            align: 'center',
+            width: 120,
+          }, {
+            title: '事件类别',
+            key: 'sjlb',
             align: 'center',
             width: 120,
           }, {
@@ -172,17 +187,17 @@
             key: 'lfxs',
             align: 'center',
             width: 120,
-            render: (h, params) => {
-              let texts = '';
-              if (params.row.lfxs == 0) {
-                texts = '来电'
-              } else if (params.row.lfxs == 1) {
-                texts = '来访'
-              }
-              return h('div', {
-                props: {},
-              }, texts)
-            }
+            // render: (h, params) => {
+            //   let texts = '';
+            //   if (params.row.lfxs == 0) {
+            //     texts = '来电'
+            //   } else if (params.row.lfxs == 1) {
+            //     texts = '来访'
+            //   }
+            //   return h('div', {
+            //     props: {},
+            //   }, texts)
+            // }
           }, {
             title: '事由',
             key: 'sy',
@@ -195,14 +210,14 @@
             width: 120,
           }, {
             title: '状态',
-            key: 'zt',
+            key: 'clzt',
             align: 'center',
             width: 120,
             render: (h, params) => {
               let texts = '';
-              if (params.row.zt == 1) {
+              if (params.row.clzt == 1) {
                 texts = '处理中'
-              } else if (params.row.zt == 2) {
+              } else if (params.row.clzt == 2) {
                 texts = '处理完成'
               }
               return h('div', {
@@ -229,26 +244,27 @@
             key: 'sjlb',
             align: 'center',
             width: 120,
-            render: (h, params) => {
-              let texts = '';
-              if (params.row.sjlb == '0') {
-                texts = '责任性事件'
-              } else if (params.row.sjlb == '1') {
-                texts = '疑难性事件'
-              } else if (params.row.sjlb == '2') {
-                texts = '普通事件'
-              }else{
-                texts = ''
-              }
-              return h('div', {
-                props: {},
-              }, texts)
-            }
-          }, {
+            // render: (h, params) => {
+            //   let texts = '';
+            //   if (params.row.sjlb == '0') {
+            //     texts = '责任性事件'
+            //   } else if (params.row.sjlb == '1') {
+            //     texts = '疑难性事件'
+            //   } else if (params.row.sjlb == '2') {
+            //     texts = '普通事件'
+            //   }else{
+            //     texts = ''
+            //   }
+            //   return h('div', {
+            //     props: {},
+            //   }, texts)
+            // }
+          },
+          {
             title: '操作',
-            align: 'center',
+            // align: 'center',
+            width:220,
             fixed: 'right',
-            width: 220,
             render: (h, params) => {
               return h('div', [
                 h('Button', {
@@ -262,7 +278,7 @@
                   on: {
                     click: () => {
                       //console.log(params.row.zt.toString())
-                      params.row.zt = params.row.zt.toString()
+                      params.row.zt = params.row.clzt.toString()
                       params.row.xl = params.row.xl+'路'
                       console.log(params.row)
                       params.row.fksj = this.$formatDate(params.row.fksj);
@@ -279,6 +295,74 @@
                     }
                   ],
                 }, '修改'),
+                h('Button', {
+                  props: {
+                    type: 'warning',
+                    size: 'small'
+                  },
+                  style: {
+                    marginRight: '5px'
+                  },
+                  on: {
+                    click: () => {
+                      this.$post(this.$url.xiapai+'?id='+params.row.id)
+                        .then(res => {
+                          console.log(res);
+                          if(res.success==true){
+                            this.$Message.success('下派成功');
+                          }else {
+                            this.$Message.error('下派失败')
+                          }
+                        })
+                    }
+                  },
+                  // directives: [
+                  //   {
+                  //     name: 'has',
+                  //     value: 'kfxxlbym_kfxxdjlb_edit',
+                  //   }
+                  // ],
+                }, '下派'),
+                h('Poptip', {
+                  props: {
+                    transfer:true,
+                    confirm: true,
+                    type: 'error',
+                    size: 'large',
+                    title: '你确定要删除吗?'
+                  },
+                  on: {
+                    'on-ok': () => {
+                      console.log(params.row.id)
+                      this.$post(this.$url.deleteKfxx + '?id=' + params.row.id)
+                        .then(res => {
+                          console.log(res)
+                          if (res.success === true) {
+                            this.$Message.info('删除成功');
+                            this.getList()
+                          } else {
+                            this.$Message.error('删除失败');
+                          }
+                        })
+                    }
+                  }
+                }, [
+                  h('Button', {
+                    props: {
+                      type: 'error',
+                      size: 'small'
+                    },
+                    style: {
+                      marginRight: '5px'
+                    },
+                    directives: [
+                      {
+                        name: 'has',
+                        value: 'gpjc_gpjcdj_delete',
+                      }
+                    ]
+                  },'删除')
+                ])
               ]);
             }
           },
@@ -287,6 +371,30 @@
       }
     },
     methods: {
+      plxp(){
+        if(this.ids.length==0){
+          this.$Message.info('请选择要下派的数据')
+        }else {
+          this.$post(this.$url.xiapai+'?id='+this.ids.toString())
+            .then(res => {
+              console.log(res);
+              if(res.success==true){
+                this.$Message.success('下派成功');
+                this.ids = []
+              }else {
+                this.$Message.error('下派失败')
+                this.ids = []
+              }
+            })
+        }
+      },
+      selectall(val){
+        this.ids=[]
+        val.forEach(item=>{
+          this.ids.push(item.id)
+        })
+        console.log(this.ids)
+      },
 //        客服信息列表
       getList: function () {
         this.$fetch(this.$url.kfxxList, this.formItem)
