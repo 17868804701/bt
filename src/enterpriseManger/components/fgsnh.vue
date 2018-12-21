@@ -47,6 +47,7 @@
             <CommonSelect type="EJGS" :selectValue="formItem.select" style="width: 195px;"></CommonSelect>
           </FormItem>
           <Button type="primary" icon="ios-search" class="search_btn" @click="getList" v-has="'nhlctz_fgs_search'">查询</Button>
+          <Button type="primary" icon="plus" class="search_btn" @click="add_de" v-has="'nhlctz_fgs_search'">添加定额</Button>
           <div class="btn">
             <Button type="primary" icon="android-download" @click="exportFGSExcel" v-has="'nhlctz_fgs_daochu'">导出Excel</Button>
           </div>
@@ -59,6 +60,33 @@
       <span style="margin-top: 10px;margin-right: 30px;">计算单位：{{fgsjldw}}</span>
     </div>
     <Table :columns="columns2" :data="fgsTableData" border style="margin-top: 10px;" size="small"></Table>
+
+
+
+
+
+    <Modal
+      v-model="add"
+      title="添加定额"
+      width="400"
+      @on-cancel="cancel">
+      <div slot="footer" style="height: 30px;">
+        <Button type="primary" style="float: right;margin-right: 10px" @click="save_de">新增
+        </Button>
+        <Button type="primary" style="float: right;margin-right: 10px" @click="cancel">取消</Button>
+      </div>
+      <Form :model="formItems" :label-width="80">
+        <FormItem label="单位" prop="dws">
+          <CommonSelect type="EJGS" :selectValue="formItems.dws" style="width: 195px;"></CommonSelect>
+        </FormItem>
+        <FormItem label="年月">
+          <DatePicker type="month" placeholder="选择时间" v-model="formItems.time" style="width: 195px;"></DatePicker>
+        </FormItem>
+        <FormItem label="本年定额">
+          <Input v-model="formItems.bnde" placeholder="本年定额" style="width: 195px"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
   </div>
 </template>
 <script>
@@ -70,9 +98,17 @@
     },
     data () {
       return {
+        add:false,
         fgsTableData: [],
         fgsND: '',
         fgsjldw: '',
+        formItems:{
+          dws:'',
+          time:'',
+          nd:'',
+          yf:'',
+          bnde:''
+        },
         formItem: {
           select: 'YGS',
           fgsDate: this.initDate(),
@@ -174,6 +210,41 @@
       }
     },
     methods: {
+      add_de() {
+        this.add = true
+      },
+      clean(){
+          this.formItems.dw = '',
+          this.formItems.time = '',
+          this.formItem.nd = '',
+          this.formItem.yf = ''
+      },
+      cancel() {
+        this.clean()
+        this.add = false
+        this.getList()
+      },
+      save_de() {
+        console.log(this.formItems)
+        this.formItems.dw = this.$store.state.dictData.parseDict.EJGS[this.formItems.dws];
+        this.formItems.nd = this.$formatDate(this.formItems.time).substring(0, 4)
+        this.formItems.yf = this.$formatDate(this.formItems.time).substring(5, 7)
+        this.$post(this.$url.insertNhlcde+'?nd='+this.formItems.nd+'&yf='+this.formItems.yf+'&bnde='+this.formItems.bnde+'&dw='+this.formItems.dw)
+          .then(res => {
+            console.log(res);
+            if (res.success === true) {
+              this.$Message.success('添加成功');
+              this.cancel()
+            } else {
+              this.$Message.error('添加失败');
+              this.cancel()
+            }
+          })
+      },
+
+
+
+
       initDate() {
         let now = new Date();
         this.jtgsND = now.getFullYear();
@@ -215,7 +286,7 @@
         let gs = this.$store.state.dictData.parseDict.EJGS[this.formItem.select];
         let url = this.$url.qygl_nhlctz_fgs_export + '?nd=' + this.formItem.fgsDate.getFullYear() + '&dw=' + gs;
         this.$getExcel(url);
-      }
+      },
     },
     computed: {
 

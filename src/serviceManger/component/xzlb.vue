@@ -154,34 +154,6 @@
             align: 'center',
             width: 120,
           }, {
-            title: '类别',
-            key: 'tslb',
-            align: 'center',
-            width: 120,
-            render: (h, params) => {
-              let texts = '';
-              if (params.row.tslb === 'DZBTC') {
-                texts = '到站不停车'
-              } else if (params.row.tslb === 'JZ') {
-                texts = '拒载'
-              } else if (params.row.tslb === 'DJG') {
-                texts = '大间隔'
-              } else if (params.row.tslb === 'FWTDC') {
-                texts = '服务态度差'
-              } else if (params.row.tslb === 'TXYY') {
-                texts = '脱线运营'
-              } else if (params.row.tslb === 'SJSG') {
-                texts = '摔夹事故'
-              } else if (params.row.tslb === 'ICKFM') {
-                texts = '刷IC卡方面'
-              } else if (params.row.tslb === 'QT') {
-                texts = '其他'
-              }
-              return h('div', {
-                props: {},
-              }, texts)
-            }
-          }, {
             title: '来电/来访',
             key: 'lfxs',
             align: 'center',

@@ -52,9 +52,9 @@
             </Select>
           </FormItem>
           <FormItem label="联系电话" style="margin-bottom: 0px">
-            <Input v-model="formItem.telephone" placeholder="联系电话" class="text_width"/>
+            <Input v-model="formItem.lxdh" placeholder="联系电话" class="text_width"/>
           </FormItem>
-          <div style="margin-left: 30px;">
+          <div style="margin-left: 30px;width: 100%;text-align: center;margin-top: 10px">
             <ButtonGroup>
               <Button type="primary" @click="search1" style="margin-right: 3px;">
                 <Icon type="search" v-has="'kfxxlbym_kfxxdjlb_search'"></Icon>
@@ -62,11 +62,12 @@
               </Button>
               <Button type="primary" @click="daochu" icon="android-download" v-has="'kfxxlbym_kfxxdjlb_export'">导出</Button>
               <Button type="primary" @click="plxp" icon="android-download" style="margin-left: 3px;">批量下派</Button>
+              <router-link to="/addKfxx">
+                <Button type="primary" icon="plus" v-has="'kfxxlbym_kfxxdjlb_add'" style="margin-left: 3px;">添加</Button>
+              </router-link>
             </ButtonGroup>
           </div>
-          <router-link to="/addKfxx">
-            <Button type="primary" icon="plus" class="search_btn" v-has="'kfxxlbym_kfxxdjlb_add'">添加</Button>
-          </router-link>
+
 
 
         </div>
@@ -86,7 +87,7 @@
         formItem: {
           current: 1,
           size: 10,
-          telephone:'',
+          lxdh:'',
           tslb: '',
           startTime: '',
           endTime: ''
@@ -219,6 +220,8 @@
                 texts = '处理中'
               } else if (params.row.clzt == 2) {
                 texts = '处理完成'
+              } else if (params.row.clzt == 0) {
+                texts = '已下派'
               }
               return h('div', {
                 props: {},
@@ -237,6 +240,11 @@
           }, {
             title: '备注',
             key: 'bz',
+            align: 'center',
+            width: 120,
+          }, {
+            title: '回访情况',
+            key: 'hfqk',
             align: 'center',
             width: 120,
           }, {
@@ -329,7 +337,7 @@
                     confirm: true,
                     type: 'error',
                     size: 'large',
-                    title: '你确定要删除吗?'
+                    title: '你确定要撤销吗?'
                   },
                   on: {
                     'on-ok': () => {
@@ -338,10 +346,10 @@
                         .then(res => {
                           console.log(res)
                           if (res.success === true) {
-                            this.$Message.info('删除成功');
+                            this.$Message.info('撤销成功');
                             this.getList()
                           } else {
-                            this.$Message.error('删除失败');
+                            this.$Message.error('撤销失败');
                           }
                         })
                     }
@@ -361,7 +369,7 @@
                         value: 'gpjc_gpjcdj_delete',
                       }
                     ]
-                  },'删除')
+                  },'撤销')
                 ])
               ]);
             }

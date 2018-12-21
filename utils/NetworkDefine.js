@@ -187,7 +187,7 @@ const NetworkInterface = {
   getXzList:'/erp-modules-yygl/kfxx/getXzList',//更新客服信息须知列表
   getKfrxList:'/erp-modules-yygl/kfxx/getKfrxList',//更新客服信息须知列表
   exportKfrxList:'/erp-modules-yygl/kfxx/exportKfrxList',//更新客服信息须知列表
-  deleteKfxx:'/erp-modules-yygl/kfxx/deleteKfxx',//deleteKfxx
+  deleteKfxx:'/erp-modules-yygl/kfxx/shanchu',//deleteKfxx
   // 星级评价
   getUserPFList: '/erp-modules-yygl/xjkp/getMbMap', // 获取当前登录用户需要打分的所有条目数据
   commitPFWithID: '/erp-modules-yygl/xjkp/saveOrUpdXjkpKhfs', // 提交评分数据
@@ -241,6 +241,7 @@ const NetworkInterface = {
   yejikaoheList: '/erp-modules-bbgl/jjzbFgs/yejikaoheList',                            //公交分公司列表
   yejikaoheDaochu: '/erp-modules-bbgl/jjzbFgs/exportYejikaoheExcel',                            //公交分公司列表
   updateJjzbFgs: '/erp-modules-bbgl/jjzbFgs/updateJjzbFgs',                            //公交分公司列表
+  insertNhlcde: '/erp-modules-bbgl/Sctjtz/insertNhlcde',                            //公交分公司列表
 
 
   // 经济活动分析

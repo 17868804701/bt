@@ -115,19 +115,19 @@
               <Option value="2">处理完成</Option>
             </Select>
           </FormItem>
-          <FormItem label="事件状态" style="margin-bottom: 25px">
-            <Select v-model="formItem.sjzt" :transfer="true" style="width: 195px;">
-              <Option value="1">在诉</Option>
-              <Option value="0">不投诉</Option>
-            </Select>
-          </FormItem>
+          <!--<FormItem label="事件状态" style="margin-bottom: 25px">-->
+            <!--<Select v-model="formItem.sjzt" :transfer="true" style="width: 195px;">-->
+              <!--<Option value="1">在诉</Option>-->
+              <!--<Option value="0">不投诉</Option>-->
+            <!--</Select>-->
+          <!--</FormItem>-->
           <FormItem label="备注" style="margin-bottom: 25px">
             <Input v-model="formItem.bz" placeholder="备注" class="text_width" style="width: 490px;"/>
           </FormItem>
           <FormItem label="事由" style="margin-bottom: 25px" prop="sy">
             <Input v-model="formItem.sy" placeholder="事由" style="width: 490px;"/>
           </FormItem>
-          <FormItem label="回访情况" style="margin-bottom: 25px">
+          <FormItem label="回访情况" style="margin-bottom: 25px" v-show="this.tip=='edit'">
             <Select v-model="formItem.hfqk" :transfer="true" style="width: 195px;" @on-change="hfqk" v-show="hfqk!='其他'">
               <Option value="满意">满意</Option>
               <Option value="不满意">不满意</Option>
@@ -135,7 +135,7 @@
             </Select>
             <Input v-model="formItem.hfqk" placeholder="回访情况" style="width: 490px;" v-show="hfqk=='其他'"/>
           </FormItem>
-          <FormItem label="回访时间" style="margin-bottom: 25px" prop="fksj">
+          <FormItem label="回访时间" style="margin-bottom: 25px" v-show="this.tip=='edit'">
             <DatePicker type="date" placeholder="处理时间" :transfer="true" v-model="formItem.fksj"
                         class="text_width"></DatePicker>
           </FormItem>

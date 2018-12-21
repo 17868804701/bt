@@ -25,11 +25,15 @@
               <FormItem :label-width="120" label="工号">
                 <Input :disabled="isEdit_jbxx" v-model="formItem.gh" placeholder="工号" class="input_item"/>
               </FormItem>
-              <FormItem :label-width="120" label="工作证号">
-                <Input :disabled="isEdit_jbxx" v-model="formItem.gzzh" placeholder="工作证号" class="input_item"/>
-              </FormItem>
+              <!--<FormItem :label-width="120" label="工作证号">-->
+                <!--<Input :disabled="isEdit_jbxx" v-model="formItem.gzzh" placeholder="工作证号" class="input_item"/>-->
+              <!--</FormItem>-->
+
               <FormItem :label-width="120" label="人员编号">
                 <Input :disabled="isEdit_jbxx" v-model="formItem.rybh" placeholder="人员编号" class="input_item"/>
+              </FormItem>
+              <FormItem :label-width="120" label="身份证号">
+                <Input :disabled="isEdit_jbxx" v-model="formItem.sfzh" placeholder="身份证号" class="input_item"/>
               </FormItem>
               <FormItem :label-width="120" label="性别">
                 <RadioGroup v-model="formItem.xb" :disabled="isEdit_jbxx" style="width: 170px;">
@@ -85,9 +89,7 @@
               <FormItem :label-width="120" label="配偶情况">
                 <Input :disabled="isEdit_jbxx" v-model="formItem.poqk" placeholder="配偶情况" class="input_item"/>
               </FormItem>
-              <FormItem :label-width="120" label="身份证号">
-                <Input :disabled="isEdit_jbxx" v-model="formItem.sfzh" placeholder="身份证号" class="input_item"/>
-              </FormItem>
+
               <FormItem :label-width="120" label="健康状况">
                 <Input :disabled="isEdit_jbxx" v-model="formItem.jkzk" placeholder="健康状况" class="input_item"/>
               </FormItem>
@@ -232,8 +234,8 @@
             <DatePicker :disabled="isEdit_dwxx" type="date" style="width: 170px;" placeholder="选择时间"
                         v-model="formItem.bdwgzsj"></DatePicker>
           </FormItem>
-          <FormItem :label-width="120" label="合同形式">
-            <Input :disabled="isEdit_dwxx" v-model="formItem.ldhtxs" placeholder="合同形式" class="input_item"/>
+          <FormItem :label-width="120" label="合同期限">
+            <Input :disabled="isEdit_dwxx" v-model="formItem.ldhtxs" placeholder="合同期限" class="input_item"/>
           </FormItem>
 
           <FormItem :label-width="120" label="合同自起">

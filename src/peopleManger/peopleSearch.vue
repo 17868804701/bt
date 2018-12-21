@@ -62,13 +62,13 @@
         <Checkbox label="zc">职称</Checkbox>
         <Checkbox label="txlb">退休类别</Checkbox>
         <Checkbox label="gzzw">公种职务</Checkbox>
-        <Checkbox label="gzzh">工作证号</Checkbox>
+        <!--<Checkbox label="gzzh">工作证号</Checkbox>-->
         <Checkbox label="zyzgjn">职业资格技能</Checkbox>
         <Checkbox label="jkzk">健康状况</Checkbox>
         <Checkbox label="gjjjczt">公积金缴存状态</Checkbox>
         <Checkbox label="gwzt">岗位状态</Checkbox>
         <Checkbox label="rybgqk">人员变更情况</Checkbox>
-        <Checkbox label="ldhtxs">劳动合同形式</Checkbox>
+        <Checkbox label="ldhtxs">劳动合同期限</Checkbox>
         <Checkbox label="poqk">配偶情况</Checkbox>
         <Checkbox label="htkssj">合同开始时间</Checkbox>
         <Checkbox label="htjssj">合同结束时间</Checkbox>
@@ -154,7 +154,7 @@
             </FormItem>
             <FormItem prop="dw" label="按单位查询" style="margin-left: -50px;">
               <CheckboxGroup v-model="cxItem.dw">
-                <Checkbox v-for="(item,index) in zzjgList" :label="item.groupname" v-show="item.grouptype=='EJGS'||item.grouptype=='EJBM'||item.grouptype=='JTGS'"></Checkbox>
+                <Checkbox v-for="(item,index) in zzjgList" :label="item.groupname" v-show="item.grouptype=='EJGS'||item.grouptype=='JTGS'"></Checkbox>
               </CheckboxGroup>
               <!--<CommonSelect type="EJGS" iviewType="checkbox" :selectValue="cxItem.dw"></CommonSelect>-->
               <!--<CommonSelect type="EJGS" iviewType="checkbox" :selectValue="cxItem.dw"></CommonSelect>-->
@@ -254,7 +254,7 @@
           'sxzy',
           'txlb',
           'gzzw',
-          'gzzh',
+          // 'gzzh',
           'zyzgjn',
           'jkzk',
           'gjjjczt',
@@ -497,12 +497,12 @@
             width: 150,
             align:'center'
           },
-          gzzh: {
-            title: '工作证号',
-            key: 'gzzh',
-            width: 150,
-            align:'center'
-          },
+          // gzzh: {
+          //   title: '工作证号',
+          //   key: 'gzzh',
+          //   width: 150,
+          //   align:'center'
+          // },
           zyzgjn: {
             title: '职业资格技能',
             key: 'zyzgjn',
@@ -522,7 +522,7 @@
             align:'center'
           },
           ldhtxs: {
-            title: '劳动合同形式',
+            title: '劳动合同期限',
             key: 'ldhtxs',
             width: 150,
             align:'center'

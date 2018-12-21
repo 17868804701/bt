@@ -166,22 +166,22 @@
             children:[
               {
                 title: '本期敬老卡',
-                key: 'bqjlk',
+                key: 'kyl_jlkbq',
                 width:100,
                 align: 'center',
               },   {
                 title: '上年同期敬老卡',
-                key: 'sntqjlk',
+                key: 'kyl_jlktq',
                 width:100,
                 align: 'center',
               }, {
                 title: '本期月票卡',
-                key: 'bqypk',
+                key: 'kyl_ypkbq',
                 width:100,
                 align: 'center',
               }, {
                 title: '上年同期月票卡',
-                key: 'sntqypk',
+                key: 'kyl_ypktq',
                 width:100,
                 align: 'center',
               },
