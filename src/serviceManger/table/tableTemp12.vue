@@ -229,10 +229,10 @@
         </tr>
       </table>
       <div style="width: 630px;display: flex;justify-content: space-between;margin-top: 10px">
-        <span>总经理：张三</span>
-        <span>分管领导：张三</span>
-        <span>部门负责人：张三</span>
-        <span>制表：张三</span>
+        <span>总经理：</span>
+        <span>分管领导：</span>
+        <span>部门负责人：</span>
+        <span>制表：</span>
       </div>
     </div>
 
@@ -427,10 +427,10 @@
         </tr>
       </table>
       <div style="width: 630px;display: flex;justify-content: space-between;margin-top: 10px">
-        <span>总经理：张三</span>
-        <span>分管领导：张三</span>
-        <span>部门负责人：张三</span>
-        <span>制表：张三</span>
+        <span>总经理：</span>
+        <span>分管领导：</span>
+        <span>部门负责人：</span>
+        <span>制表：</span>
       </div>
     </div>
 

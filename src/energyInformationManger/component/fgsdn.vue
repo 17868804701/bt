@@ -68,8 +68,8 @@
               <Option v-for="(item,index) in cphList" :value="item.bus_num" :key="index">{{item.bus_num}}</Option>
             </Select>
           </FormItem>
-          <FormItem label="单价">
-            <Input v-model="formItem2.dexh" placeholder="单价" style="width: 190px;"></Input>
+          <FormItem label="定额">
+            <Input v-model="formItem2.dexh" placeholder="定额" style="width: 190px;"></Input>
           </FormItem>
         </Form>
       </div>

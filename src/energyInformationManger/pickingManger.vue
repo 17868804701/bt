@@ -195,18 +195,6 @@
             }
           },
           {
-            title: '车号',
-            key: 'cph',
-            align: 'center',
-            width: 100,
-          },
-          {
-            title: '车型',
-            key: 'cx',
-            align: 'center',
-            width: 100,
-          },
-          {
             title: '物品名称',
             key: 'wpmc',
             align: 'center',
@@ -235,11 +223,6 @@
             align: 'center',
             width: 120,
           }, {
-            title: '品牌型号',
-            key: 'ppxh',
-            align: 'center',
-            width: 120,
-          }, {
             title: '规格',
             key: 'gg',
             align: 'center',
@@ -264,12 +247,7 @@
             key: 'fj',
             align: 'center',
             width: 120,
-          }, {
-            title: '状态',
-            key: 'zt',
-            align: 'center',
-            width: 120,
-          }, {
+          },{
             title: '操作',
             key: 'zt',
             align: 'center',

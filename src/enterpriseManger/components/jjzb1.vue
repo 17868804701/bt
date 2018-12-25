@@ -65,8 +65,15 @@
             <Option v-for="(item,index) in data11" :value="item.mc" :key="index">{{item.mc}}</Option>
           </Select>
         </FormItem>
-        <FormItem label="单位" prop="dws">
-          <CommonSelect type="EJGS" :selectValue="formItem.dws" style="width: 195px;"></CommonSelect>
+        <FormItem label="单位">
+          <Select v-model="formItem.dw" :transfer="true" style="width: 195px;">
+            <Option value="公交一公司">公交一公司</Option>
+            <Option value="公交二公司">公交二公司</Option>
+            <Option value="公交三公司">公交三公司</Option>
+            <Option value="公交四公司">公交四公司</Option>
+            <Option value="公交五公司">公交五公司</Option>
+            <Option value="公交六公司">公交六公司</Option>
+          </Select>
         </FormItem>
         <FormItem label="年月">
           <DatePicker type="date" placeholder="选择时间" v-model="formItem.time"></DatePicker>
@@ -95,7 +102,6 @@
         add: false,
         formItem: {
           dw: '',
-          dws: '',
           time: '',
           mc: '',
           nd: '',
@@ -329,7 +335,7 @@
         this.add = true
       },
       clean(){
-        this.formItem.dw = '',
+          this.formItem.dw = '',
           this.formItem.time = '',
           this.formItem.mc = '',
           this.formItem.nf = '',
@@ -343,8 +349,6 @@
         this.getList()
       },
       save_jjzb() {
-        console.log(this.formItem)
-        this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dws];
         this.formItem.nd = this.$formatDate(this.formItem.time).substring(0, 4)
         this.formItem.yf = this.$formatDate(this.formItem.time).substring(5, 7)
         this.$post(this.$url.updateJjzbFgs, this.formItem)

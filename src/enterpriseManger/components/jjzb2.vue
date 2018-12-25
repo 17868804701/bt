@@ -63,9 +63,6 @@
             <Option v-for="(item,index) in data12" :value="item.mc" :key="index">{{item.mc}}</Option>
           </Select>
         </FormItem>
-        <FormItem label="单位" prop="dws">
-          <CommonSelect type="EJGS" :selectValue="formItem.dws" style="width: 195px;"></CommonSelect>
-        </FormItem>
         <FormItem label="年月">
           <DatePicker type="date" placeholder="选择时间" v-model="formItem.time"></DatePicker>
         </FormItem>
@@ -89,8 +86,7 @@
       return {
         add:false,
         formItem: {
-          dw: '',
-          dws: '',
+          dw: '修理公司',
           time: '',
           mc: '',
           nd: '',
@@ -148,7 +144,7 @@
         this.add = true
       },
       clean(){
-        this.formItem.dw = '',
+          this.formItem.dw = '',
           this.formItem.time = '',
           this.formItem.mc = '',
           this.formItem.nf = '',
@@ -163,7 +159,6 @@
       },
       save_jjzb() {
         console.log(this.formItem)
-        this.formItem.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem.dws];
         this.formItem.nd = this.$formatDate(this.formItem.time).substring(0, 4)
         this.formItem.yf = this.$formatDate(this.formItem.time).substring(5, 7)
         this.$post(this.$url.updateJjzbFgs, this.formItem)

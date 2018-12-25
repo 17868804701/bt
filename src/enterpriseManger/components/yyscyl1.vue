@@ -51,9 +51,8 @@
               <Option value="4">第四季度</Option>
             </Select>
           </FormItem>
-          <Button type="primary" icon="ios-search" class="search_btn" @click="getList"
-                  v-has="'yyscysyl_cclcjdhz_search'">查询
-          </Button>
+          <Button type="primary" icon="ios-search" class="search_btn" @click="getList" v-has="'yyscysyl_cclcjdhz_search'">查询</Button>
+          <Button type="primary" icon="plus" class="search_btn" @click="add_yszl1" v-has="'yyscysyl_cclcjdhz_search'">新增数据</Button>
           <div class="btn">
             <Button type="primary" icon="android-download" v-has="'yyscysyl_cclcjdhz_daochu'" @click="daochu">导出Excel</Button>
           </div>
@@ -65,15 +64,63 @@
         <span style="font-size: 16px;">{{nian }}{{jidu}}车次里程耗油季度汇总</span>
       </div>
     </Table>
+
+
+
+
+    <!--添加-->
+    <Modal
+      v-model="add_ys"
+      title="添加数据"
+      @on-cancel="cancel">
+      <div slot="footer" style="height: 30px;">
+        <Button type="primary" style="float: right;margin-right: 10px" @click="save_yszl">新增
+        </Button>
+        <Button type="primary" style="float: right;margin-right: 10px" @click="cancel">取消</Button>
+      </div>
+      <Form :model="formItem" :label-width="80">
+        <FormItem label="单位">
+          <Select v-model="formItem.dw" :transfer="true" style="width: 195px;">
+            <Option value="公交一公司">公交一公司</Option>
+            <Option value="公交二公司">公交二公司</Option>
+            <Option value="公交三公司">公交三公司</Option>
+            <Option value="公交四公司">公交四公司</Option>
+            <Option value="公交五公司">公交五公司</Option>
+            <Option value="公交六公司">公交六公司</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="年月">
+          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time"></DatePicker>
+        </FormItem>
+        <FormItem label="运营车日">
+          <Input v-model="formItem.yycr" placeholder="运营车日"></Input>
+        </FormItem>
+        <FormItem label="战场车日">
+          <Input v-model="formItem.zccr" placeholder="战场车日"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
+
+
+
   </div>
 </template>
 <script>
   export default {
     data () {
       return {
+        add_ys:false,
         currentTab: 'name1',
         nian: '',
         jidu: '',
+        formItem: {
+          dw:'',
+          time: '',
+          yycr:'',
+          zccr:'',
+          nd:'',
+          yf:''
+        },
         formItem1: {
           nian: '',
           jidu: '',
@@ -86,77 +133,77 @@
             align: 'center',
           }, {
             title: '运营车数',
-            key: 'yycxSum',
+            key: 'yycx',
             width: 150,
             align: 'center',
           }, {
             title: '月日历数',
-            key: 'yrlsAvg',
+            key: 'yrls',
             width: 150,
             align: 'center',
           }, {
             title: '运营车日',
-            key: 'yycrSum',
+            key: 'yycr',
             width: 150,
             align: 'center',
           }, {
             title: '占场车日',
-            key: 'zccrSum',
+            key: 'zccr',
             width: 150,
             align: 'center',
           }, {
             title: '完好车日',
-            key: 'whcrSum',
+            key: 'whcr',
             width: 150,
             align: 'center',
           }, {
             title: '工作车日',
-            key: 'gzcrSum',
+            key: 'gzcr',
             width: 150,
             align: 'center',
           }, {
             title: '完好车率',
-            key: 'whclAvg',
+            key: 'whcl',
             width: 150,
             align: 'center',
           }, {
             title: '工作车率',
-            key: 'gzclAvg',
+            key: 'gzcl',
             width: 150,
             align: 'center',
           }, {
             title: '行车次数',
-            key: 'xccsSum',
+            key: 'xccs',
             width: 150,
             align: 'center',
           }, {
             title: '行驶里程',
-            key: 'xclcSum',
+            key: 'xclc',
             width: 150,
             align: 'center',
           }, {
             title: '非营业里程',
-            key: 'fyylcSum',
+            key: 'fyylc',
             width: 150,
             align: 'center',
           }, {
             title: '实耗油',
-            key: 'shySum',
+            key: 'shy',
             width: 150,
             align: 'center',
           }, {
             title: '定额油',
-            key: 'deySum',
+            key: 'dey',
             width: 150,
             align: 'center',
           }, {
             title: '较定额节超',
-            key: 'zdejcSum',
+            key: 'zdejc',
             width: 150,
             align: 'center',
           }, {
             title: '百公里实耗',
-            key: 'bglshSum',
+            key: 'bglsh',
             width: 150,
             align: 'center',
           }
@@ -165,6 +212,40 @@
       }
     },
     methods: {
+      add_yszl1(){
+        this.add_ys = true
+      },
+
+      clean(){
+           this.formItem.time = '',
+          this.formItem.yycr = '',
+          this.formItem.zccr = '',
+          this.formItem.yf = '',
+          this.formItem.nd = '',
+          this.formItem.dw = ''
+      },
+      cancel() {
+        this.clean()
+        this.add_ys = false
+        this.getList()
+      },
+      save_yszl() {
+        this.formItem.nd = this.$formatDate(this.formItem.time).substring(0, 4)
+        this.formItem.yf = this.$formatDate(this.formItem.time).substring(5, 7)
+        this.$post(this.$url.insertCclchy1, this.formItem)
+          .then(res => {
+            console.log(res);
+            if (res.success === true) {
+              this.$Message.success('添加成功');
+              this.cancel()
+            } else {
+              this.$Message.error('添加失败');
+              this.cancel()
+            }
+          })
+      },
+
+
       getList() {
         if (this.formItem1.nian === '') {
           this.formItem1.nian = ''

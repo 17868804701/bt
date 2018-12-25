@@ -120,7 +120,7 @@
               }, texts)
             }
           }, {
-            title: '提交部门',
+            title: '单位',
             key: 'bm',
             align: 'center',
             width: 120,
@@ -150,13 +150,8 @@
             key: 'lxdh',
             align: 'center',
             width: 120,
-          }, {
-            title: '事件类别',
-            key: 'sjlb',
-            align: 'center',
-            width: 120,
-          }, {
-            title: '类别',
+          },  {
+            title: '投诉类别',
             key: 'tslb',
             align: 'center',
             width: 120,

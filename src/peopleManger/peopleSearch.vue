@@ -224,6 +224,14 @@
         totalPage: 0,
         tableColumns2: [],
         tableColumnsChecked: [
+          'xm',
+          'cym',
+          'xb',
+          'mz',
+          'csny',
+          'jg',
+          'zzmm',
+          'rdsj',
           'sfzh',
           'sbgrzh',
           'sbcbsj',
@@ -234,14 +242,6 @@
           'zfgjjzh',
           'fby',
           'xmdx',
-          'xm',
-          'cym',
-          'xb',
-          'mz',
-          'csny',
-          'jg',
-          'zzmm',
-          'rdsj',
           'gzsj',
           'bdwgzsj',
           'tlsj',
@@ -283,7 +283,9 @@
       // 下载模板
       upLoadMB(){
         // alert(111111111)
-        this.$getExcel(process.env.BASE_URL + this.$url.upload_tpl+"?tmpName='RYXXGL'");
+        let url = this.$url.maintain_BYGL_DATA_PGXX_download;
+        url = url+'?tmpName=RYXXGL';
+        this.$getExcel(url);
       },
       error:function(res){
         console.log(res)
@@ -318,9 +320,51 @@
             width: 150,
             align:'center'
           },
+
+          xm: {
+            title: '姓名',
+            key: 'xm',
+            width: 100,
+          },
           sfzh: {
             title: '身份证号',
             key: 'sfzh',
+            width: 150,
+            align:'center'
+          },
+          cym: {
+            title: '曾用名',
+            key: 'cym',
+            width: 150,
+            align:'center'
+          },
+          xb: {
+            title: '性别',
+            key: 'xb',
+            width: 150,
+            align:'center'
+          },
+          mz: {
+            title: '民族',
+            key: 'mz',
+            width: 150,
+            align:'center'
+          },
+          csny: {
+            title: '出生年月',
+            key: 'csny',
+            width: 150,
+            align:'center'
+          },
+          jg: {
+            title: '籍贯',
+            key: 'jg',
+            width: 150,
+            align:'center'
+          },
+          zzmm: {
+            title: '政治面貌',
+            key: 'zzmm',
             width: 150,
             align:'center'
           },
@@ -378,47 +422,7 @@
             width: 150,
             align:'center'
           },
-          xm: {
-            title: '姓名',
-            key: 'xm',
-            width: 100,
-          },
-          cym: {
-            title: '曾用名',
-            key: 'cym',
-            width: 150,
-            align:'center'
-          },
-          xb: {
-            title: '性别',
-            key: 'xb',
-            width: 150,
-            align:'center'
-          },
-          mz: {
-            title: '民族',
-            key: 'mz',
-            width: 150,
-            align:'center'
-          },
-          csny: {
-            title: '出生年月',
-            key: 'csny',
-            width: 150,
-            align:'center'
-          },
-          jg: {
-            title: '籍贯',
-            key: 'jg',
-            width: 150,
-            align:'center'
-          },
-          zzmm: {
-            title: '政治面貌',
-            key: 'zzmm',
-            width: 150,
-            align:'center'
-          },
+
           rdsj: {
             title: '入党时间',
             key: 'rdsj',
@@ -676,9 +680,9 @@
               this.tableData2 = res.data.records;
             } else {
               res.data.records.forEach(item => {
-                item.tlsj = item.tlsj===null?'':this.$formatDate(item.tlsj).substring(0, 10);
-                item.zzqkbgsj = item.zzqkbgsj===null?'':this.$formatDate(item.zzqkbgsj).substring(0, 10);
-                item.sbcbsj = item.sbcbsj===null?'':this.$formatDate(item.sbcbsj).substring(0, 10);
+                item.tlsj = item.tlsj==null?'':this.$formatDate(item.tlsj).substring(0, 10);
+                item.zzqkbgsj = item.zzqkbgsj==null?'':this.$formatDate(item.zzqkbgsj).substring(0, 10);
+                item.sbcbsj = item.sbcbsj==null?'':this.$formatDate(item.sbcbsj).substring(0, 10);
 
                 item.gzsj = item.gzsj==null?'':this.$formatDate(item.gzsj).substring(0, 10);
                 item.lrsj = item.lrsj==null?'':this.$formatDate(item.lrsj).substring(0, 10);

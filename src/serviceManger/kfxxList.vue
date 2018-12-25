@@ -44,7 +44,7 @@
       <TabPane  label="分公司需知列表" name="XZLB">
         <XZLB ref="XZLB"></XZLB>
       </TabPane>
-      <TabPane  label="客服热线日汇总表" name="RHZB">
+      <TabPane  v-if="$showMenu('客服热线日汇总表')" label="客服热线日汇总表" name="RHZB">
         <RHZB ref="RHZB"></RHZB>
       </TabPane>
     </Tabs>

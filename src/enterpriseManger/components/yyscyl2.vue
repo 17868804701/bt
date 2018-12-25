@@ -46,9 +46,8 @@
               <Option value="4">第四季度</Option>
             </Select>
           </FormItem>
-          <Button type="primary" icon="ios-search" class="search_btn" @click="getList"
-                  v-has="'yyscysyl_kylyzsrhz_search'">查询
-          </Button>
+          <Button type="primary" icon="ios-search" class="search_btn" @click="getList" v-has="'yyscysyl_kylyzsrhz_search'">查询</Button>
+          <Button type="primary" icon="plus" class="search_btn" @click="add_yszl" v-has="'yyscysyl_kylyzsrhz_search'">添加数据</Button>
           <div class="btn">
             <Button type="primary" icon="android-download" v-has="'yyscysyl_kylyzsrhz_daochu'" @click="daochu">导出Excel</Button>
           </div>
@@ -60,6 +59,44 @@
         <span style="font-size: 16px;">{{nian }}{{jidu}}客运量与总收入季度汇总</span>
       </div>
     </Table>
+
+
+
+    <!--添加-->
+    <Modal
+      v-model="add_ys"
+      title="添加数据"
+      @on-cancel="cancel">
+      <div slot="footer" style="height: 30px;">
+        <Button type="primary" style="float: right;margin-right: 10px" @click="save_yszl">新增
+        </Button>
+        <Button type="primary" style="float: right;margin-right: 10px" @click="cancel">取消</Button>
+      </div>
+      <Form :model="formItem" :label-width="80">
+        <FormItem label="单位">
+          <Select v-model="formItem.dw" :transfer="true" style="width: 195px;">
+            <Option value="公交一公司">公交一公司</Option>
+            <Option value="公交二公司">公交二公司</Option>
+            <Option value="公交三公司">公交三公司</Option>
+            <Option value="公交四公司">公交四公司</Option>
+            <Option value="公交五公司">公交五公司</Option>
+            <Option value="公交六公司">公交六公司</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="年月">
+          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time"></DatePicker>
+        </FormItem>
+        <FormItem label="客运量">
+          <Input v-model="formItem.kyl_ttbc" placeholder="团体包车客运量"></Input>
+        </FormItem>
+        <FormItem label="收入">
+          <Input v-model="formItem.sr_ttbc" placeholder="团体包车收入"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
+
+
+
   </div>
 </template>
 <script>
@@ -67,8 +104,17 @@
     data () {
       return {
         currentTab: 'name1',
+        add_ys:false,
         nian: '',
         jidu: '',
+        formItem: {
+          time: '',
+          dw:'',
+          kyl_ttbc:'',
+          sr_ttbc:'',
+          nd:'',
+          yf:''
+        },
         formItem2: {
           nian: '',
           jidu: '',
@@ -172,6 +218,37 @@
       }
     },
     methods: {
+      add_yszl() {
+        this.add_ys = true
+      },
+      clean(){
+          this.formItem.time = '',
+          this.formItem.kyl_ttbc = '',
+          this.formItem.sr_ttbc = '',
+          this.formItem.yf = '',
+          this.formItem.dw = '',
+          this.formItem.nd = ''
+      },
+      cancel() {
+        this.clean()
+        this.add_ys = false
+        this.getList()
+      },
+      save_yszl() {
+        this.formItem.nd = this.$formatDate(this.formItem.time).substring(0, 4)
+        this.formItem.yf = this.$formatDate(this.formItem.time).substring(5, 7)
+        this.$post(this.$url.insertTtbc, this.formItem)
+          .then(res => {
+            console.log(res);
+            if (res.success === true) {
+              this.$Message.success('添加成功');
+              this.cancel()
+            } else {
+              this.$Message.error('添加失败');
+              this.cancel()
+            }
+          })
+      },
       getList() {
         if (this.formItem2.nian === '') {
           this.formItem2.nian = ''

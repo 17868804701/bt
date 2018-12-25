@@ -242,6 +242,9 @@ const NetworkInterface = {
   yejikaoheDaochu: '/erp-modules-bbgl/jjzbFgs/exportYejikaoheExcel',                            //公交分公司列表
   updateJjzbFgs: '/erp-modules-bbgl/jjzbFgs/updateJjzbFgs',                            //公交分公司列表
   insertNhlcde: '/erp-modules-bbgl/Sctjtz/insertNhlcde',                            //公交分公司列表
+  insertTtbc: '/erp-modules-bbgl/kylzsrhz/insertTtbc',                            //团体包车
+  insertCclchy2: '/erp-modules-bbgl/cclchyYfx/insertCclchy',                            //填写车次里程耗油表信息
+  insertCclchy1: '/erp-modules-bbgl/cclchy/insertCclchy',                            //填写车次里程耗油月分析表信息
 
 
   // 经济活动分析

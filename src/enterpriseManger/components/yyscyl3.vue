@@ -37,9 +37,8 @@
             <DatePicker type="month" placeholder="选择时间" :transfer="true" v-model="formItem3.sj"
                         class="text_width" style="width: 170px;"></DatePicker>
           </FormItem>
-          <Button type="primary" icon="ios-search" class="search_btn" @click="getList"
-                  v-has="'yyscysyl_cclcydhz_search'">查询
-          </Button>
+          <Button type="primary" icon="ios-search" class="search_btn" @click="getList" v-has="'yyscysyl_cclcydhz_search'">查询</Button>
+          <Button type="primary" icon="plus" class="search_btn" @click="add_yd" v-has="'yyscysyl_cclcydhz_search'">新增数据</Button>
           <div class="btn">
             <Button type="primary" icon="android-download" v-has="'yyscysyl_cclcydhz_daochu'" @click="daochu">导出Excel</Button>
           </div>
@@ -51,6 +50,46 @@
         <span style="font-size: 16px;">{{sj }}车次里程耗油月度分析</span>
       </div>
     </Table>
+
+
+
+    <!--添加-->
+    <Modal
+      v-model="add_ys"
+      title="添加数据"
+      @on-cancel="cancel">
+      <div slot="footer" style="height: 30px;">
+        <Button type="primary" style="float: right;margin-right: 10px" @click="save_yszl">新增
+        </Button>
+        <Button type="primary" style="float: right;margin-right: 10px" @click="cancel">取消</Button>
+      </div>
+      <Form :model="formItem" :label-width="80">
+        <FormItem label="单位">
+          <Select v-model="formItem.dw" :transfer="true" style="width: 195px;">
+            <Option value="公交一公司">公交一公司</Option>
+            <Option value="公交二公司">公交二公司</Option>
+            <Option value="公交三公司">公交三公司</Option>
+            <Option value="公交四公司">公交四公司</Option>
+            <Option value="公交五公司">公交五公司</Option>
+            <Option value="公交六公司">公交六公司</Option>
+          </Select>
+        </FormItem>
+        <FormItem label="年月">
+          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time"></DatePicker>
+        </FormItem>
+        <FormItem label="定额油">
+          <Input v-model="formItem.dey" placeholder="定额油"></Input>
+        </FormItem>
+        <FormItem label="实耗油">
+          <Input v-model="formItem.shy" placeholder="实耗油"></Input>
+        </FormItem>
+        <FormItem label="国家定额油耗">
+          <Input v-model="formItem.gjdeyh" placeholder="国家定额油耗"></Input>
+        </FormItem>
+      </Form>
+    </Modal>
+
+
   </div>
 </template>
 <script>
@@ -59,6 +98,16 @@
       return {
         currentTab: 'name1',
         sj:'',
+        add_ys:false,
+        formItem: {
+          time: '',
+          dw:'',
+          dey:'',
+          shy:'',
+          gjdeyh:'',
+          nd:'',
+          yf:''
+        },
         formItem3: {
          sj:''
         },
@@ -115,6 +164,38 @@
       }
     },
     methods: {
+      add_yd(){
+        this.add_ys = true
+      },
+      clean(){
+          this.formItem.time = '',
+          this.formItem.dey = '',
+          this.formItem.shy = '',
+          this.formItem.gjdeyh = '',
+          this.formItem.yf = '',
+          this.formItem.dw = '',
+          this.formItem.nd = ''
+      },
+      cancel() {
+        this.clean()
+        this.add_ys = false
+        this.getList()
+      },
+      save_yszl() {
+        this.formItem.nd = this.$formatDate(this.formItem.time).substring(0, 4)
+        this.formItem.yf = this.$formatDate(this.formItem.time).substring(5, 7)
+        this.$post(this.$url.insertCclchy2, this.formItem)
+          .then(res => {
+            console.log(res);
+            if (res.success === true) {
+              this.$Message.success('添加成功');
+              this.cancel()
+            } else {
+              this.$Message.error('添加失败');
+              this.cancel()
+            }
+          })
+      },
       getList() {
         if (this.formItem3.sj === '') {
           this.formItem3.sj = ''

@@ -56,9 +56,11 @@
           <FormItem label="提交部门" style="margin-bottom: 25px" prop="bm">
             <Input v-model="formItem.bm" placeholder="提交部门" class="text_width" :disabled="true"/>
           </FormItem>
-
           <FormItem label="投诉人" style="margin-bottom: 25px" prop="tsr">
-            <Input v-model="formItem.tsr" placeholder="投诉人" class="text_width"/>
+            <Select v-model="formItem.tsr" :transfer="true" style="width: 195px;">
+              <Option value="男">男</Option>
+              <Option value="女">女</Option>
+            </Select>
           </FormItem>
           <FormItem label="电话" style="margin-bottom: 25px" prop="lxdh">
             <Input v-model="formItem.lxdh" placeholder="电话" class="text_width"/>
@@ -128,7 +130,7 @@
             <Input v-model="formItem.sy" placeholder="事由" style="width: 490px;"/>
           </FormItem>
           <FormItem label="回访情况" style="margin-bottom: 25px" v-show="this.tip=='edit'">
-            <Select v-model="formItem.hfqk" :transfer="true" style="width: 195px;" @on-change="hfqk" v-show="hfqk!='其他'">
+            <Select v-model="formItem.hfqk" :transfer="true" style="width: 195px;" @on-change="hfqk">
               <Option value="满意">满意</Option>
               <Option value="不满意">不满意</Option>
               <Option value="其他">其他</Option>
@@ -139,7 +141,7 @@
             <DatePicker type="date" placeholder="处理时间" :transfer="true" v-model="formItem.fksj"
                         class="text_width"></DatePicker>
           </FormItem>
-          <FormItem label="处理结果">
+          <FormItem label="处理结果" v-show="formItem.sjlb!=='投诉'">
             <Input style="width: 490px;" v-model="formItem.cljg" type="textarea" :autosize="{minRows: 2,maxRows: 5}"
                    placeholder="处理结果"></Input>
           </FormItem>
@@ -353,6 +355,7 @@
           this.formItem.clzt=row.clzt
           this.formItem.zbh=row.zbh
           this.formItem.cph=row.cph
+          this.formItem.hfqk=row.hfqk
           this.xl=row.xl
       } else {
 
