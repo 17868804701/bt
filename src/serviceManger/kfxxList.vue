@@ -41,7 +41,7 @@
       <TabPane v-if="$showMenu('待我处理列表')" label="待我处理列表" name="DWCL">
         <DWCL ref="DWCL"></DWCL>
       </TabPane>
-      <TabPane  label="分公司需知列表" name="XZLB">
+      <TabPane v-if="$showMenu('分公司需知列表')" label="分公司需知列表" name="XZLB">
         <XZLB ref="XZLB"></XZLB>
       </TabPane>
       <TabPane  v-if="$showMenu('客服热线日汇总表')" label="客服热线日汇总表" name="RHZB">

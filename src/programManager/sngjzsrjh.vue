@@ -50,12 +50,23 @@
       </div>
       <div style="height:auto">
         <Form :model="formItem1" :label-width="120">
-          <FormItem label="路别" prop="lb" v-show="this.type!=='edit'">
-            <CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
+          <FormItem label="线路" style="margin-bottom: 25px" v-show="this.type!=='edit'">
+            <Select v-model="lb" filterable style="width: 195px;" @on-change="chooseLb">
+              <Option v-for="item in cityList" :value="item.lineAlias" :key="item.lineAlias">{{ item.lineAlias }}
+              </Option>
+            </Select>
           </FormItem>
-          <FormItem label="单位" prop="dw" v-show="this.type!=='edit'">
-            <CommonSelect type="EJGS" :selectValue="formItem1.dw" style="width: 195px;"></CommonSelect>
+          <!--<FormItem label="路别" prop="lb" v-show="this.type!=='edit'" >-->
+            <!--<CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>-->
+          <!--</FormItem>-->
+          <FormItem label="单位" style="margin-bottom: 25px">
+            <Select v-model="formItem1.dw" filterable style="width: 195px;">
+              <Option v-for="item in chList" :value="item.dwcode" :key="item.dwcode">{{ item.dw }}</Option>
+            </Select>
           </FormItem>
+          <!--<FormItem label="单位" prop="dw" v-show="this.type!=='edit'">-->
+            <!--<CommonSelect type="EJGS" :selectValue="formItem1.dw" style="width: 195px;"></CommonSelect>-->
+          <!--</FormItem>-->
           <FormItem label="类别" prop="lx" v-show="this.type!=='edit'">
             <Select v-model="formItem1.lx" style="width: 195px;">
               <Option value="大公交">大公交</Option>
@@ -68,8 +79,8 @@
           <FormItem label="上年计划">
             <Input v-model="formItem1.bnjh" placeholder="上年计划" style="width: 195px;"/>
           </FormItem>
-          <FormItem label="本年计划车次">
-            <Input v-model="formItem1.bnjhcc" placeholder="本年计划车次" style="width: 195px;"/>
+          <FormItem label="本年计划">
+            <Input v-model="formItem1.bnjhcc" placeholder="本年计划" style="width: 195px;"/>
           </FormItem>
         </Form>
       </div>
@@ -90,6 +101,9 @@
     },
     data() {
       return {
+        chList:[],
+        cityList:[],
+        lb:'',
         year:'',
         addProgram: false,
         exports: false,
@@ -211,6 +225,20 @@
       }
     },
     methods: {
+      chooseLb(val){
+        console.log(val)
+        console.log(val.split('路')[0])
+        let LB = val.split('路')[0]
+        this.$fetch(this.$url.getDwByLb, {lb: LB})
+          .then(res => {
+            console.log(res);
+            if (res.success == true) {
+              this.chList = res.data
+            } else {
+              this.$Message.error("查询部门失败")
+            }
+          })
+      },
       ok() {
       },
       cancel() {
@@ -229,6 +257,7 @@
       },
       add: function () {
         console.log(this.formItem1);
+        this.formItem1.lb = this.lb.split('路')[0];
         this.$post(this.$url.saveSngj, this.formItem1)
           .then(res => {
             console.log(res);
@@ -297,9 +326,22 @@
           this.year = this.$formatDate(this.formItem.jhsj).substring(0, 4)
         }
         this.getList();
-      }
+      },
+      getallList() {
+        this.$post(this.$url.getAllList)
+          .then(res => {
+            //console.log(res);
+            if (res.success == true) {
+              console.log(res.data)
+              this.cityList = res.data
+            } else {
+              this.$Message.error("查询线路失败")
+            }
+          })
+      },
     },
     mounted() {
+      this.getallList()
       let date = new Date;
       let year = date.getFullYear();
       let month = (date.getMonth() + 1).toString();

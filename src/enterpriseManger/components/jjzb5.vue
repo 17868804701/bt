@@ -62,7 +62,7 @@
           </Select>
         </FormItem>
         <FormItem label="年月">
-          <DatePicker type="date" placeholder="选择时间" v-model="formItem.time"></DatePicker>
+          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time"></DatePicker>
         </FormItem>
         <FormItem label="实际">
           <Input v-model="formItem.sj" placeholder="实际"></Input>
@@ -160,8 +160,9 @@
       save_jjzb() {
         console.log(this.formItem)
         this.formItem.nd = this.$formatDate(this.formItem.time).substring(0, 4)
+        this.formItem.dw = '长客公司'
         this.formItem.yf = this.$formatDate(this.formItem.time).substring(5, 7)
-        this.$post(this.$url.updateJjzbFgs, this.formItem)
+        this.$post(this.$url.updateJjzbFgs,this.formItem)
           .then(res => {
             console.log(res);
             if (res.success === true) {

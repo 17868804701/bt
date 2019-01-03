@@ -97,14 +97,19 @@
             <tr v-for="(subOption, subOptionIndex) in item.options.subOptions" :key="subOption+subOptionIndex">
               <td>{{subOptionIndex + 1}}</td>
               <td>{{subOption.subOptionName}}</td>
-              <td>
+              <td v-if="subOption.subOptionName=='驾驶员工资计划(元)'">
+                <InputNumber v-model="subOption.score" :max="subOption.maxScore" :min="0"
+                             style="width: 50px"></InputNumber>&nbsp;&nbsp;元
+              </td>
+              <td v-else>
                 <InputNumber v-model="subOption.score" :max="subOption.maxScore" :min="0"
                              style="width: 50px"></InputNumber>&nbsp;&nbsp;分
               </td>
               <td>
                 <Input v-model="subOption.kfsm" placeholder="说明指标具体情况和扣分原因" style="width: 300px"/>
               </td>
-              <td>{{subOption.maxScore}}分</td>
+              <td v-if="subOption.subOptionName=='驾驶员工资计划(元)'">{{subOption.maxScore}}元</td>
+              <td v-else>{{subOption.maxScore}}分</td>
             </tr>
             <tr>
               <td>
@@ -259,8 +264,10 @@
 
         if(this.formItem.table_title==='各二级单位领导月薪表'){
           this.$getExcel(process.env.BASE_URL+this.$url.gejdwyxb+'?khYear='+year + '&khMonth='+month)
-        }else if(this.formItem.table_title==='机关部室星级考核表'){
+        }else if(this.formItem.table_title==='机关部室经营业绩星级考核得分表'){
           this.$getExcel(process.env.BASE_URL+this.$url.jggbskhb+'?khYear='+year + '&khMonth='+month)
+        }else if(this.formItem.table_title==='集团公司机关部室领导月薪表'){
+          this.$getExcel(process.env.BASE_URL+this.$url.exportJggbsldxz+'?khYear='+year + '&khMonth='+month)
         }else {
           this.$fetch(this.$url.getReportData, params)
             .then(res => {

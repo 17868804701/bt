@@ -97,9 +97,9 @@
       style="margin-top: 10px;font-size: 18px;width: 100%;text-align: center;border: 1px solid #dddee1;height: 40px;line-height: 40px;font-weight: bold;border-bottom: 0">
       {{this.year}}年市内公交收入计划
     </div>
-    <Table stripe :columns="columns1" :data="data1" size="small" style="margin-top: 10px;"></Table>
+    <Table stripe :columns="columns1" :data="data1" size="small"></Table>
     <Page :total="total" show-total style="margin-top: 10px;" @on-change="step"></Page>
-
+    <Table stripe :columns="columns2" :data="data2" size="small" style="margin-top: 20px"></Table>
 
     <Modal
       v-model="add_yp"
@@ -169,6 +169,17 @@
           year: '',
           ndjh: ''
         },
+        columns2:[
+          {
+            title: '类别',
+            key: 'lx'
+          },
+
+          {
+            title: '年度计划',
+            key: 'bnjh'
+          },
+        ],
         columns1: [
           {
             title: '单位',
@@ -335,9 +346,11 @@
               if (res.data.total === 0) {
                 this.$Message.info('暂无信息');
                 this.data1 = res.data.records;
+                this.data2 = res.data1;
                 this.total = res.data.total
               } else {
                 this.data1 = res.data.records;
+                this.data2 = res.data1;
                 this.total = res.data.total
               }
             }

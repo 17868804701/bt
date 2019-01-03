@@ -20,22 +20,34 @@
         <FormItem label="年份">
           <DatePicker type="year" placeholder="选择年份" v-model="formItem1.nf" style="width: 195px;"></DatePicker>
         </FormItem>
-        <FormItem label="路别" prop="lb">
-          <!--<Select v-model="formItem1.lb" style="width: 195px;">-->
-            <!--<Option value="1路">1路</Option>-->
-            <!--<Option value="2路">2路</Option>-->
-            <!--<Option value="3路">3路</Option>-->
-          <!--</Select>-->
-          <CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>
-        </FormItem>
-          <FormItem label="公司名" prop="gsm">
-            <!--<Select v-model="formItem1.gsm" style="width: 195px;">-->
-              <!--<Option value="一公司">一公司</Option>-->
-              <!--<Option value="二公司">二公司</Option>-->
-              <!--<Option value="三公司">三公司</Option>-->
-            <!--</Select>-->
-            <CommonSelect type="EJGS" :selectValue="formItem1.gsm" style="width: 195px;"></CommonSelect>
+          <FormItem label="路别" style="margin-bottom: 25px">
+            <Select v-model="lb" filterable style="width: 195px;" @on-change="chooseLb">
+              <Option v-for="item in cityList" :value="item.lineAlias" :key="item.lineAlias">{{ item.lineAlias }}
+              </Option>
+            </Select>
           </FormItem>
+          <FormItem label="单位" style="margin-bottom: 25px">
+            <Select v-model="formItem1.gsm" filterable style="width: 195px;">
+              <Option v-for="item in chList" :value="item.dwcode" :key="item.dwcode">{{ item.dw }}</Option>
+            </Select>
+          </FormItem>
+        <!--<FormItem label="路别" prop="lb">-->
+          <!--&lt;!&ndash;<Select v-model="formItem1.lb" style="width: 195px;">&ndash;&gt;-->
+            <!--&lt;!&ndash;<Option value="1路">1路</Option>&ndash;&gt;-->
+            <!--&lt;!&ndash;<Option value="2路">2路</Option>&ndash;&gt;-->
+            <!--&lt;!&ndash;<Option value="3路">3路</Option>&ndash;&gt;-->
+          <!--&lt;!&ndash;</Select>&ndash;&gt;-->
+          <!--<CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>-->
+        <!--</FormItem>-->
+
+          <!--<FormItem label="公司名" prop="gsm">-->
+            <!--&lt;!&ndash;<Select v-model="formItem1.gsm" style="width: 195px;">&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="一公司">一公司</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="二公司">二公司</Option>&ndash;&gt;-->
+              <!--&lt;!&ndash;<Option value="三公司">三公司</Option>&ndash;&gt;-->
+            <!--&lt;!&ndash;</Select>&ndash;&gt;-->
+            <!--<CommonSelect type="EJGS" :selectValue="formItem1.gsm" style="width: 195px;"></CommonSelect>-->
+          <!--</FormItem>-->
         <FormItem label="班车数量">
           <Input v-model="formItem1.bcs" placeholder="班车数量" style="width: 195px;"/>
         </FormItem>
@@ -143,6 +155,9 @@
     data () {
       return {
         total:0,
+        chList:[],
+        cityList:[],
+        lb:'',
         addProgram: false,
         editProgram: false,
         formItem1: {
@@ -426,6 +441,20 @@
       }
     },
     methods: {
+      chooseLb(val){
+        console.log(val)
+        console.log(val.split('路')[0])
+        let LB = val.split('路')[0]
+        this.$fetch(this.$url.getDwByLb, {lb: LB})
+          .then(res => {
+            console.log(res);
+            if (res.success == true) {
+              this.chList = res.data
+            } else {
+              this.$Message.error("查询部门失败")
+            }
+          })
+      },
       ok () {
         this.$Message.info('Clicked ok');
       },
@@ -458,9 +487,10 @@
       add:function () {
         console.log(this.formItem1)
         console.log(this.formItem2)
-        if(this.formItem1.nf===''||this.formItem1.lb===''){
+        if(this.formItem1.nf===''||this.lb===''){
             this.$Message.error('请输入年份或者路别')
         }else {
+            this.formItem1.lb = this.lb.split('路')[0];
             this.formItem1.rlc = this.formItem1.rcc*this.formItem1.xlcd;
             console.log(this.formItem1.rlc)
             this.formItem1.nf=this.$formatDate(this.formItem1.nf).substring(0,4)
@@ -518,10 +548,23 @@
           this.searchItem.nf = this.$formatDate(this.searchItem.nf).substring(0,4)
         }
         this.getList()
-      }
+      },
+      getallList() {
+        this.$post(this.$url.getAllList)
+          .then(res => {
+            //console.log(res);
+            if (res.success == true) {
+              console.log(res.data)
+              this.cityList = res.data
+            } else {
+              this.$Message.error("查询线路失败")
+            }
+          })
+      },
     },
     mounted () {
       this.getList()
+      this.getallList()
     }
   }
 </script>

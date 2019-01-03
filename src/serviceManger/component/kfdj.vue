@@ -265,7 +265,6 @@
           },
           {
             title: '操作',
-            // align: 'center',
             width:220,
             fixed: 'right',
             render: (h, params) => {
@@ -319,12 +318,12 @@
                         })
                     }
                   },
-                  // directives: [
-                  //   {
-                  //     name: 'has',
-                  //     value: 'kfxxlbym_kfxxdjlb_edit',
-                  //   }
-                  // ],
+                  directives: [
+                    {
+                      name: 'show',
+                      value: params.row.sjlb !='投诉'&&params.row.sjlb !='反映情况',
+                    }
+                  ],
                 }, '下派'),
                 h('Poptip', {
                   props: {

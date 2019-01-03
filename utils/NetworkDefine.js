@@ -194,6 +194,7 @@ const NetworkInterface = {
   getReportData: '/erp-modules-yygl/xjkp/getMbFsMap', // 获取单表的所有打分数据
   jggbskhb: '/erp-modules-yygl/xjkp/exportGdwxjkhdfqkExcel', // 机关各部室考核表
   gejdwyxb: '/erp-modules-yygl/xjkp/exportGejdwldyxbExcel', //导出各二级单位领导月薪表
+  exportJggbsldxz: '/erp-modules-yygl/xjkp/exportJggbsldxz', //导出各二级单位领导月薪表
   // **************************   能源信息管理   **********************************
   fgsdnList:'/erp-modules-bbgl/Dnxxtj/getFgsdnxhList',  //分公司电能列表
   daochufgsdnList:'/erp-modules-bbgl/Dnxxtj/exportFgsdnExcel',  //导出分公司电能列表

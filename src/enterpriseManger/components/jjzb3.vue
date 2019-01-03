@@ -56,11 +56,6 @@
         <Button type="primary" style="float: right;margin-right: 10px" @click="cancel">取消</Button>
       </div>
       <Form :model="formItem" :label-width="80">
-        <FormItem label="名称">
-          <Select v-model="formItem.mc">
-            <Option v-for="(item,index) in data13" :value="item.mc" :key="index">{{item.mc}}</Option>
-          </Select>
-        </FormItem>
         <FormItem label="单位" prop="dws">
           <CommonSelect type="EJGS" :selectValue="formItem.dws" style="width: 195px;"></CommonSelect>
         </FormItem>

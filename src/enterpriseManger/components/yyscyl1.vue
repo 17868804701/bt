@@ -51,10 +51,15 @@
               <Option value="4">第四季度</Option>
             </Select>
           </FormItem>
-          <Button type="primary" icon="ios-search" class="search_btn" @click="getList" v-has="'yyscysyl_cclcjdhz_search'">查询</Button>
-          <Button type="primary" icon="plus" class="search_btn" @click="add_yszl1" v-has="'yyscysyl_cclcjdhz_search'">新增数据</Button>
+          <Button type="primary" icon="ios-search" class="search_btn" @click="getList"
+                  v-has="'yyscysyl_cclcjdhz_search'">查询
+          </Button>
+          <Button type="primary" icon="plus" class="search_btn" @click="add_yszl1" v-has="'yyscysyl_cclcjdhz_search'">
+            新增数据
+          </Button>
           <div class="btn">
-            <Button type="primary" icon="android-download" v-has="'yyscysyl_cclcjdhz_daochu'" @click="daochu">导出Excel</Button>
+            <Button type="primary" icon="android-download" v-has="'yyscysyl_cclcjdhz_daochu'" @click="daochu">导出Excel
+            </Button>
           </div>
         </div>
       </Form>
@@ -66,12 +71,11 @@
     </Table>
 
 
-
-
     <!--添加-->
     <Modal
       v-model="add_ys"
       title="添加数据"
+      width="350px"
       @on-cancel="cancel">
       <div slot="footer" style="height: 30px;">
         <Button type="primary" style="float: right;margin-right: 10px" @click="save_yszl">新增
@@ -90,36 +94,43 @@
           </Select>
         </FormItem>
         <FormItem label="年月">
-          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time"></DatePicker>
+          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time" style="width: 195px;"></DatePicker>
         </FormItem>
         <FormItem label="运营车日">
-          <Input v-model="formItem.yycr" placeholder="运营车日"></Input>
+          <Input v-model="formItem.yycr" placeholder="运营车日" style="width: 195px;"></Input>
         </FormItem>
         <FormItem label="战场车日">
-          <Input v-model="formItem.zccr" placeholder="战场车日"></Input>
+          <Input v-model="formItem.zccr" placeholder="战场车日" style="width: 195px;"></Input>
+        </FormItem>
+        <FormItem label="定额油耗">
+          <Input v-model="formItem.dey" placeholder="定额油耗" style="width: 195px;"></Input>
+        </FormItem>
+        <FormItem label="实耗油">
+          <Input v-model="formItem.shy" placeholder="实耗油" style="width: 195px;"></Input>
         </FormItem>
       </Form>
     </Modal>
-
 
 
   </div>
 </template>
 <script>
   export default {
-    data () {
+    data() {
       return {
-        add_ys:false,
+        add_ys: false,
         currentTab: 'name1',
         nian: '',
         jidu: '',
         formItem: {
-          dw:'',
+          dw: '',
           time: '',
-          yycr:'',
-          zccr:'',
-          nd:'',
-          yf:''
+          yycr: '',
+          zccr: '',
+          nd: '',
+          yf: '',
+          dey: '',
+          shy: ''
         },
         formItem1: {
           nian: '',
@@ -212,17 +223,19 @@
       }
     },
     methods: {
-      add_yszl1(){
+      add_yszl1() {
         this.add_ys = true
       },
 
-      clean(){
-           this.formItem.time = '',
+      clean() {
+          this.formItem.time = '',
           this.formItem.yycr = '',
           this.formItem.zccr = '',
           this.formItem.yf = '',
           this.formItem.nd = '',
-          this.formItem.dw = ''
+          this.formItem.dw = '',
+          this.formItem.dey = '',
+          this.formItem.shy = ''
       },
       cancel() {
         this.clean()
@@ -254,16 +267,16 @@
         }
 
         this.nian = this.formItem1.nian
-        if(this.formItem1.jidu === '1'){
+        if (this.formItem1.jidu === '1') {
           this.jidu = '年第一季度'
-        }else if(this.formItem1.jidu === '2'){
+        } else if (this.formItem1.jidu === '2') {
           this.jidu = '年第二季度'
-        }else if(this.formItem1.jidu === '3'){
+        } else if (this.formItem1.jidu === '3') {
           this.jidu = '年第三季度'
-        }else if(this.formItem1.jidu === '4'){
+        } else if (this.formItem1.jidu === '4') {
           this.jidu = '年第四季度'
-        }else {
-            this.jidu = ''
+        } else {
+          this.jidu = ''
         }
 
         this.$fetch(this.$url.qygl_yyscyszl_cclchyJDFX, this.formItem1)
@@ -285,16 +298,16 @@
 
           })
       },
-      daochu(){
+      daochu() {
         if (this.formItem1.nian === '') {
           this.formItem1.nian = ''
         } else {
           this.formItem1.nian = this.$formatDate(this.formItem1.nian).substring(0, 4)
         }
-        this.$getExcel(this.$url.qygl_yyscyszl_cclchyJDFX_export+'?nian='+this.formItem1.nian+'&jidu='+this.formItem1.jidu )
+        this.$getExcel(this.$url.qygl_yyscyszl_cclchyJDFX_export + '?nian=' + this.formItem1.nian + '&jidu=' + this.formItem1.jidu)
       }
     },
-    mounted () {
+    mounted() {
 
     }
   }

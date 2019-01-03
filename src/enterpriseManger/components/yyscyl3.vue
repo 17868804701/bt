@@ -57,6 +57,7 @@
     <Modal
       v-model="add_ys"
       title="添加数据"
+      width="350px"
       @on-cancel="cancel">
       <div slot="footer" style="height: 30px;">
         <Button type="primary" style="float: right;margin-right: 10px" @click="save_yszl">新增
@@ -75,16 +76,16 @@
           </Select>
         </FormItem>
         <FormItem label="年月">
-          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time"></DatePicker>
+          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time" style="width: 195px;"></DatePicker>
         </FormItem>
         <FormItem label="定额油">
-          <Input v-model="formItem.dey" placeholder="定额油"></Input>
+          <Input v-model="formItem.dey" placeholder="定额油" style="width: 195px;"></Input>
         </FormItem>
         <FormItem label="实耗油">
-          <Input v-model="formItem.shy" placeholder="实耗油"></Input>
+          <Input v-model="formItem.shy" placeholder="实耗油" style="width: 195px;"></Input>
         </FormItem>
         <FormItem label="国家定额油耗">
-          <Input v-model="formItem.gjdeyh" placeholder="国家定额油耗"></Input>
+          <Input v-model="formItem.gjdeyh" placeholder="国家定额油耗" style="width: 195px;"></Input>
         </FormItem>
       </Form>
     </Modal>
@@ -120,42 +121,42 @@
           },
           {
             title: '运营里程',
-            key: 'yylcSum',
+            key: 'yylc',
             width: 150,
             align: 'center',
           }, {
             title: '实耗油',
-            key: 'shySum',
+            key: 'shy',
             width: 150,
             align: 'center',
           }, {
             title: '定额油',
-            key: 'deySum',
+            key: 'dey',
             width: 150,
             align: 'center',
           }, {
             title: '节超',
-            key: 'jcSum',
+            key: 'jc',
             width: 150,
             align: 'center',
           }, {
             title: '实耗/百公里',
-            key: 'shbglAvg',
+            key: 'shbgl',
             width: 150,
             align: 'center',
           }, {
             title: '定额/百公里',
-            key: 'debglAvg',
+            key: 'debgl',
             width: 150,
             align: 'center',
           }, {
             title: '国家定额油耗',
-            key: 'gjdeyhSum',
+            key: 'gjdeyh',
             width: 150,
             align: 'center',
           }, {
             title: '较国家定额油耗节油',
-            key: 'jgjdejySum',
+            key: 'jgjdejy',
             width: 150,
             align: 'center',
           }
@@ -207,6 +208,7 @@
 
         this.$fetch(this.$url.qygl_yyscyszl_cclchyYDFX, this.formItem3)
           .then(res => {
+            console.log(res)
             if (res.success === true) {
               if (res.data.length === 0) {
                 this.$Message.info('暂无数据')

@@ -573,7 +573,7 @@
             title: '在职情况变更时间',
             key: 'zzqkbgsj',
             width: 150,
-            align:'center'
+            align:'center',
           },
           zc: {
             title: '职称',
@@ -681,7 +681,6 @@
             } else {
               res.data.records.forEach(item => {
                 item.tlsj = item.tlsj==null?'':this.$formatDate(item.tlsj).substring(0, 10);
-                item.zzqkbgsj = item.zzqkbgsj==null?'':this.$formatDate(item.zzqkbgsj).substring(0, 10);
                 item.sbcbsj = item.sbcbsj==null?'':this.$formatDate(item.sbcbsj).substring(0, 10);
 
                 item.gzsj = item.gzsj==null?'':this.$formatDate(item.gzsj).substring(0, 10);

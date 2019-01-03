@@ -56,12 +56,6 @@
         </div>
         <div style="display: flex;justify-content: center">
           <Form :model="formItem2" :label-width="80">
-            <FormItem label="线路" prop="_xl">
-              <CommonSelect type="LB" :selectValue="formItem2._xl" style="width: 190px;"></CommonSelect>
-            </FormItem>
-            <FormItem label="单位" prop="_dw">
-              <CommonSelect type="EJGS" :selectValue="formItem2._dw" style="width: 190px;"></CommonSelect>
-            </FormItem>
             <FormItem label="燃料来源">
               <Select v-model="formItem2.rlly" style="width: 190px;">
                 <Option value="中燃">中燃</Option>
@@ -259,13 +253,13 @@
           this.formItem2.nd = this.$formatDate(this.formItem2._time).substring(0, 4)
           this.formItem2.yf = this.$formatDate(this.formItem2._time).substring(5, 7)
         }
-        this.formItem2.xl = this.formItem2._xl + '路'
-        this.formItem2.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem2._dw];
+        // this.formItem2.xl = this.formItem2._xl + '路'
+        // this.formItem2.dw = this.$store.state.dictData.parseDict.EJGS[this.formItem2._dw];
         console.log(this.formItem2)
-        if (this.formItem2._time == '' || this.formItem2._xl == '' || this.formItem2._xl == '' || this.formItem2.rlly == '' || this.formItem2.price == '') {
+        if (this.formItem2._time == '' || this.formItem2.rlly == '' || this.formItem2.price == '') {
           this.$Message.info('请填写完整信息');
         } else {
-          this.$post(this.$url.setPrice, this.formItem2)
+          this.$post(this.$url.setPrice+'?nd='+this.formItem2.nd+'&yf='+this.formItem2.yf+'&rlly='+this.formItem2.rlly+'&price='+this.formItem2.price)
             .then(res => {
               console.log(res)
               if (res.success === true) {

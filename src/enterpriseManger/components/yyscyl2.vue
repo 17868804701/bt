@@ -66,6 +66,7 @@
     <Modal
       v-model="add_ys"
       title="添加数据"
+      width="350"
       @on-cancel="cancel">
       <div slot="footer" style="height: 30px;">
         <Button type="primary" style="float: right;margin-right: 10px" @click="save_yszl">新增
@@ -84,13 +85,13 @@
           </Select>
         </FormItem>
         <FormItem label="年月">
-          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time"></DatePicker>
+          <DatePicker type="month" placeholder="选择时间" v-model="formItem.time" style="width: 195px"></DatePicker>
         </FormItem>
         <FormItem label="客运量">
-          <Input v-model="formItem.kyl_ttbc" placeholder="团体包车客运量"></Input>
+          <Input v-model="formItem.kyl_ttbc" placeholder="团体包车客运量" style="width: 195px"></Input>
         </FormItem>
         <FormItem label="收入">
-          <Input v-model="formItem.sr_ttbc" placeholder="团体包车收入"></Input>
+          <Input v-model="formItem.sr_ttbc" placeholder="团体包车收入" style="width: 195px"></Input>
         </FormItem>
       </Form>
     </Modal>
@@ -134,42 +135,42 @@
             children: [
               {
                 title: '投币人次',
-                key: 'kylTbrcSum',
+                key: 'kylTbrc',
                 width: 150,
                 align: 'center',
               }, {
                 title: '团体包车',
-                key: 'zsrTtbcsrSum',
+                key: 'zsrTtbcsr',
                 width: 150,
                 align: 'center',
               }, {
                 title: '鹿城通IC卡人次',
-                key: 'kylLccickSum',
+                key: 'kylLccick',
                 width: 150,
                 align: 'center',
               }, {
                 title: '员工IC卡人次',
-                key: 'kylYgickSum',
+                key: 'kylYgick',
                 width: 150,
                 align: 'center',
               }, {
                 title: '敬老卡人次',
-                key: 'kylJlkSum',
+                key: 'kylJlk',
                 width: 150,
                 align: 'center',
               }, {
                 title: '其他IC卡人次',
-                key: 'kylQtickSum',
+                key: 'kylQtick',
                 width: 150,
                 align: 'center',
               }, {
                 title: '月票IC卡人次',
-                key: 'kylYpickSum',
+                key: 'kylYpick',
                 width: 150,
                 align: 'center',
               }, {
                 title: '乘客人次合计',
-                key: 'kylCkrchjSum',
+                key: 'kylCkrchj',
                 width: 150,
                 align: 'center',
               },
@@ -182,12 +183,12 @@
             children: [
               {
                 title: '投币收入',
-                key: 'zsrTbsrSum',
+                key: 'zsrTbsr',
                 width: 150,
                 align: 'center',
               }, {
                 title: '团体包车收入',
-                key: 'zsrTtbcsrSum',
+                key: 'zsrTtbcsr',
                 width: 150,
                 align: 'center',
               }, {
@@ -197,17 +198,17 @@
                 align: 'center',
               }, {
                 title: 'IC卡补贴收入',
-                key: 'zsrIckbtsrSum',
+                key: 'zsrIckbtsr',
                 width: 150,
                 align: 'center',
               }, {
                 title: '月票IC卡收入小计',
-                key: 'zsrSrxjSum',
+                key: 'zsrSrxj',
                 width: 150,
                 align: 'center',
               }, {
                 title: '收入总计',
-                key: 'zsrSrzjSum',
+                key: 'zsrSrzj',
                 width: 150,
                 align: 'center',
               },
@@ -237,7 +238,7 @@
       save_yszl() {
         this.formItem.nd = this.$formatDate(this.formItem.time).substring(0, 4)
         this.formItem.yf = this.$formatDate(this.formItem.time).substring(5, 7)
-        this.$post(this.$url.insertTtbc, this.formItem)
+        this.$post(`${this.$url.insertTtbc}?dw=${this.formItem.dw}&nd=${this.formItem.nd}&yf=${this.formItem.yf}&kyl_ttbc=${this.formItem.kyl_ttbc}&sr_ttbc=${this.formItem.sr_ttbc}`)
           .then(res => {
             console.log(res);
             if (res.success === true) {

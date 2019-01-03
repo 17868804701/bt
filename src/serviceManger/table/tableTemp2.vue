@@ -270,7 +270,7 @@
          <td>{{xjgzList.zzxjgzbz}}</td>
        </tr>
        <tr>
-         <td>驾驶员（元）</td>
+         <td>驾驶员工资计划（元）</td>
          <td colspan="4"></td>
        </tr>
        <tr>

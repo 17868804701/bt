@@ -53,8 +53,8 @@
             </Select>
           </FormItem>
 
-          <FormItem label="提交部门" style="margin-bottom: 25px" prop="bm">
-            <Input v-model="formItem.bm" placeholder="提交部门" class="text_width" :disabled="true"/>
+          <FormItem label="单位" style="margin-bottom: 25px" prop="bm">
+            <Input v-model="formItem.bm" placeholder="单位" class="text_width" :disabled="true"/>
           </FormItem>
           <FormItem label="投诉人" style="margin-bottom: 25px" prop="tsr">
             <Select v-model="formItem.tsr" :transfer="true" style="width: 195px;">
@@ -130,12 +130,12 @@
             <Input v-model="formItem.sy" placeholder="事由" style="width: 490px;"/>
           </FormItem>
           <FormItem label="回访情况" style="margin-bottom: 25px" v-show="this.tip=='edit'">
-            <Select v-model="formItem.hfqk" :transfer="true" style="width: 195px;" @on-change="hfqk">
+            <Select v-model="hfqk_old" :transfer="true" style="width: 195px;" @on-change="hfqk">
               <Option value="满意">满意</Option>
               <Option value="不满意">不满意</Option>
               <Option value="其他">其他</Option>
             </Select>
-            <Input v-model="formItem.hfqk" placeholder="回访情况" style="width: 490px;" v-show="hfqk=='其他'"/>
+            <Input v-model="hfqks" placeholder="回访情况" style="width: 490px;" v-show="isShow===true"/>
           </FormItem>
           <FormItem label="回访时间" style="margin-bottom: 25px" v-show="this.tip=='edit'">
             <DatePicker type="date" placeholder="处理时间" :transfer="true" v-model="formItem.fksj"
@@ -166,6 +166,9 @@
     },
     data() {
       return {
+        hfqks:'',
+        hfqk_old:'',
+        isShow:false,
         cityList: [],
         chList: [],
         bmList: [],
@@ -186,7 +189,8 @@
           tslb: "",
           tsr: "",
           xl: "",
-          clzt: ""
+          clzt: "",
+          hfqk:''
         },
         tip: '',
         ruleValidate: {
@@ -244,7 +248,9 @@
       },
       hfqk(value){
         if(value=='其他'){
-          this.hfqk = '其他'
+          this.isShow = true
+        }else {
+          this.isShow = false
         }
       },
       getallList() {
@@ -272,7 +278,7 @@
       },
       sjlb(value) {
         console.log(value)
-        if (value == '寻物' || value == '投诉' || value == '反应情况') {
+        if (value == '投诉' || value == '反映情况') {
           this.formItem.clzt = '1'
         } else {
           this.formItem.clzt = '2'
@@ -308,6 +314,11 @@
       update: function () {
         this.formItem.xl = this.xl.split('路')[0];
         this.formItem.fksj = this.$formatDate(this.formItem.fksj)
+        if(this.hfqk_old==='其他'){
+          this.formItem.hfqk = this.hfqks
+        }else {
+          this.formItem.hfqk = this.hfqk_old
+        }
         console.log(this.formItem)
         this.$post(this.$url.updatekfxx, this.formItem)
           .then(res => {
@@ -355,7 +366,10 @@
           this.formItem.clzt=row.clzt
           this.formItem.zbh=row.zbh
           this.formItem.cph=row.cph
-          this.formItem.hfqk=row.hfqk
+          this.hfqk_old=row.hfqk
+          if(this.hfqk_old==='其他'){
+            this.isShow = true
+          }
           this.xl=row.xl
       } else {
 
