@@ -59,7 +59,7 @@
           <!--<FormItem label="路别" prop="lb" v-show="this.type!=='edit'" >-->
             <!--<CommonSelect type="LB" :selectValue="formItem1.lb" style="width: 195px;"></CommonSelect>-->
           <!--</FormItem>-->
-          <FormItem label="单位" style="margin-bottom: 25px">
+          <FormItem label="单位" style="margin-bottom: 25px" v-show="this.type!=='edit'">
             <Select v-model="formItem1.dw" filterable style="width: 195px;">
               <Option v-for="item in chList" :value="item.dwcode" :key="item.dwcode">{{ item.dw }}</Option>
             </Select>
@@ -76,11 +76,11 @@
           <FormItem label="本年预计">
             <Input v-model="formItem1.qnyj" placeholder="本年预计" style="width: 195px;"/>
           </FormItem>
-          <FormItem label="上年计划">
-            <Input v-model="formItem1.bnjh" placeholder="上年计划" style="width: 195px;"/>
-          </FormItem>
+          <!--<FormItem label="上年计划">-->
+            <!--<Input v-model="formItem1.bnjh" placeholder="上年计划" style="width: 195px;"/>-->
+          <!--</FormItem>-->
           <FormItem label="本年计划">
-            <Input v-model="formItem1.bnjhcc" placeholder="本年计划" style="width: 195px;"/>
+            <Input v-model="formItem1.bnjh" placeholder="本年计划" style="width: 195px;"/>
           </FormItem>
         </Form>
       </div>
@@ -173,10 +173,10 @@
           },
           {
             title: '增减量',
-            key: 'zjl'
+            key: 'zzl'
           },    {
             title: '增减率',
-            key: 'zjlv'
+            key: 'zzlv'
           },
           {
             title: '本年计划车次',
